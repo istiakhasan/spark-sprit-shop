@@ -27,7 +27,7 @@ html {
 }
 .product_card_img {
   height: 300px;
-  object-fit: contain;
+  object-fit: fill;
   box-shadow: none;
 }
 
@@ -97,9 +97,9 @@ footer {
   .card_hover_icon {
     top: 30px;
   }
-  .status {
+  /* .status {
     top: 30px;
-  }
+  } */
 }
 
 .search_input {
