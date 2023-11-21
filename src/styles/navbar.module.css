@@ -1,0 +1,24 @@
+.navContainer{
+    background: #004DDA;
+    padding: 16px 0px;
+}
+.navwrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+.navwrapper a{
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.navwrapper a:has(.logo){
+   margin-right: auto !important;
+}
+.navwrapper a:last-child{
+   margin-left: auto !important;
+}
