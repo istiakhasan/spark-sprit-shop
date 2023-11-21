@@ -107,3 +107,10 @@ footer {
   background: #f2f2f2;
   outline: none !important;
 }
+.ac_input_filter{
+  height: 30px;
+}
+.ac_input_filter span{
+  font-size: 14px !important;
+  color: #111;
+}

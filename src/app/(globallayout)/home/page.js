@@ -10,7 +10,6 @@ import Footer from '@/components/shared/Footer';
 
 const Home = () => {
   const [isSticky, setIsSticky] = useState(false);
-  console.log(isSticky,"is sticky");
 
   useEffect(() => {
     const handleScroll = () => {

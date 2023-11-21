@@ -6,15 +6,15 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const MuiAccordian = ({ heading, children }) => {
+const MuiAccordian = ({ heading, children,expanded }) => {
   return (
-    <Accordion>
+    <Accordion expanded={expanded}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography>{heading}</Typography>
+        <Typography sx={{fontSize:"14px",color:"#111"}}>{heading}</Typography>
       </AccordionSummary>
       <AccordionDetails>{children}</AccordionDetails>
     </Accordion>

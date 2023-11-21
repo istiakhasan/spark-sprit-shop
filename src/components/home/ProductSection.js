@@ -5,75 +5,75 @@ const ProductSection = () => {
   return (
     <div  className="d-lg-flex align-items-start gap-3">
       <Box className="d-none d-lg-block" style={{position:"sticky",top:"60px",zIndex:"8"}}  sx={{ width: 300,margin:"0 auto" }}>
-        <MuiAccordian heading={"Categories"}>
+        <MuiAccordian heading={"Categories"} expanded={true}>
           <div className="d-flex align-items-center justify-content-between">
-            <FormControlLabel control={<Checkbox />} label="Men" />
+            <FormControlLabel className="ac_input_filter" control={<Checkbox size="small" />}  label="Men" />
             12
           </div>
           <div className="d-flex align-items-center justify-content-between">
-            <FormControlLabel control={<Checkbox />} label="Women" />
+            <FormControlLabel control={<Checkbox size="small" />} className="ac_input_filter" label="Women" />
             12
           </div>
           <div className="d-flex align-items-center justify-content-between">
-            <FormControlLabel control={<Checkbox />} label="Running" />
+            <FormControlLabel control={<Checkbox size="small" />} className="ac_input_filter" label="Running" />
             12
           </div>
           <div className="d-flex align-items-center justify-content-between">
-            <FormControlLabel control={<Checkbox />} label="Trending" />
+            <FormControlLabel control={<Checkbox size="small" />} className="ac_input_filter" label="Trending" />
             12
           </div>
         </MuiAccordian>
         <MuiAccordian heading={"Color"}>
           <div className="d-flex align-items-center justify-content-between">
-            <FormControlLabel control={<Checkbox />} label="Men" />
+            <FormControlLabel control={<Checkbox size="small" />} className="ac_input_filter" label="Men" />
             12
           </div>
           <div className="d-flex align-items-center justify-content-between">
-            <FormControlLabel control={<Checkbox />} label="Women" />
+            <FormControlLabel control={<Checkbox size="small" />} className="ac_input_filter" label="Women" />
             12
           </div>
           <div className="d-flex align-items-center justify-content-between">
-            <FormControlLabel control={<Checkbox />} label="Running" />
+            <FormControlLabel control={<Checkbox size="small" />} className="ac_input_filter" label="Running" />
             12
           </div>
           <div className="d-flex align-items-center justify-content-between">
-            <FormControlLabel control={<Checkbox />} label="Trending" />
+            <FormControlLabel control={<Checkbox size="small" />} className="ac_input_filter" label="Trending" />
             12
           </div>
         </MuiAccordian>
         <MuiAccordian heading={"Brands"}>
           <div className="d-flex align-items-center justify-content-between">
-            <FormControlLabel control={<Checkbox />} label="Men" />
+            <FormControlLabel control={<Checkbox size="small" />} className="ac_input_filter" label="Men" />
             12
           </div>
           <div className="d-flex align-items-center justify-content-between">
-            <FormControlLabel control={<Checkbox />} label="Women" />
+            <FormControlLabel control={<Checkbox size="small" />} className="ac_input_filter" label="Women" />
             12
           </div>
           <div className="d-flex align-items-center justify-content-between">
-            <FormControlLabel control={<Checkbox />} label="Running" />
+            <FormControlLabel control={<Checkbox size="small" />} className="ac_input_filter" label="Running" />
             12
           </div>
           <div className="d-flex align-items-center justify-content-between">
-            <FormControlLabel control={<Checkbox />} label="Trending" />
+            <FormControlLabel control={<Checkbox size="small" />} className="ac_input_filter" label="Trending" />
             12
           </div>
         </MuiAccordian>
         <MuiAccordian heading={"Price"}>
           <div className="d-flex align-items-center justify-content-between">
-            <FormControlLabel control={<Checkbox />} label="Men" />
+            <FormControlLabel control={<Checkbox size="small" />} className="ac_input_filter" label="Men" />
             12
           </div>
           <div className="d-flex align-items-center justify-content-between">
-            <FormControlLabel control={<Checkbox />} label="Women" />
+            <FormControlLabel control={<Checkbox size="small" />} className="ac_input_filter" label="Women" />
             12
           </div>
           <div className="d-flex align-items-center justify-content-between">
-            <FormControlLabel control={<Checkbox />} label="Running" />
+            <FormControlLabel control={<Checkbox size="small" />} className="ac_input_filter" label="Running" />
             12
           </div>
           <div className="d-flex align-items-center justify-content-between">
-            <FormControlLabel control={<Checkbox />} label="Trending" />
+            <FormControlLabel control={<Checkbox size="small" />} className="ac_input_filter" label="Trending" />
             12
           </div>
         </MuiAccordian>
@@ -96,7 +96,6 @@ const ProductSection = () => {
         </div>
        <div className="d-flex my-5 align-items-center justify-content-center">
        <Pagination   onChange={(event,value)=>{
-            console.log(value);
         }} count={10} size="large" />
        </div>
       </div>
