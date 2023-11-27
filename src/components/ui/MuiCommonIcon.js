@@ -8,6 +8,8 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import ViewHeadlineOutlinedIcon from '@mui/icons-material/ViewHeadlineOutlined';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 const MuiCommonIcon = ({ name, color, size }) => {
   switch (name) {
     case "menu":
@@ -33,6 +35,12 @@ const MuiCommonIcon = ({ name, color, size }) => {
       break;
     case "gridrow":
       return <ViewHeadlineOutlinedIcon  fontSize={size} sx={{ color: color }} />;
+      break;
+    case "plus":
+      return <AddIcon  fontSize={size} sx={{ color: color }} />;
+      break;
+    case "minus":
+      return <RemoveIcon  fontSize={size} sx={{ color: color }} />;
       break;
 
     default:

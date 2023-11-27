@@ -19,7 +19,9 @@ export default function Navbar() {
     },
   ];
   return (
-    <nav className={`${navbarCss.navContainer} d-none d-lg-block`}>
+    <nav 
+    // style={{position:"sticky",top:"0",zIndex:"11111111111111"}}
+     className={`${navbarCss.navContainer} `}>
       <div className={`${navbarCss.navwrapper} container`}>
         <Link href={"/"}>
           <img
@@ -33,7 +35,7 @@ export default function Navbar() {
             {item?.label}
           </Link>
         ))}
-        <Link className="text-end" href={"/"}>
+        <Link className="text-end d-none d-lg-block" href={"/"}>
           <p className="mb-0">Need Help?</p>
           <p className="mb-0">+008-1306-910346</p>
         </Link>

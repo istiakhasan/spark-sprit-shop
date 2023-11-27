@@ -6,13 +6,17 @@ import { CardActionArea } from "@mui/material";
 import MuiCommonIcon from "../ui/MuiCommonIcon";
 import { useDispatch } from "react-redux";
 import { addToCart, addToWishList } from "@/redux/slice/cartSlice";
+import { useRouter } from "next/navigation";
+
 const ProductCart = () => {
   const dispatch=useDispatch()
+  const router=useRouter()
   return (
     <>
-      <Card className="product_card">
+      <Card  className="product_card">
       
           <CardMedia 
+          onClick={()=>router.push(`/product/${1}`)}
             className="product_card_img"
             component="img"
             sx={{ boxShadow: "none" }}

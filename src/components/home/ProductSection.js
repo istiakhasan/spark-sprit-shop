@@ -94,9 +94,9 @@ const ProductSection = () => {
             </div>
           ))}
         </div>
-       <div className="d-flex my-5 align-items-center justify-content-center">
+       <div className="d-flex my-5  align-items-center justify-content-center">
        <Pagination   onChange={(event,value)=>{
-        }} count={100} size="large" />
+        }} count={100} size="small" />
        </div>
       </div>
     </div>

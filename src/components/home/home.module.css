@@ -24,9 +24,6 @@
 }
 .sort_box_wrapper{
     background:#F8F8F8;
-    position: sticky;
-    top: 0;
-    z-index:10;
 }
 .sort_box{
     display: flex;

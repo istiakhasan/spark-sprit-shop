@@ -1,6 +1,9 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Swiper from 'swiper';
+import 'swiper/css';
+import 'swiper/css/pagination';
 import Providers from '@/lib/Providers'
 
 const inter = Inter({ subsets: ['latin'] })
