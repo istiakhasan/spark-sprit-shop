@@ -153,3 +153,39 @@ footer {
   z-index: 11111111111;
   background: white;
 }
+
+/* common table  */
+.cart_table table th,.cart_table table td{
+  border-bottom:none;
+  padding:10px;
+}
+.cart_table table tbody tr:nth-child(odd){
+  background:#E1E1E1;
+}
+
+
+
+/* cart icon */
+.cart_hover_division{
+  background:white;
+  color:black;
+  padding:10px;
+  border-radius:8px;
+  width:300px;
+  right: 0;
+  position:absolute;
+ display: none;
+ /* box-shadow: 0 1px 4px 2px #dddfe2; */
+ border:1px solid rgba(0,0,0,.1)
+}
+.cart_icon{
+  position: relative;
+}
+.css-1u9des2-indicatorSeparator{
+  background-color: white!important;
+
+}
+.cart_icon:hover>.cart_hover_division{
+  display:block;
+  transition: .4s ease-in-out;
+}

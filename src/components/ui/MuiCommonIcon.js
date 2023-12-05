@@ -10,6 +10,7 @@ import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import ViewHeadlineOutlinedIcon from '@mui/icons-material/ViewHeadlineOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 const MuiCommonIcon = ({ name, color, size }) => {
   switch (name) {
     case "menu":
@@ -41,6 +42,9 @@ const MuiCommonIcon = ({ name, color, size }) => {
       break;
     case "minus":
       return <RemoveIcon  fontSize={size} sx={{ color: color }} />;
+      break;
+    case "trash":
+      return <DeleteForeverOutlinedIcon  fontSize={size} sx={{ color: color }} />;
       break;
 
     default:

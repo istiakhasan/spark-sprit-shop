@@ -9,24 +9,6 @@ import MuiCommonIcon from "@/components/ui/MuiCommonIcon";
 import Footer from "@/components/shared/Footer";
 
 const Home = () => {
-  // const [isSticky, setIsSticky] = useState(false);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const offset = window.scrollY;
-  //     if (offset > 400) {
-  //       setIsSticky(true);
-  //     } else {
-  //       setIsSticky(false);
-  //     }
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
-
   return (
     <>
       <div className="main_body_container">
@@ -35,7 +17,6 @@ const Home = () => {
           <BannerImage />
         </header>
         <div className={`${homeStyle.sort_box_wrapper} `}>
-        {/* <div className={`${homeStyle.sort_box_wrapper} ${isSticky ? "" : ""}`}> */}
           <div className={`container ${homeStyle.sort_box}`}>
             <p className="mb-0 sort_p_title d-flex align-items-center gap-2">
               {" "}
