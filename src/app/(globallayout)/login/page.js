@@ -6,6 +6,7 @@ import {
   Avatar,
   Button,
   Checkbox,
+  Divider,
   FormControl,
   MenuItem,
   Rating,
@@ -66,6 +67,21 @@ const LoginPage = () => {
                   className="p-4 rounded-1"
                   style={{ boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.1)" }}
                 >
+                 <div className="row">
+                  <div className="col-md-6">
+                  <div style={{background:"#3B5998",display:"flex",alignItems:"center",justifyContent:"center",gap:"20px",padding:"12px",color:"#fff",fontSize:"14px",borderRadius:"4px"}}>
+                    <MuiCommonIcon name={"facebook"} />
+                   Login with Facebook
+                  </div>
+                  </div>
+                  <div className="col-md-6">
+                  <div style={{background:"#FD5A4B",display:"flex",alignItems:"center",justifyContent:"center",gap:"20px",padding:"12px",color:"#fff",fontSize:"14px",borderRadius:"4px"}}>
+                    <MuiCommonIcon name={"google"} />
+                   Login with Google
+                  </div>
+                  </div>
+                 </div>
+                  <Divider className="my-3" sx={{fontSize:"14px"}}><em>or</em></Divider>
                   <SparkForm submitHandler={submitHandler}>
                     <SparkFormInput
                       placeholder={"Phone"}
@@ -77,6 +93,10 @@ const LoginPage = () => {
                       name={"name"}
                       type={"passsword"}
                     />
+                    <div style={{color:"#999",fontSize:"14px",display:"flex",justifyContent:"space-between"}}>
+                      <p className="d-flex gap-2 align-items-center"><Checkbox size="small" sx={{marginBottom:"12px"}}  className=" p-0 mb-0" />Remember Me</p>
+                      <p className="d-flex gap-2 align-items-center">Lost Password?</p>
+                    </div>
                     <Button
                       sx={{ background: "#004DDA", fontSize: "12px" }}
                       className=" px-2 py-2 d-block w-100"
@@ -86,6 +106,7 @@ const LoginPage = () => {
                       Log In
                     </Button>
                   </SparkForm>
+
                 </div>
               </div>
               <div className="col-md-6">

@@ -11,6 +11,8 @@ import ViewHeadlineOutlinedIcon from '@mui/icons-material/ViewHeadlineOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import GoogleIcon from '@mui/icons-material/Google';
 const MuiCommonIcon = ({ name, color, size }) => {
   switch (name) {
     case "menu":
@@ -45,6 +47,12 @@ const MuiCommonIcon = ({ name, color, size }) => {
       break;
     case "trash":
       return <DeleteForeverOutlinedIcon  fontSize={size} sx={{ color: color }} />;
+      break;
+    case "facebook":
+      return <FacebookIcon  fontSize={size} sx={{ color: color }} />;
+      break;
+    case "google":
+      return <GoogleIcon  fontSize={size} sx={{ color: color }} />;
       break;
 
     default:

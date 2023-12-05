@@ -32,9 +32,15 @@ export default function SparkFormSelect({
     // Style for the individual options in the dropdown
     option: (provided, state) => ({
       ...provided,
-      backgroundColor: state.isSelected ? '#007bff' : 'white',
+      backgroundColor: state.isSelected ? '#004DDA' : 'white',
       color: state.isSelected ? 'white' : 'black',
-      fontSize:"12px"
+      fontSize:"12px",
+      padding:"4px 12px",
+      marginBottom:"2px",
+      cursor:"pointer",
+      ':hover': {
+        backgroundColor: 'rgba(0,0,0,.2)', // Set the desired background color on hover
+      },
     }),
   };
   return (
@@ -52,7 +58,9 @@ export default function SparkFormSelect({
       name={name}
       control={control}
       render={({ field }) =>( 
-         <Select placeholder={placeholder} components={{ DropdownIndicator: ()=>null }} styles={customStyles}  options={options} onChange={handleChange ? handleChange : field.onChange} {...field}/>
+         <Select placeholder={placeholder}
+          // components={{ DropdownIndicator: ()=>null }}
+           styles={customStyles}  options={options} onChange={handleChange ? handleChange : field.onChange} {...field}/>
       )}
     />
     </>
