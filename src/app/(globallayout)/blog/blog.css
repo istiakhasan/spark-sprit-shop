@@ -1,3 +1,129 @@
-.he{
-background: red;
+*{
+    font-size:14px;
 }
+.text-move{
+      border: none;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      padding: 5px 10px;
+}
+
+.card-img {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.card-img:hover>img {
+    transform: scale(1.1);
+    transition: .5s ease-in-out;
+}
+
+.card-img img {
+    width: 100%;
+    height: 100%;
+}
+
+.card-img:hover>.text-move {
+    opacity: 1;
+    transition: .4s ease-in-out;
+    top: 50%;
+}
+
+.text-move {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+
+}
+
+/* filter */
+
+.img-filter img {
+    height: 80px;
+    width: 80px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+a.text-filter {
+    text-decoration: none;
+    color: #555;
+
+}
+
+a.text-filter:hover {
+    text-decoration: none;
+    color: blue;
+}
+
+.text-filter span {
+    line-height: 30px;
+}
+
+.submit button {
+    font-size: 15px;
+    border: none;
+    color: black;
+    background-color: #f0f0f0;
+    ;
+}
+
+/*  */
+/*  */
+/*  */
+/*  Contact us */
+.container-header {
+    font-size: 1.5rem;
+    font-weight: 300;
+
+}
+
+.container-header h1 {
+    font-size: 2.25rem;
+    font-weight: 500;
+}
+
+.box-contact {
+    text-align: center;
+    padding: 25px;
+    border-radius: 5px;
+    line-height: 30px;
+    font-size: 0.9375rem;
+    cursor: pointer;
+
+}
+
+.box-contact h4 {
+    font-size: 1.3125rem;
+    font-weight: 400;
+}
+
+.box-contact span {
+    color: #444;
+}
+
+.contact-bottom button:hover {
+    background-color: #FFC107;
+    border: none;
+    color: black;
+
+}
+
+/*  */
+/*  */
+/* About */
+.header-text p{
+    font-size: 1.5rem;
+    font-weight: 300;
+
+}
+.header-text-img img{
+ object-fit: contain;
+}
+.fit_height{
+    height: fit-content !important;
+}
+
