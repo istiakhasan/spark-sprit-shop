@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from "react";
+"use client"
+import { useState, useEffect } from "react";
 import MuiCommonIcon from "../ui/MuiCommonIcon";
 import homeStyle from "./home.module.css";
 import {
@@ -17,7 +18,10 @@ import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from 'next/navigation';
+
+import Link from "next/link";
+import { isLoggedIn, removeUserInfo } from "@/services/auth.service";
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     right: -3,
@@ -29,8 +33,12 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 const SearchBar = () => {
   const { cart, wishList } = useSelector((state) => state.cartSlice);
   const [isSticky, setIsSticky] = useState(false);
-  const router=useRouter()
+  const router = useRouter();
+  const [userLogin, setIsLoggedIn] = useState('');
+  const spark_route=usePathname()
+
   useEffect(() => {
+    setIsLoggedIn(isLoggedIn())
     const handleScroll = () => {
       const offset = window.scrollY;
       if (offset > 300) {
@@ -39,12 +47,11 @@ const SearchBar = () => {
         setIsSticky(false);
       }
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  },[spark_route]);
   return (
     <div
       style={{ boxShadow: "0 20px 20px -20px rgba(0,0,0,0.25)" }}
@@ -58,7 +65,7 @@ const SearchBar = () => {
           </span>
         </div>
         <FormControl
-          className="d-none d-lg-flex abc "
+          className="d-none d-lg-flex  "
           size="small"
           sx={{ width: "100%", maxWidth: "500px", padding: 0 }}
           variant="outlined"
@@ -66,22 +73,15 @@ const SearchBar = () => {
           <OutlinedInput
             className="search_input"
             size="small"
-            id="outlined-adornment-weight"
             sx={{ fontSize: "14px", color: "gray" }}
             placeholder="Search over 10,000 products"
             endAdornment={
-              <InputAdornment position="end">
-                <MuiCommonIcon size={"small"} name={"search"} />
-              </InputAdornment>
+              <MuiCommonIcon position="end" size={"small"} name={"search"} />
             }
-            aria-describedby="outlined-weight-helper-text"
-            inputProps={{
-              "aria-label": "weight",
-            }}
           />
         </FormControl>
         <div style={{ whiteSpace: "nowrap" }}>
-          <span className="">
+          <span className="heart_icon">
             <IconButton aria-label="cart">
               <StyledBadge color="error">
                 <MuiCommonIcon
@@ -91,8 +91,86 @@ const SearchBar = () => {
                 />{" "}
               </StyledBadge>
             </IconButton>{" "}
+            <div className="heart_icon_hover">
+             {!userLogin &&
+              
+           (  <Button
+                sx={{ background: "#ffc107", fontSize: "12px" }}
+                className=" px-2 py-2 d-block w-100"
+                variant="contained"
+                onClick={() => router.push("/login")}
+              >
+                Sign In or Sign Up
+              </Button>)
+             }
+              <Divider className="my-2" />
+              <Link
+                style={{
+                  fontSize: "16px",
+                  color: "#444",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+                href="/profile"
+              >
+                <MuiCommonIcon name="user" size="small" /> My Profile{" "}
+              </Link>
+              <Divider className="my-2" />
+              <Link
+                style={{
+                  fontSize: "16px",
+                  color: "#444",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+                href="/"
+              >
+                <MuiCommonIcon name="shipping" size="small" /> Track Your Order{" "}
+              </Link>
+              <Divider className="my-2" />
+              <Link
+                style={{
+                  fontSize: "16px",
+                  color: "#444",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+                href="/"
+              >
+                <MuiCommonIcon name="order" size="small" /> My Order{" "}
+              </Link>
+              <Divider className="my-2" />
+              <Link
+                style={{
+                  fontSize: "16px",
+                  color: "#444",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+                href="/"
+              >
+                <MuiCommonIcon name="faq" size="small" /> Help And Faq{" "}
+              </Link>
+              <Divider className="my-2" />
+             {userLogin && <Button
+                sx={{ background: "#FF3333", fontSize: "12px" }}
+                className=" px-2 py-2 d-block w-100"
+                variant="contained"
+                onClick={() => {
+                  removeUserInfo('token')
+                  setIsLoggedIn(false)
+                  router.push('/')
+                }}
+              >
+                Log Out
+              </Button>}
+            </div>
           </span>
-          <span className="">
+          <span>
             <IconButton aria-label="cart">
               <StyledBadge badgeContent={wishList.length} color="error">
                 <MuiCommonIcon
@@ -159,15 +237,14 @@ const SearchBar = () => {
               </div>
 
               <Divider className="my-2" />
-                <Button
-                  sx={{ background: "#004DDA", fontSize: "12px" }}
-                  className=" px-2 py-2 d-block w-100"
-                  variant="contained"
-                  onClick={() => router.push("/home/cart")}
-                >
-                  View Cart
-                </Button>
-              
+              <Button
+                sx={{ background: "#004DDA", fontSize: "12px" }}
+                className=" px-2 py-2 d-block w-100"
+                variant="contained"
+                onClick={() => router.push("/home/cart")}
+              >
+                View Cart
+              </Button>
             </div>
           </span>
         </div>

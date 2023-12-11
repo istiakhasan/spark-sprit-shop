@@ -40,6 +40,7 @@ export default function SparkFormTextArea({
               placeholder={placeholder}
               {...field}
               value={value ? value : field.value}
+              focused
             />
 
         )}

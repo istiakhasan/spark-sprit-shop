@@ -13,6 +13,9 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
+import LiveHelpIcon from '@mui/icons-material/LiveHelp';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 const MuiCommonIcon = ({ name, color, size }) => {
   switch (name) {
     case "menu":
@@ -53,6 +56,15 @@ const MuiCommonIcon = ({ name, color, size }) => {
       break;
     case "google":
       return <GoogleIcon  fontSize={size} sx={{ color: color }} />;
+      break;
+    case "faq":
+      return <LiveHelpIcon  fontSize={size} sx={{ color: color }} />;
+      break;
+    case "shipping":
+      return <LocalShippingIcon  fontSize={size} sx={{ color: color }} />;
+      break;
+    case "order":
+      return <CardGiftcardIcon  fontSize={size} sx={{ color: color }} />;
       break;
 
     default:

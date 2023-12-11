@@ -34,14 +34,15 @@ export default function SparkFormInput({
             <TextField
               inputProps={{ style: { fontSize: "12px", padding: "12px",outline:"none" } }}
               sx={{ width: "100%", marginBottom: "12px" }}
-              variant="outlined"
               type={type}
               placeholder={placeholder}
               {...field}
               value={value ? value : field.value}
               InputLabelProps={{ shrink: true }}
-              
-
+              focused 
+              classes={{
+                focused: 'custom-focused', // Apply a custom class for focused state
+              }}
             />
           </FormControl>
         )}

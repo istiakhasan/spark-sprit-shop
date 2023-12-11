@@ -178,6 +178,18 @@ footer {
  /* box-shadow: 0 1px 4px 2px #dddfe2; */
  border:1px solid rgba(0,0,0,.1)
 }
+.heart_icon_hover{
+  background:white;
+  color:black;
+  padding:10px;
+  border-radius:8px;
+  width:250px;
+  right: 0;
+  position:absolute;
+   display: none;
+ /* box-shadow: 0 1px 4px 2px #dddfe2; */
+   border:1px solid rgba(0,0,0,.1)
+}
 .cart_icon{
   position: relative;
 }
@@ -189,12 +201,24 @@ footer {
   display:block;
   transition: .4s ease-in-out;
 }
+.heart_icon{
+  position: relative;
+}
+
+.heart_icon:hover>.heart_icon_hover{
+  display:block;
+  transition: .4s ease-in-out;
+}
 /* auto complete style  */
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border:1px solid rgba(0,0,0,.2) !important;
 }
 
 

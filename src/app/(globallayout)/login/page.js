@@ -15,14 +15,24 @@ import {
   Typography,
 } from "@mui/material";
 import MuiCommonIcon from "@/components/ui/MuiCommonIcon";
-
 import MuiBreadCrumb from "@/components/ui/MuiBreadcrumb";
 import SparkForm from "@/components/form/SparkForm";
 import SparkFormInput from "@/components/form/SparkFormInput";
 import Image from "next/image";
 import SparkFormTextArea from "@/components/form/SpartFormTextArea";
 import SparkFormSelect from "@/components/form/SparkFormSelect";
+import { useLoginUserMutation } from "@/redux/api/auth";
+import { redirect, usePathname,useRouter, useSearchParams } from "next/navigation";
+import { isLoggedIn } from "@/services/auth.service";
+import { useEffect, useState } from "react";
+
 const LoginPage = () => {
+  const userLogin=isLoggedIn()
+  const [loading,setLoading]=useState(false)
+  const [loginUser]=useLoginUserMutation()
+ const search=useSearchParams()
+ const forWrodPath=search.get('pathaName')
+  const router=useRouter()
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -37,9 +47,28 @@ const LoginPage = () => {
       Registration
     </Typography>,
   ];
-  const submitHandler = (data) => {
-    console.log(data);
+  const redirectTo = forWrodPath || '/home';
+  const submitHandler = async (data) => {
+    try {
+      const res = await loginUser(data).unwrap();
+      if (res?.data?.token) {
+        router.push(redirectTo);
+      }
+      localStorage.setItem('token', res.data.token);
+    } catch (error) {
+      console.log(error);
+    }
   };
+  useEffect(() => {
+    if (userLogin) {
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+  }, [router, userLogin]);
+  if(!loading){
+    return <h1>Loading</h1>
+  }
   return (
     <div className="main_body_container">
       {/* <div style={{ background: "#F8F8F8" }} className="pt-4"> */}
@@ -85,12 +114,12 @@ const LoginPage = () => {
                   <SparkForm submitHandler={submitHandler}>
                     <SparkFormInput
                       placeholder={"Phone"}
-                      name={"pass"}
+                      name={"phone"}
                       type={"text"}
                     />
                     <SparkFormInput
                       placeholder={"Password"}
-                      name={"name"}
+                      name={"password"}
                       type={"passsword"}
                     />
                     <div style={{color:"#999",fontSize:"14px",display:"flex",justifyContent:"space-between"}}>
