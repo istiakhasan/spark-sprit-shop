@@ -21,15 +21,18 @@ import SparkFormInput from "@/components/form/SparkFormInput";
 import Image from "next/image";
 import SparkFormTextArea from "@/components/form/SpartFormTextArea";
 import SparkFormSelect from "@/components/form/SparkFormSelect";
-import { useLoginUserMutation } from "@/redux/api/auth";
+import { useLoginUserMutation, useSignUpUserMutation } from "@/redux/api/auth";
 import { redirect, usePathname,useRouter, useSearchParams } from "next/navigation";
-import { isLoggedIn } from "@/services/auth.service";
+import { isLoggedIn, setToLocalStorage } from "@/services/auth.service";
 import { useEffect, useState } from "react";
+import MuiSkilton from "@/components/shared/MuiSkilton";
+import { AssignmentReturnRounded } from "@mui/icons-material";
 
 const LoginPage = () => {
   const userLogin=isLoggedIn()
   const [loading,setLoading]=useState(false)
   const [loginUser]=useLoginUserMutation()
+  const [signUpUser]=useSignUpUserMutation()
  const search=useSearchParams()
  const forWrodPath=search.get('pathaName')
   const router=useRouter()
@@ -54,7 +57,21 @@ const LoginPage = () => {
       if (res?.data?.token) {
         router.push(redirectTo);
       }
-      localStorage.setItem('token', res.data.token);
+      setToLocalStorage('token',res?.data?.token)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const signUpHandler = async (data) => {
+   
+    try {
+      const res = await signUpUser(data).unwrap();
+      console.log(res,"res")
+      return
+      if (res?.data?.accessToken) {
+        router.push(redirectTo);
+      }
+      setToLocalStorage('token',res?.data?.accessToken)
     } catch (error) {
       console.log(error);
     }
@@ -62,12 +79,13 @@ const LoginPage = () => {
   useEffect(() => {
     if (userLogin) {
       setLoading(false);
+      router.push(redirectTo)
     } else {
       setLoading(true);
     }
   }, [router, userLogin]);
   if(!loading){
-    return <h1>Loading</h1>
+    return <MuiSkilton />
   }
   return (
     <div className="main_body_container">
@@ -152,8 +170,15 @@ const LoginPage = () => {
                   className="p-4 rounded-1"
                   style={{ boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.1)" }}
                 >
-                  <SparkForm submitHandler={submitHandler}>
+                  <SparkForm submitHandler={signUpHandler}>
                     <div className="row">
+                      <div className="col-md-12">
+                        <SparkFormInput
+                          placeholder={"Full Name"}
+                          name={"name"}
+                          type={"text"}
+                        />
+                      </div>
                       <div className="col-md-12">
                         <SparkFormInput
                           placeholder={"Email"}

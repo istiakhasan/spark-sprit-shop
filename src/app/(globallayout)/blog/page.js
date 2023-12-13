@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import { Pagination } from "@mui/material";
 import BlogCard from "./_blogComponent/BlogCard";
 import "./blog.css";
 
@@ -12,9 +13,13 @@ const Blog = () => {
             <div className="row">
               <div className="col-md-9">
                 <div className="row ">
-                  {[...Array(10).keys()].map((item) => (
+                  {[...Array(6).keys()].map((item) => (
                     <BlogCard key={item} />
                   ))}
+                   <div className="d-flex my-5 col-md-12  align-items-center justify-content-center">
+       <Pagination   onChange={(event,value)=>{
+        }} count={100} size="small" />
+       </div>
                 </div>
               </div>
               <div style={{
@@ -89,26 +94,26 @@ const Blog = () => {
                   Popular tags
                 </h3>
                 <hr />
-                <div className=" submit">
+                <div className="submit d-flex align-items-center gap-2 flex-wrap ">
                   <button className="btn btn-outline-primary mb-2 ">
                     Food
                   </button>
-                  <button className="btn btn-outline-primary mb-2 ">
+                  <button className="btn btn-outline-primary btn-sm mb-2 ">
                     Bars
                   </button>
-                  <button className="btn btn-outline-primary mb-2 ">
+                  <button className="btn btn-outline-primary btn-sm mb-2 ">
                     Cooktails
                   </button>
-                  <button className="btn btn-outline-primary mb-2 ">
+                  <button className="btn btn-outline-primary btn-sm mb-2 ">
                     Shops
                   </button>
-                  <button className="btn btn-outline-primary mb-2 ">
+                  <button className="btn btn-outline-primary btn-sm mb-2 ">
                     Best Offers
                   </button>
-                  <button className="btn btn-outline-primary mb-2 ">
+                  <button className="btn btn-outline-primary btn-sm mb-2 ">
                     Transports
                   </button>
-                  <button className="btn btn-outline-primary mb-2 ">
+                  <button className="btn btn-outline-primary btn-sm mb-2 ">
                     Restaurants
                   </button>
                 </div>
@@ -116,6 +121,7 @@ const Blog = () => {
             </div>
           </div>
         </div>
+       
       </div>
     </div>
   );

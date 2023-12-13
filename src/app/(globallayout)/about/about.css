@@ -1,0 +1,26 @@
+
+.header-text p{
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+.header-text-img img{
+ object-fit: contain;
+}
+.box-contact-filter{
+    box-shadow: 0px 3px 0px 0px #f0f2f4;
+    color: #637381;
+    border: 1px solid #ededed;
+    text-align: center;
+    border-radius: 3px;
+    font-size: 0.9375rem;
+    background: #fff;
+    padding: 45px 35px ;
+}
+.box-contact-filter:hover{
+   margin-top: -10px;
+   transition:  .5s ease-in-out;
+   cursor: pointer;
+}
+.box-contact-filter h4{
+    font-size: 1.125rem;
+}

@@ -12,7 +12,6 @@ const Home = () => {
   return (
     <>
       <div className="main_body_container">
-       
         <header>
           <BannerImage />
         </header>

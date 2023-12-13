@@ -1,7 +1,10 @@
+import { getUserInfo } from "@/services/auth.service";
 import Link from "next/link";
 
 
 const DashboardSidebar = () => {
+  const userInfo= getUserInfo()
+  console.log(userInfo,"user ifo");
   return (
     <aside className="dashbaord_sidebar">
       <p>

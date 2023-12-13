@@ -15,6 +15,7 @@ import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
 import { isLoggedIn } from "@/services/auth.service";
 import { useEffect, useState } from "react";
 import { redirect, usePathname, useRouter,useSearchParams } from "next/navigation";
+import MuiSkilton from "@/components/shared/MuiSkilton";
 const DashboardLayout = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
     const pathaName=usePathname()
@@ -45,7 +46,7 @@ const DashboardLayout = ({ children }) => {
     setIsLoading(true);
   }, [router, isLoading, userLoggedIn, pathaName]);
   if (!isLoading) {
-    return <h1>Loading</h1>
+    return <MuiSkilton />
   }
 
 

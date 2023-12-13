@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 
 const BlogCard = () => {
@@ -6,7 +7,7 @@ const BlogCard = () => {
       <div className="card-wrapper bg-white ">
         <div className="card-img">
           <img src="https://www.ansonika.com/allaia/img/blog-1.jpg" alt="" />
-          <button className="text-move">Read More</button>
+          <button onClick={()=>console.log("clicke")} className="text-move">Read More</button>
         </div>
         <div className="p-4 pb-0 ">
           <div className="card-text">
