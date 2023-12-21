@@ -20,7 +20,7 @@ export default function Navbar() {
   ];
   return (
     <nav 
-    style={{position:"relative",zIndex:"11111111111111"}}
+    style={{position:"relative",zIndex:"1111"}}
      className={`${navbarCss.navContainer} `}>
       <div className={`${navbarCss.navwrapper} container`}>
         <Link href={"/"}>

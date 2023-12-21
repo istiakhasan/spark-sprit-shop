@@ -59,7 +59,7 @@ html {
   transition: 0.6s linear;
 }
 .status {
-  background: #f33;
+  
   width: 50px;
   display: flex;
   align-items: start;
@@ -70,6 +70,12 @@ html {
   top: 10px;
   left: 20px;
 }
+.red.status{
+  background: #f33;
+}
+.green.status{
+  background:green;
+}
 .status::before {
   border-style: solid solid solid none;
   border-width: 9px 9px 9px 0;
@@ -79,12 +85,15 @@ html {
   position: absolute;
   width: 9px;
 }
-.status.off:before {
+.red.status.off:before {
   border-color: #f33 transparent transparent;
+}
+.green.status.off:before {
+  border-color: green transparent transparent;
 }
 .main_body_container {
   position: relative;
-  z-index: 1111;
+  z-index: 900;
   background: white;
   margin-bottom: 400px;
 }
@@ -154,7 +163,7 @@ footer {
 .sticky_searchbar{
   position:sticky;
   top:0px;
-  z-index: 11111111111;
+  z-index: 1000;
   background: white;
 }
 
@@ -179,8 +188,9 @@ footer {
   right: 0;
   position:absolute;
  display: none;
- /* box-shadow: 0 1px 4px 2px #dddfe2; */
- border:1px solid rgba(0,0,0,.1)
+ /* box-shadow: 0 1px 4px 2px #dddfe2; */ 
+
+ border:1px solid rgba(0,0,0,.1);
 }
 .heart_icon_hover{
   background:white;

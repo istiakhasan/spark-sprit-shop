@@ -6,9 +6,10 @@ import BannerImage from "@/components/home/bannerImage";
 import SearchBar from "@/components/home/searchBar";
 import homeStyle from "../../../components/home/home.module.css";
 import MuiCommonIcon from "@/components/ui/MuiCommonIcon";
-import Footer from "@/components/shared/Footer";
-
+import Footer from "@/components/shared/Footer"; 
+   
 const Home = () => {
+
   return (
     <>
       <div className="main_body_container">

@@ -1,6 +1,7 @@
 "use client"
 import MuiBreadCrumb from "@/components/ui/MuiBreadcrumb";
 import MuiCommonIcon from "@/components/ui/MuiCommonIcon";
+import { decrementQuantity, incrementQuantity } from "@/redux/slice/cartSlice";
 import {
   Avatar,
   Button,
@@ -15,7 +16,10 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
+import {  useDispatch, useSelector } from "react-redux";
 const CartDetails = () => {
+  const { cart, wishList,total,shipping } = useSelector((state) => state.cartSlice);
+  const dispatch=useDispatch()
   const router=useRouter()
   const breadcrumbs = [
     <Link
@@ -56,14 +60,14 @@ const CartDetails = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {[...Array(10).keys()].map((item) => (
+                  {cart.map((item,i) => (
                     <TableRow key={item}>
                       <TableCell component="td">
                         <div className="d-flex align-items-center gap-3">
                           <Avatar
                             variant="square"
                             alt="Remy Sharp"
-                            src="https://www.ansonika.com/allaia/img/products/shoes/1.jpg"
+                            src={item?.image}
                             sx={{
                               width: 56,
                               height: 56,
@@ -73,12 +77,12 @@ const CartDetails = () => {
                           />
                           <span style={{ fontWeight: "500", color: "#111" }}>
                             {" "}
-                            Armor Air x Fear{" "}
+                            {item?.name}
                           </span>
                         </div>
                       </TableCell>
                       <TableCell component="td" scope="row">
-                        <strong> ${140.0}</strong>
+                        <strong> ${item?.price}</strong>
                       </TableCell>
                       <TableCell component="td" scope="row">
                         <div
@@ -87,21 +91,23 @@ const CartDetails = () => {
                         >
                           <span
                             style={{ cursor: "pointer" }}
-                            className="cursor-pointer"
+                            className="cursor-pointer" 
+                            onClick={()=>dispatch(incrementQuantity({_id:item?._id,index:i}))}
                           >
                             <MuiCommonIcon name="plus" />
                           </span>
-                          <span>0</span>
+                          <span>{item?.qurchaseQuantity || 0}</span>
                           <span
                             style={{ cursor: "pointer" }}
                             className="cursor-pointer"
+                            onClick={()=>dispatch(decrementQuantity({_id:item?._id,index:i}))}
                           >
                             <MuiCommonIcon name="minus" />
                           </span>
                         </div>
                       </TableCell>
                       <TableCell component="td" scope="row">
-                        <strong> ${140.0}</strong>
+                        <strong> ${(item?.price*item?.qurchaseQuantity).toFixed(2)}</strong>
                       </TableCell>
                       <TableCell align="right" component="td" scope="row">
                         <MuiCommonIcon color="#004dda" name="trash" />
@@ -122,7 +128,7 @@ const CartDetails = () => {
                       className="bg-white"
                       component={"td"}
                     >
-                      <strong> $240.00</strong>
+                      <strong> {total.toFixed(2)}</strong>
                     </TableCell>
                   </TableRow>
                   <TableRow>
@@ -139,7 +145,7 @@ const CartDetails = () => {
                       className="bg-white"
                       component={"td"}
                     >
-                      <strong> $240.00</strong>
+                      <strong> {shipping}</strong>
                     </TableCell>
                   </TableRow>
                   <TableRow>
@@ -161,7 +167,7 @@ const CartDetails = () => {
                     >
                       <strong style={{ color: "#FF5353", fontSize: "24px" }}>
                         {" "}
-                        $240.00
+                       {(total+shipping).toFixed(3)}
                       </strong>
                     </TableCell>
                   </TableRow>

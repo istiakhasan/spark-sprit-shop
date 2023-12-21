@@ -66,8 +66,6 @@ const LoginPage = () => {
    
     try {
       const res = await signUpUser(data).unwrap();
-      console.log(res,"res")
-      return
       if (res?.data?.accessToken) {
         router.push(redirectTo);
       }

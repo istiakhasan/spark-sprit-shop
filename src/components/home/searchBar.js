@@ -17,11 +17,14 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { usePathname, useRouter } from 'next/navigation';
 
 import Link from "next/link";
 import { isLoggedIn, removeUserInfo } from "@/services/auth.service";
+import { useGetAllProductsQuery } from "@/redux/api/productApi";
+import { addSearchTerm, changePage } from "@/redux/slice/querySlice";
+import { useDebounced } from "@/hook/useDebounced";
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     right: -3,
@@ -31,11 +34,13 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 const SearchBar = () => {
+  const dispatch=useDispatch()
+  const query=useSelector(state=>state.querySlice)
   const { cart, wishList } = useSelector((state) => state.cartSlice);
   const [isSticky, setIsSticky] = useState(false);
   const router = useRouter();
   const [userLogin, setIsLoggedIn] = useState('');
-  const spark_route=usePathname()
+  const spark_route=usePathname() 
 
   useEffect(() => {
     setIsLoggedIn(isLoggedIn())
@@ -75,6 +80,11 @@ const SearchBar = () => {
             size="small"
             sx={{ fontSize: "14px", color: "gray" }}
             placeholder="Search over 10,000 products"
+            value={query.searchTerm}
+            onChange={(e)=>{
+              dispatch(addSearchTerm(e.target.value))
+              dispatch(changePage(1))
+            }}
             endAdornment={
               <MuiCommonIcon position="end" size={"small"} name={"search"} />
             }
@@ -192,7 +202,12 @@ const SearchBar = () => {
               </StyledBadge>
             </IconButton>{" "}
             <div className="cart_hover_division">
-              <div className="d-flex align-items-center justify-content-between  gap-3">
+              {/* cart product item loop here  */}
+              <div style={{maxHeight:"300px",overflow:"auto"}}>
+              {
+                cart.map(item=>(
+                  <>
+<div key={item._id} className="d-flex align-items-center justify-content-between  gap-3">
                 <Avatar
                   variant="square"
                   alt="Remy Sharp"
@@ -213,38 +228,20 @@ const SearchBar = () => {
                 </div>
                 <MuiCommonIcon size={"small"} name={"trash"} color={"red"} />
               </div>
-              <Divider className="my-2" />
-              <div className="d-flex align-items-center justify-content-between  gap-3">
-                <Avatar
-                  variant="square"
-                  alt="Remy Sharp"
-                  src="https://www.ansonika.com/allaia/img/products/shoes/1.jpg"
-                  sx={{
-                    width: 56,
-                    height: 56,
-                    border: "1px solid white",
-                    padding: "1px",
-                  }}
-                />
-                <div>
-                  <span style={{ fontWeight: "500", color: "#111" }}>
-                    {" "}
-                    Armor Air x Fear{" "}
-                  </span>
-                  <strong className="d-block">$ 140.00</strong>
-                </div>
-                <MuiCommonIcon size={"small"} name={"trash"} color={"red"} />
+               <Divider className="my-2" />
+               </>
+                ))
+              }
+              
               </div>
-
-              <Divider className="my-2" />
-              <Button
+              {cart.length>0?<Button
                 sx={{ background: "#004DDA", fontSize: "12px" }}
                 className=" px-2 py-2 d-block w-100"
                 variant="contained"
                 onClick={() => router.push("/home/cart")}
               >
                 View Cart
-              </Button>
+              </Button>:<p className="mb-0">Cart is empty</p>}
             </div>
           </span>
         </div>

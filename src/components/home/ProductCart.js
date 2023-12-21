@@ -4,30 +4,30 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import MuiCommonIcon from "../ui/MuiCommonIcon";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart, addToWishList } from "@/redux/slice/cartSlice";
 import { useRouter } from "next/navigation";
 
-const ProductCart = () => {
+const ProductCart = ({item}) => {
   const dispatch=useDispatch()
+  const { cart } = useSelector((state) => state.cartSlice);
   const router=useRouter()
   return (
     <>
       <Card  className="product_card">
-      
-          <CardMedia 
+                <CardMedia 
           onClick={()=>router.push(`/product/${1}`)}
             className="product_card_img"
             component="img"
             sx={{ boxShadow: "none" }}
-            image="https://www.ansonika.com/allaia/img/products/shoes/8.jpg"
+            image={item?.image}
             alt="green iguana"
           />
       
-        <span className="status off">Hot</span>
+        <span className={`status ${item?.status==="hot"?"red":"green"}  off text-uppercase`}>{item?.status}</span>
         <div className="card_hover_icon">
-          <span onClick={()=>dispatch(addToCart({abc:"adsfasd"}))}><MuiCommonIcon name={"cart"}/></span>
-          <span onClick={()=>dispatch(addToWishList({abc:"adsfasd"}))}><MuiCommonIcon name={"heart"}/></span>
+          <span className={`${cart.some(abc=>abc._id===item._id)?'text-danger':""}`} onClick={()=>dispatch(addToCart(item))}><MuiCommonIcon name={"cart"}/></span>
+          <span onClick={()=>dispatch(addToWishList(item))}><MuiCommonIcon name={"heart"}/></span>
 
         </div>
       </Card>
@@ -40,7 +40,7 @@ const ProductCart = () => {
             fontWeight: 500,
           }}
         >
-          Armor Air x Fear
+          {item?.name}
         </h3>
         <p className="mb-0">
           <span
@@ -50,7 +50,7 @@ const ProductCart = () => {
               fontWeight: 500,
             }}
           >
-            $48.00
+            {item?.price}
           </span>{" "}
           <del
             style={{
@@ -59,7 +59,7 @@ const ProductCart = () => {
               fontWeight: 500,
             }}
           >
-            $60.00
+            {item?.previous_price}
           </del>
         </p>
       </div>
