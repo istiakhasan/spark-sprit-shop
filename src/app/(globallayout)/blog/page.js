@@ -3,8 +3,11 @@
 import { Pagination } from "@mui/material";
 import BlogCard from "./_blogComponent/BlogCard";
 import "./blog.css";
+import { useState } from "react";
 
 const Blog = () => {
+  const [active,setActive]=useState(false)
+  console.log(active,"active");
   return (
     <div className="main_body_container">
       <div className="pt-4">
@@ -64,11 +67,14 @@ const Blog = () => {
                 </h3>
                 <hr />
                 <div className="mb-4">
-                  <a
+                  <a 
+                   
                     className="text-filter d-flex justify-content-between"
                     href=""
                   >
-                    Food<span>12</span>
+                    <span className={`${active?"cm_color":""}`} onMouseEnter={() => setActive(true)}
+                   onMouseLeave={() => setActive(false)}>Food</span><span className={`${active?"cm_color":""}`} onMouseEnter={() => setActive(true)}
+                   onMouseLeave={() => setActive(false)}>12</span>
                   </a>
                   <a
                     className="text-filter d-flex justify-content-between"

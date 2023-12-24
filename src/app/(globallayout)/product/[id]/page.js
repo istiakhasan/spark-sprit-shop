@@ -16,7 +16,17 @@ import Description from "./_review/Description";
 import Reviews from "./_review/Reviews";
 import Details from "./_review/Details";
 import RelatedProduct from "./_review/RelatedProduct";
-const ProductDetails = () => {
+import { useParams } from "next/navigation";
+async function getData(id) {
+  const res = await fetch(`http://localhost:5000/api/v1/product/${id}`)
+  const data=res.json()
+  
+  return data
+}
+const ProductDetails = async(props) => {
+  const data = await getData(props?.params?.id) 
+  const productData=data?.data
+
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -41,13 +51,13 @@ const ProductDetails = () => {
             <h1
               style={{ fontSize: "1.3rem", fontWeight: "bold", color: "#111" }}
             >
-              Armor Air X Fear
+              {productData?.name}
             </h1>
-            <ProductImgSlider />
+            <ProductImgSlider  data={productData}/>
           </div>
         </div>
       </div>
-      <Details />
+      <Details data={productData} />
 
       <MuiTabs
         tabLabel={[
@@ -57,7 +67,7 @@ const ProductDetails = () => {
                 DESCRIPTION
               </span>
             ),
-            content: <Description />,
+            content: <Description data={productData} />,
           },
           {
             label: (

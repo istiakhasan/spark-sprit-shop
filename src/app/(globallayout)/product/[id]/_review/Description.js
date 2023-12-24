@@ -1,6 +1,6 @@
 import React from "react";
 
-const Description = () => {
+const Description = ({data}) => {
   return (
     <div className="pt-5" style={{ background: "#F8F8F8", minHeight: "400px" }}>
       <div className="container ">
@@ -15,17 +15,7 @@ const Description = () => {
                 textAlign:"justify"
               }}
             >
-              Lorem ipsum dolor sit amet, in eleifend inimicus elaboraret his,
-              harum efficiendi mel ne. Sale percipit vituperata ex mel, sea ne
-              essent aeterno sanctus, nam ea laoreet civibus electram. Ea vis
-              eius explicari. Quot iuvaret ad has. Vis ei ipsum conclusionemque.
-              Te enim suscipit recusabo mea, ne vis mazim aliquando, everti
-              insolens at sit. Cu vel modo unum quaestio, in vide dicta has. Ut
-              his laudem explicari adversarium, nisl laboramus hendrerit te his,
-              alia lobortis vis ea. Perfecto eleifend sea no, cu audire
-              voluptatibus eam. An alii praesent sit, nobis numquam principes ea
-              eos, cu autem constituto suscipiantur eam. Ex graeci elaboraret
-              pro. Mei te omnis tantas, nobis viderer vivendo ex has.
+             {data?.description}
             </p>{" "}
           </div>
           <div className="col-md-6 ps-lg-5">
@@ -35,19 +25,29 @@ const Description = () => {
               <tbody>
                 <tr>
                   <td>Color</td>
-                  <td>Blue,Purple</td>
+                  <td>{data?.colors?.map((item, index, array) => (
+  <span key={item}>
+    {item}
+    {index < array.length - 1 && ','}
+  </span>
+))}</td>
                 </tr>
                 <tr>
                   <td>Size</td>
-                  <td> 150x100x100</td>
+                  <td> {data?.size?.map((item, index, array) => (
+  <span key={item}>
+    {item}
+    {index < array.length - 1 && ','}
+  </span>
+))}</td>
                 </tr>
                 <tr>
                   <td>Weight</td>
-                  <td>0.6kg</td>
+                  <td>{data?.weight}kg</td>
                 </tr>
                 <tr>
                   <td>Manifacturer </td>
-                  <td>Manifacturer </td>
+                  <td>{data?.manifacturer?"true":"false"} </td>
                 </tr>
               </tbody>
             </table>

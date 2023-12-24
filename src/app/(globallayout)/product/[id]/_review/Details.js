@@ -1,8 +1,26 @@
+"use client"
 import MuiCommonIcon from '@/components/ui/MuiCommonIcon';
+import { addToCart } from '@/redux/slice/cartSlice';
 import { Button, FormControl, MenuItem, Rating, Select, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Details = () => {
+const Details = ({data}) => {
+  const dispatch=useDispatch()
+  const {cart}=useSelector(state=>state.cartSlice)
+  console.log(cart,"cart");
+  const [product,setProduct]=useState(()=>{
+     const item= cart.find((item)=>item?._id===data?._id)
+     console.log(item,"item");
+     if(item){
+      console.log("a");
+      return item
+     }else{
+      console.log("b");
+      return data
+     }
+  })
+
     return (
         <div className="container my-5 ">
         <div className="row">
@@ -28,30 +46,19 @@ const Details = () => {
             >
               <p className="mb-0">COLOR </p>
               <div className="d-flex gap-2 ">
-                <Typography
-                  sx={{
-                    width: 24,
-                    height: 24,
-                    background: "red",
-                    borderRadius: "50%",
-                  }}
-                />
-                <Typography
-                  sx={{
-                    width: 24,
-                    height: 24,
-                    background: "red",
-                    borderRadius: "50%",
-                  }}
-                />
-                <Typography
-                  sx={{
-                    width: 24,
-                    height: 24,
-                    background: "red",
-                    borderRadius: "50%",
-                  }}
-                />
+                {data?.colors?.map(item=>(
+ <Typography
+ key={item}
+ sx={{
+   width: 24,
+   height: 24,
+   background: item.toLowerCase(),
+   borderRadius: "50%",
+ }}
+/>
+                ))}
+               
+               
               </div>
             </div>
             <div
@@ -81,18 +88,28 @@ const Details = () => {
             >
               <p className="mb-0">QUANTITY </p>
               <div style={{minWidth:"120px"}} className="d-flex justify-content-between align-items-center border border-1 p-1  rounded-1">
-               <span style={{cursor:"pointer"}} className="cursor-pointer"><MuiCommonIcon name="plus" /></span>
-               <span>0</span>
-               <span style={{cursor:"pointer"}} className="cursor-pointer"><MuiCommonIcon name="minus" /></span>
+               <span onClick={()=>{
+                 const _data={...product}
+                 _data.purchaseQuantity=(_data.purchaseQuantity || 0)+1 
+                 setProduct(_data)
+               }} style={{cursor:"pointer"}} className="cursor-pointer"><MuiCommonIcon name="plus" /></span>
+               <span>{product?.purchaseQuantity || 0}</span>
+               <span onClick={()=>{
+                 const _data={...product}
+                 _data.purchaseQuantity=(_data?.purchaseQuantity || 0)-1 
+                 setProduct(_data)
+               }} style={{cursor:"pointer"}} className="cursor-pointer"><MuiCommonIcon name="minus" /></span>
               </div>
             </div>
             <div
               className="d-flex justify-content-between align-items-center ms-lg-5 ps-lg-5 mb-2"
               style={{ fontSize: "18px", color: "#444444" }}
             >
-              <p style={{color:"#004DDA",fontSize:"1.5rem",fontWeight:"600"}} className="mb-0">$148.00  <del style={{fontWeight:"500"}} className="text-secondary fst-italic">$160.00</del></p>
+              <p style={{color:"#004DDA",fontSize:"1.5rem",fontWeight:"600"}} className="mb-0">${data?.price} <del style={{fontWeight:"500"}} className="text-secondary fst-italic">${data?.previous_price}</del></p>
               <div style={{width:"120px"}} className="">
-               <Button sx={{background:"#004DDA",fontSize:"12px"}} className=" px-2 py-2 w-100 " variant="contained">ADD TO CART</Button>
+               <Button onClick={()=>{
+                dispatch(addToCart(product))
+               }} disabled={cart.some(item=>item._id===product._id)} sx={{background:"#004DDA",fontSize:"12px"}} className=" px-2 py-2 w-100 " variant="contained">{cart.some(item=>item._id===product._id)?"Added":"ADD TO CART"} </Button>
               </div>
             </div>
           </div>

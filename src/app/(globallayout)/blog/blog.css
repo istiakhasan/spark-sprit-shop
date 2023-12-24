@@ -64,10 +64,10 @@ a.text-filter {
 
 }
 
-a.text-filter:hover {
+/* a.text-filter:hover {
     text-decoration: none;
     color: blue;
-}
+} */
 
 .text-filter span {
     line-height: 30px;
@@ -135,5 +135,9 @@ a.text-filter:hover {
 }
 .fit_height{
     height: fit-content !important;
+}
+
+.cm_color{
+    color: #004DDA;
 }
 

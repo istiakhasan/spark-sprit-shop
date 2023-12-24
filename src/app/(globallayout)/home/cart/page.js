@@ -1,7 +1,7 @@
 "use client"
 import MuiBreadCrumb from "@/components/ui/MuiBreadcrumb";
 import MuiCommonIcon from "@/components/ui/MuiCommonIcon";
-import { decrementQuantity, incrementQuantity } from "@/redux/slice/cartSlice";
+import { decrementQuantity, incrementQuantity, removeToCart } from "@/redux/slice/cartSlice";
 import {
   Avatar,
   Button,
@@ -96,7 +96,7 @@ const CartDetails = () => {
                           >
                             <MuiCommonIcon name="plus" />
                           </span>
-                          <span>{item?.qurchaseQuantity || 0}</span>
+                          <span>{item?.purchaseQuantity || 0}</span>
                           <span
                             style={{ cursor: "pointer" }}
                             className="cursor-pointer"
@@ -107,10 +107,15 @@ const CartDetails = () => {
                         </div>
                       </TableCell>
                       <TableCell component="td" scope="row">
-                        <strong> ${(item?.price*item?.qurchaseQuantity).toFixed(2)}</strong>
+                        <strong> ${(item?.price*item?.purchaseQuantity).toFixed(2)}</strong>
                       </TableCell>
                       <TableCell align="right" component="td" scope="row">
-                        <MuiCommonIcon color="#004dda" name="trash" />
+                        <span onClick={()=>{
+                          
+                          dispatch(removeToCart({ _id: item?._id }));
+                        }}>
+                        <MuiCommonIcon  color="#004dda" name="trash" />
+                        </span>
                       </TableCell>
                     </TableRow>
                   ))}
