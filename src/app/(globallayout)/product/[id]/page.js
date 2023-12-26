@@ -79,7 +79,7 @@ const ProductDetails = async(props) => {
           },
         ]}
       />
-      <RelatedProduct />
+      <RelatedProduct id={productData?.categoryId?._id} />
     </div>
   );
 };

@@ -3,7 +3,10 @@ import {useEffect,useState} from 'react'
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import ProductCart from "@/components/home/ProductCart";
-const RelatedProduct = () => {
+import { useGetSimilarProductQuery } from '@/redux/api/productApi';
+const RelatedProduct = ({id}) => {
+  const {data}=useGetSimilarProductQuery({id:id})
+  const relatedProducts=data?.data
     const [state, setState] = useState(false);
   useEffect(() => {
     const calculateInnerWidth=()=>{
@@ -21,6 +24,8 @@ const RelatedProduct = () => {
       window.removeEventListener("load" ,calculateInnerWidth)
     }
   }, []);
+
+
   return (
     <div>
       <div className="my-3">
@@ -55,10 +60,10 @@ const RelatedProduct = () => {
         modules={[Pagination]}
         className="mySwiper"
       >
-        {[...Array(10).keys()].map((item) => (
+        {relatedProducts?.map((item) => (
           <SwiperSlide key={item}>
             <div style={{maxWidth:"300px"}}>
-            <ProductCart />
+            <ProductCart item={item} />
             </div>
           </SwiperSlide>
         ))}

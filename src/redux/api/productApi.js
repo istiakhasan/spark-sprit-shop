@@ -25,7 +25,14 @@ const productApi = baseApi.injectEndpoints({
         }),
         providesTags:["product"]
       }),
+    getSimilarProduct: build.query({
+        query: (data) => ({
+            url:`/product/similar-product/${data.id}`,
+            method:"GET",
+        }),
+        providesTags:["product"]
+      }),
   }),
 })
 
-export const { useGetAllProductsQuery,useDeleteProductMutation,useGetSingleProductQuery } = productApi
+export const { useGetAllProductsQuery,useDeleteProductMutation,useGetSingleProductQuery,useGetSimilarProductQuery } = productApi
