@@ -1,7 +1,7 @@
 "use client";
 import {useEffect,useState} from 'react'
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import ProductCart from "@/components/home/ProductCart";
 import { useGetSimilarProductQuery } from '@/redux/api/productApi';
 const RelatedProduct = ({id}) => {
@@ -46,18 +46,18 @@ const RelatedProduct = ({id}) => {
      <div className="container my-5">
      <Swiper
         slidesPerView={state?2:4}
-        centeredSlides={true}
+        // centeredSlides={true}
         spaceBetween={30}
         grabCursor={true}
         pagination={{
           clickable: true,
         }}
         autoplay={{
-            delay: 2500,
-            disableOnInteraction: true, 
+            delay: 2000,
+            // disableOnInteraction: false, 
           }}
         loop={true}
-        modules={[Pagination]}
+        modules={[Pagination,Autoplay]}
         className="mySwiper"
       >
         {relatedProducts?.map((item) => (
