@@ -61,7 +61,7 @@ const CartDetails = () => {
                 </TableHead>
                 <TableBody>
                   {cart.map((item,i) => (
-                    <TableRow key={item}>
+                    <TableRow key={i}>
                       <TableCell component="td">
                         <div className="d-flex align-items-center gap-3">
                           <Avatar

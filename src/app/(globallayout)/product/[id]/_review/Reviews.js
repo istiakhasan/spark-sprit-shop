@@ -27,8 +27,8 @@ const Reviews = () => {
     <div className="pt-5" style={{ background: "#F8F8F8", minHeight: "400px" }}>
       <div className="container ">
         <div className="row">
-          {[...Array(4).keys()].map((item) => (
-            <div key={item} className="col-md-6  mb-4">
+          {[...Array(4).keys()].map((item,i) => (
+            <div key={i} className="col-md-6  mb-4">
               <div
                 style={!state?{ width: "90%" }:{width:"100%"}}
                 className={`${item % 2 === 1 ? "ms-lg-auto" : ""}`}

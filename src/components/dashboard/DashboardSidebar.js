@@ -3,6 +3,7 @@ import Link from "next/link";
 
 const DashboardSidebar = () => {
   const userInfo = getUserInfo();
+  console.log(userInfo,"user info");
   return (
     <aside className="dashbaord_sidebar">
       <p>
@@ -38,6 +39,18 @@ const DashboardSidebar = () => {
           <p>
             <Link href="/my-cancellations">My Cancellations</Link>
           </p>
+        </div>
+        <h6> Manage Products</h6>
+        <div className="sub_link_wraper">
+          <p>
+            <Link href="/my-products">Products</Link>
+          </p>
+          {/* <p>
+            <Link href="/my-returns">My Returns</Link>
+          </p>
+          <p>
+            <Link href="/my-cancellations">My Cancellations</Link>
+          </p> */}
         </div>
         <Link href="/my-reviews">
           <h6> My Reviews </h6>{" "}

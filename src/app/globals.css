@@ -236,3 +236,70 @@ input:-webkit-autofill:active{
 }
 
 
+
+/* mui common modal  */
+.ReactModal__Overlay.ReactModal__Overlay--after-open{
+  z-index:20000000000 !important;
+  background:rgba(0,0,0,.5) !important;
+}
+
+
+
+/* common table  */
+/* .common_table table{
+  border-collapes:colla
+} */
+.common_table{
+  margin-top:20px;
+ 
+}
+.common_table table thead tr th{
+  border-top:1px solid rgba(0,0,0, .1);
+  background:#ECEAEA;
+  font-size:12px;
+  font-weight:bold; 
+  color:black;
+}
+.common_table table tbody tr td{
+  font-size:12px;
+  color:black;
+}
+.common_table table tbody tr:hover{
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+.common_table table tbody tr td,.common_table table thead tr th{
+ padding:3px 6px;
+}
+.common_table table tbody tr td:first-child,.common_table table thead tr th:first-child{
+ border-left:1px solid rgba(0,0,0, .1);
+}
+.common_table table tbody tr td:last-child,.common_table table thead tr th:last-child{
+  border-right:1px solid rgba(0,0,0, .1);
+ }
+.common_table table tbody tr{
+/* border:1px solid ; */
+}
+
+
+
+
+
+
+
+
+/* filepond css  */
+.filepond--item-preview {
+  width: 1600px !important; /* Set the width of the preview image */
+  height: auto; /* Maintain the aspect ratio */
+}
+.filepond--item-preview img {
+  width: 100%; /* Set the width of the preview image to 100% */
+  height: auto; /* Maintain the aspect ratio */
+}
+

@@ -16,8 +16,8 @@ const Blog = () => {
             <div className="row">
               <div className="col-md-9">
                 <div className="row ">
-                  {[...Array(6).keys()].map((item) => (
-                    <BlogCard key={item} />
+                  {[...Array(6).keys()].map((item,i) => (
+                    <BlogCard key={i} />
                   ))}
                    <div className="d-flex my-5 col-md-12  align-items-center justify-content-center">
        <Pagination   onChange={(event,value)=>{
@@ -45,8 +45,8 @@ const Blog = () => {
                   Latest Post
                 </h3>
                 <hr />
-                {[...Array(4).keys()].map((item) => (
-                  <div key={item} className="img-filter d-flex gap-3 mb-3">
+                {[...Array(4).keys()].map((item,i) => (
+                  <div key={i} className="img-filter d-flex gap-3 mb-3">
                     <div>
                       <img
                         src="https://www.ansonika.com/allaia/img/blog-5.jpg"

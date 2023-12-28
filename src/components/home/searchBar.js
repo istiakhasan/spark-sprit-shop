@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import MuiCommonIcon from "../ui/MuiCommonIcon";
 import homeStyle from "./home.module.css";
 import {
@@ -205,9 +205,9 @@ const SearchBar = () => {
               {/* cart product item loop here  */}
               <div style={{maxHeight:"300px",overflow:"auto"}}>
               {
-                cart.map(item=>(
-                  <>
-<div key={item._id} className="d-flex align-items-center justify-content-between  gap-3">
+                cart.map((item,i)=>(
+                  <Fragment key={i}>
+                <div  className="d-flex align-items-center justify-content-between  gap-3">
                 <Avatar
                   variant="square"
                   alt="Remy Sharp"
@@ -229,7 +229,7 @@ const SearchBar = () => {
                 <MuiCommonIcon size={"small"} name={"trash"} color={"red"} />
               </div>
                <Divider className="my-2" />
-               </>
+               </Fragment>
                 ))
               }
               

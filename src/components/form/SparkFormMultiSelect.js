@@ -1,7 +1,7 @@
 import { useFormContext, Controller } from "react-hook-form";
 import Select from 'react-select'
 import { customStyles } from "./constant";
-export default function SparkFormSelect({
+export default function SparkFormMultiSelect({
   name,
   options,
   label,
@@ -33,8 +33,9 @@ export default function SparkFormSelect({
       name={name}
       control={control}
       render={({ field }) =>( 
-         <Select placeholder={placeholder}
-          // components={{ DropdownIndicator: ()=>null }}
+         <Select className="basic-multi-select"
+         classNamePrefix="select" placeholder={placeholder} 
+          isMulti
            styles={customStyles}  options={options} onChange={handleChange ? handleChange : field.onChange} {...field}/>
       )}
     />

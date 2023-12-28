@@ -25,6 +25,8 @@ export default function SparkFormTextArea({
           *
         </span>
       ) : null}
+       {label?<p style={{fontSize:"16px",color:"gray"}} className="mb-0"><small>{label}</small>
+       </p>:null}
       <Controller
         name={name}
         defaultValue={value || ""}

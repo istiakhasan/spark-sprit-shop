@@ -1,6 +1,6 @@
 import React from "react";
 
-const Description = ({data}) => {
+const Description = ({ data }) => {
   return (
     <div className="pt-5" style={{ background: "#F8F8F8", minHeight: "400px" }}>
       <div className="container ">
@@ -12,10 +12,10 @@ const Description = ({data}) => {
                 fontSize: "16px",
                 color: "#444444",
                 whiteSpace: "pre-line",
-                textAlign:"justify"
+                textAlign: "justify"
               }}
             >
-             {data?.description}
+              {data?.description}
             </p>{" "}
           </div>
           <div className="col-md-6 ps-lg-5">
@@ -26,20 +26,20 @@ const Description = ({data}) => {
                 <tr>
                   <td>Color</td>
                   <td>{data?.colors?.map((item, index, array) => (
-  <span key={item}>
-    {item}
-    {index < array.length - 1 && ','}
-  </span>
-))}</td>
+                    <span key={index}>
+                      {item}
+                      {index < array.length - 1 && ','}
+                    </span>
+                  ))}</td>
                 </tr>
                 <tr>
                   <td>Size</td>
                   <td> {data?.size?.map((item, index, array) => (
-  <span key={item}>
-    {item}
-    {index < array.length - 1 && ','}
-  </span>
-))}</td>
+                    <span key={index}>
+                      {item}
+                      {index < array.length - 1 && ','}
+                    </span>
+                  ))}</td>
                 </tr>
                 <tr>
                   <td>Weight</td>
@@ -47,7 +47,7 @@ const Description = ({data}) => {
                 </tr>
                 <tr>
                   <td>Manifacturer </td>
-                  <td>{data?.manifacturer?"true":"false"} </td>
+                  <td>{data?.manifacturer ? "true" : "false"} </td>
                 </tr>
               </tbody>
             </table>

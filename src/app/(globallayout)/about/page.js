@@ -76,8 +76,8 @@ const About = () => {
             </div>
             <div className="row">
            {
-            [...Array(10).keys()].map((item)=>(
-                <WhyChooseCard key={item} />
+            [...Array(10).keys()].map((item,i)=>(
+                <WhyChooseCard key={i} />
             ))
            }
 
@@ -104,8 +104,8 @@ const About = () => {
       modules={[Pagination,Autoplay,Navigation]}
       className="mySwiper"
     >
-      {[...Array(10).keys()].map((item) => (
-        <SwiperSlide key={item}>
+      {[...Array(10).keys()].map((item,i) => (
+        <SwiperSlide key={i}>
           <div style={{ maxWidth: "300px" }}>
             <img className="img-fluid" src="https://www.ansonika.com/allaia/img/staff/1_carousel.jpg" alt="" />
           </div>

@@ -60,8 +60,8 @@ const RelatedProduct = ({id}) => {
         modules={[Pagination,Autoplay]}
         className="mySwiper"
       >
-        {relatedProducts?.map((item) => (
-          <SwiperSlide key={item}>
+        {relatedProducts?.map((item,i) => (
+          <SwiperSlide key={i}>
             <div style={{maxWidth:"300px"}}>
             <ProductCart item={item} />
             </div>

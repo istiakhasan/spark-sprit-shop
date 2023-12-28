@@ -13,10 +13,13 @@ padding:20px;
 border-radius:5px;
 min-height:50vh;
 height:100%;
+margin-bottom:200px;
 }
 
 .dashboard_container .dashbaord_sidebar{
  width:180px;
+ position:sticky;
+ top:80px;
 }
 .dashboard_container .dashbaord_sidebar .dashboard_link_wraper{
 
