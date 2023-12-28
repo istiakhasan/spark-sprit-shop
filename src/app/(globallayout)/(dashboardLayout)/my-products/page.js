@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { Avatar,Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import MuiCommonIcon from "@/components/ui/MuiCommonIcon";
 import CreateProduct from "./_create/CreateProduct";
-import { useProductGetByUserIdQuery } from "@/redux/api/productApi";
+import { useDeleteProductMutation, useProductGetByUserIdQuery } from "@/redux/api/productApi";
 import { getUserInfo } from "@/services/auth.service";
 import moment from 'moment';
 import axios from "axios";
@@ -14,6 +14,7 @@ const MyProducts = () => {
     refetchOnFocus:true,
     refetchOnMountOrArgChange:true
   }) 
+  const [deleteProduct]=useDeleteProductMutation()
   const [open, setOpen] = useState(false)
   return (
     <div>
@@ -80,7 +81,11 @@ const MyProducts = () => {
                        </div>
                     </TableCell>
                     <TableCell component="td">
-                      <MuiCommonIcon size="small" color={"#F29188"} name={"trash"} />
+                      <span 
+                      onClick={async()=>{
+                       await deleteProduct({id:item?._id})
+                      }}
+                      ><MuiCommonIcon size="small" color={"#F29188"} name={"trash"} /></span>
                     </TableCell>
 
 

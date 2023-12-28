@@ -20,13 +20,11 @@ import { useParams } from "next/navigation";
 async function getData(id) {
   const res = await fetch(`http://localhost:5000/api/v1/product/${id}`)
   const data=res.json()
-  
   return data
 }
 const ProductDetails = async(props) => {
   const data = await getData(props?.params?.id) 
   const productData=data?.data
-
   const breadcrumbs = [
     <Link
       underline="hover"
