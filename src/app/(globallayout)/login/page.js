@@ -35,6 +35,7 @@ const LoginPage = () => {
   const [signUpUser]=useSignUpUserMutation()
  const search=useSearchParams()
  const forWrodPath=search.get('pathaName')
+ console.log(forWrodPath,"asfasf")
   const router=useRouter()
   const breadcrumbs = [
     <Link

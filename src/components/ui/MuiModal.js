@@ -1,28 +1,28 @@
 "use client"
 import Modal from 'react-modal';
 import {Button} from "@mui/material";
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    border:'none',
-    maxWidth:"100%",
-    width:"700px",
-    overflow:"visible"
-  },
-};
 
-export default function MuiModal({children,modalIsOpen,setIsOpen}) {
+export default function MuiModal({children,modalIsOpen,setIsOpen,width}) {
   return (
     <div>
       <Modal
         isOpen={modalIsOpen}
         // onRequestClose={()=> setIsOpen(false)}
-        style={customStyles}
+        style={{
+          content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            border:'none',
+            maxWidth:"100%",
+            width:width?width: "700px",
+            overflow:"visible",
+            minWidth:"350px"
+          },
+        }}
         contentLabel="Example Modal"
       >
              <Button  

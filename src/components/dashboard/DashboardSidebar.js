@@ -1,11 +1,44 @@
+"use client"
 import { getUserInfo } from "@/services/auth.service";
 import Link from "next/link";
+import { useEffect,useState } from "react";
 
-const DashboardSidebar = () => {
+const DashboardSidebar = ({active,setActive}) => {
   const userInfo = getUserInfo();
-  console.log(userInfo,"user info");
+
+  useEffect(() => { 
+    const handleResize = () => {
+      if (window.innerWidth < 800) {
+        setActive(true);
+      } else {
+        setActive(false);
+      }
+    };
+    handleResize()
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
-    <aside className="dashbaord_sidebar">
+    <aside  style={
+      active
+        ? {
+            maxWidth: 0,
+            transition: ".4s ease ",
+            overflow: "hidden",
+            whiteSpace:"nowrap",
+            background:"white"
+          }
+        : {
+            maxWidth: "180px",
+            transition: ".4s ease ",
+            left: "0%",
+            overflow: "hidden",
+            whiteSpace:"nowrap",
+            // position: "absolute",
+          }
+    } className={`dashbaord_sidebar `}>
       <p>
         <small>Hello,{"Rashed"}</small>
       </p>
@@ -43,14 +76,14 @@ const DashboardSidebar = () => {
         <h6> Manage Products</h6>
         <div className="sub_link_wraper">
           <p>
-            <Link href="/my-products">Products</Link>
-          </p>
-          {/* <p>
-            <Link href="/my-returns">My Returns</Link>
+            <Link href="/my-category">Categories</Link>
           </p>
           <p>
-            <Link href="/my-cancellations">My Cancellations</Link>
-          </p> */}
+            <Link href="/my-brand">Brand</Link>
+          </p>
+          <p>
+            <Link href="/my-products">Products</Link>
+          </p>
         </div>
         <Link href="/my-reviews">
           <h6> My Reviews </h6>{" "}

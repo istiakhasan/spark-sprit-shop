@@ -58,7 +58,6 @@ const ProductSection = () => {
     const brandItem = data.brands;
     Object.keys(categoryItem).forEach((item, i) => {
       if (categoryItem[item]) {
-        console.log(categoryItem[item]);
         category.push(item);
       }
     });

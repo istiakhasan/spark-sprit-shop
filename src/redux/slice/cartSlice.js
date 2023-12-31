@@ -37,11 +37,9 @@ export const cartSlice = createSlice({
                 });
             } else { 
                 if(!payload?.purchaseQuantity){ 
-                    console.log("quantity 1");
                     state.cart = [...state.cart, { ...payload, purchaseQuantity: 1 }];
                     updateTotalAndShipping(state);
                 }else{ 
-                    console.log("quantity many");
                     state.cart = [...state.cart, payload];
                     updateTotalAndShipping(state);
                 }

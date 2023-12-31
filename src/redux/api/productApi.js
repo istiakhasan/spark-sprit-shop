@@ -43,7 +43,8 @@ const productApi = baseApi.injectEndpoints({
     productGetByUserId: build.query({
       query: (data) => ({
         url: `/product/productById`,
-        method: "GET"
+        method: "GET",
+        params:data
       }),
       providesTags: ["product"]
     }),

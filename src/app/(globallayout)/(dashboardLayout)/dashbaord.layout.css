@@ -6,6 +6,7 @@
 .dashboard_container .dashbaord_body{
 flex:1;
 padding:0 10px;
+overflow: auto;
 }
 .dashboard_container .dashbaord_body .db_common_body{
 background:white;
@@ -20,6 +21,29 @@ margin-bottom:200px;
  width:180px;
  position:sticky;
  top:80px;
+ left: 0;
+ white-space: nowrap;
+}
+@media only screen and (max-width: 800px) {
+ 
+    .dashboard_container .dashbaord_sidebar{
+            left: 3% !important;
+            top: 36px;
+            height: 100%;
+            position:absolute !important;
+            background: white;
+            z-index: 22222 !important;
+            /* padding: 0 20px; */
+        
+     }
+  }
+.dashboard_container .dashbaord_sidebar.hide{
+ max-width:0px; 
+ overflow: hidden;
+}
+.dashboard_container .dashbaord_sidebar.show{
+ max-width:180px; 
+ overflow: hidden;
 }
 .dashboard_container .dashbaord_sidebar .dashboard_link_wraper{
 
@@ -35,6 +59,7 @@ font-size: 14px;
 padding-left: 15px;
 }
 .dashboard_container .dashbaord_sidebar .dashboard_link_wraper p{
+   
 margin-bottom: 0;
 }
 .dashboard_container .dashbaord_sidebar .dashboard_link_wraper p a{

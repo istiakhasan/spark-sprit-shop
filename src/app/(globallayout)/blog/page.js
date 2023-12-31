@@ -7,7 +7,6 @@ import { useState } from "react";
 
 const Blog = () => {
   const [active,setActive]=useState(false)
-  console.log(active,"active");
   return (
     <div className="main_body_container">
       <div className="pt-4">

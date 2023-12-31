@@ -16,8 +16,10 @@ import { isLoggedIn } from "@/services/auth.service";
 import { useEffect, useState } from "react";
 import { redirect, usePathname, useRouter,useSearchParams } from "next/navigation";
 import MuiSkilton from "@/components/shared/MuiSkilton";
+import DragHandleSharpIcon from '@mui/icons-material/DragHandleSharp';
 const DashboardLayout = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
+    const [active,setActive]=useState(false)
     const pathaName=usePathname()
     const router=useRouter()
     const userLoggedIn=isLoggedIn()
@@ -40,7 +42,6 @@ const DashboardLayout = ({ children }) => {
   useEffect(() => {
     if (!userLoggedIn) {
       const redirectUrl = `/login?pathaName=${encodeURIComponent(pathaName)}`;
-      console.log(redirectUrl,"redirect url");
       redirect(redirectUrl || "/");
     }
     setIsLoading(true);
@@ -57,10 +58,13 @@ const DashboardLayout = ({ children }) => {
         className="pt-4"
       >
         <div className="container ">
+          <span onClick={()=>{
+             setActive(!active)
+          }}><DragHandleSharpIcon /></span>
           <div className="">
             <MuiBreadCrumb breadcrumbs={breadcrumbs} />
-            <div className="dashboard_container">
-              <DashboardSidebar />
+            <div style={{position:"relative"}} className="dashboard_container">
+              <DashboardSidebar active={active} setActive={setActive} />
               <main className="dashbaord_body">{children}</main>
             </div>
           </div>
