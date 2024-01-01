@@ -1,13 +1,24 @@
 "use client";
+import { useGetReviewByProductIdQuery } from "@/redux/api/reviewApi";
 import { Button, Rating } from "@mui/material";
-import { useRouter } from "next/navigation";
-import React, { useState, useEffect } from "react";
-
+import { useParams, useRouter } from "next/navigation";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { getUserInfo } from "@/services/auth.service";
+import moment from "moment";
 const Reviews = () => {
+  const query = {}
+  const [page, setPage] = useState(1)
+  query["page"] = page
   const [state, setState] = useState(false);
-  const router=useRouter()
+  const router = useRouter()
+  const params = useParams()
+  const userInfo = getUserInfo()
+  query["id"] = params?.id
+  query["limit"] = 6
+  const { data ,isLoading} = useGetReviewByProductIdQuery(query)
+  const [reviewData,setReviewData]=useState([])
   useEffect(() => {
-    const calculateInnerWidth=()=>{
+    const calculateInnerWidth = () => {
       if (window.innerWidth < 600) {
         setState(true);
       } else {
@@ -15,22 +26,40 @@ const Reviews = () => {
       }
     }
     calculateInnerWidth()
-    window.addEventListener("resize" ,calculateInnerWidth);
-    window.addEventListener("load", calculateInnerWidth);
-    return ()=>{
-      window.removeEventListener("resize" ,calculateInnerWidth)
-      window.removeEventListener("load" ,calculateInnerWidth)
+    window.addEventListener("resize", calculateInnerWidth);
+    return () => {
+      window.removeEventListener("resize", calculateInnerWidth)
     }
   }, []);
 
+
+   useMemo(() => {
+    console.log("====================");
+    if (data && data.data && Array.isArray(data.data)) {
+      console.log("aaaaaaaaaaaaaaaaaa")
+      setReviewData([...reviewData, ...data.data]);
+    }
+  }, [data]);
+
+ console.log(reviewData,"review data",page)
   return (
-    <div className="pt-5" style={{ background: "#F8F8F8", minHeight: "400px" }}>
+    <div className="pt-3" style={{ background: "#F8F8F8", minHeight: "400px" }}>
       <div className="container ">
         <div className="row">
-          {[...Array(4).keys()].map((item,i) => (
+          <div className="pb-3">
+            <Button
+              sx={{ background: "#004DDA", fontSize: "12px" }}
+              className=" px-2  d-block ms-auto"
+              variant="contained"
+              onClick={() => router.push(`/product/${params?.id}/review`)}
+            >
+              LEAVE A REVIEW
+            </Button>
+          </div>
+          {reviewData?.map((item, i) => (
             <div key={i} className="col-md-6  mb-4">
               <div
-                style={!state?{ width: "90%" }:{width:"100%"}}
+                style={!state ? { width: "90%" } : { width: "100%" }}
                 className={`${item % 2 === 1 ? "ms-lg-auto" : ""}`}
               >
                 <div className="d-flex  align-items-center justify-content-between">
@@ -38,49 +67,49 @@ const Reviews = () => {
                     <Rating
                       name="size-small"
                       readOnly
-                      defaultValue={5}
+                      value={item?.rating}
                       size="small"
                     />{" "}
                     <span
                       style={{ fontSize: "14px" }}
                       className="fst-italic text-secondary"
                     >
-                      5.0/5.0
+                      {(item?.rating)}/5.0
                     </span>
                   </p>
                   <span
                     style={{ fontSize: "15px" }}
                     className="fst-italic text-secondary"
                   >
-                    Published 54 minutes ago
+                    {moment(item?.createdAt).fromNow()}
+
                   </span>
                 </div>
-                <p style={{ fontSize: "16px", color: "#444444",textAlign:"justify" }}>
+                <p style={{ fontSize: "16px", color: "#444444", textAlign: "justify" }}>
                   <strong className="d-block my-2">
-                    Commpletely satisfied
+                    {item?.title}
                   </strong>
-                  Lorem ipsum dolor sit amet, his no adipisci pericula
-                  conclusionemque. Qui labore salutandi ex, vivendum argumentum
-                  mediocritatem vis eu, viris tritani per id. At iudicabit
-                  maluisset vis, dicant diceret pri cu. Cum at rebum vulputate
-                  forensibus, eruditi principes ad vel, pro denique recusabo at.
-                  Ubique nominavi delicata sit cu, quo no reque insolens
-                  suscipiantur.
+                  {item?.review}
                 </p>
               </div>
             </div>
           ))}
         </div>
-        <div className="pb-5">
-          <Button
-            sx={{ background: "#004DDA", fontSize: "12px" }}
-            className=" px-2 py-2 d-block ms-auto"
-            variant="contained"
-            onClick={()=>router.push('/product/1/review')}
+        <div className="pb-3">
+         {data?.data?.length>0 && <Button
+            sx={{ fontSize: "12px" }}
+            className=" px-2  d-block mx-auto"
+            variant="outlined"
+            onClick={()=>{
+              if(data?.data?.length>0){
+                setPage(page+1)
+              }
+            }}
           >
-            LEAVE A REVIEW
-          </Button>
+            Load More
+          </Button>}
         </div>
+
       </div>
     </div>
   );
