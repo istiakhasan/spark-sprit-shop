@@ -3,13 +3,14 @@ import MuiModal from "@/components/ui/MuiModal";
 import { useEffect, useState } from 'react'
 import { Avatar, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Pagination, TextField } from "@mui/material";
 import MuiCommonIcon from "@/components/ui/MuiCommonIcon";
-import CreateProduct from "./_create/CreateProduct";
-import { useDeleteProductMutation, useProductGetByUserIdQuery } from "@/redux/api/productApi";
 import { getUserInfo } from "@/services/auth.service";
 import moment from 'moment';
 import axios from "axios";
 import { useDebounced } from "@/hook/useDebounced";
-const MyProducts = () => {
+import { useGetCategoryByIdQuery } from "@/redux/api/categoryApi";
+import CreateBrand from "./_create/CreateBrand";
+import { useGetBrandByIdQuery } from "@/redux/api/brandApi";
+const MyBrand = () => {
   const query = {}
   const [page, setPage] = useState('')
   const [search, setSearch] = useState('')
@@ -20,22 +21,21 @@ const MyProducts = () => {
   query["page"] = page
   query["searchTerm"] = debounced
   const userInfo = getUserInfo()
-  const { data } = useProductGetByUserIdQuery(query, {
+  const { data } = useGetBrandByIdQuery(query, {
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true
   })
-  const [deleteProduct] = useDeleteProductMutation()
   const [open, setOpen] = useState(false)
 
   return (
     <div>
-      <h5> Manage My products </h5>
+      <h5>Brands</h5>
       <div className="db_common_body">
         <div className="d-flex align-items-center justify-content-lg-between flex-wrap gap-2">
           <TextField
             inputProps={{ style: { fontSize: "12px", padding: "8px", width: "300px", outline: "none" } }}
             type={"text"}
-            placeholder={"Search by product"}
+            placeholder={"Search by name"}
             InputLabelProps={{ shrink: true }}
             onChange={(e) => {
               setSearch(e.target.value)
@@ -47,16 +47,16 @@ const MyProducts = () => {
           />
           <Button
             onClick={() => setOpen(true)}
-            sx={{ background: "#004DDA", fontSize: "12px" }}
+            sx={{ background: "#004DDA", fontSize: "12px",textWrap:"nowrap" }}
             variant="contained"
             size="small"
           >
-            Add Product
+            Add Brand
           </Button>
         </div>
 
         {/* Product table start  */}
-        <div style={{ overflowY: "auto" }} className="common_table">
+        <div style={{ overflow: "auto" }} className="common_table">
           <TableContainer>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
@@ -64,9 +64,6 @@ const MyProducts = () => {
                   <TableCell>Date</TableCell>
                   <TableCell>Name</TableCell>
                   <TableCell>IMG</TableCell>
-                  <TableCell>PRICE</TableCell>
-                  <TableCell>QTY</TableCell>
-                  <TableCell sx={{ width: "200px" }}>Color</TableCell>
                   <TableCell sx={{ width: "20px" }}>Action</TableCell>
                 </TableRow>
               </TableHead>
@@ -88,35 +85,15 @@ const MyProducts = () => {
                         }}
                       />
                     </TableCell>
-                    <TableCell component="td">{item?.price} </TableCell>
-                    <TableCell component="td">{item?.quantity}</TableCell>
-                    <TableCell component="td">
-                      <div className="d-flex gap-1">
-                        {item?.colors?.map((item, i) => (
-                          <Typography
-                            key={i}
-                            sx={{
-                              width: 14,
-                              height: 14,
-                              background: item.toLowerCase(),
-                              borderRadius: "50%",
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </TableCell>
                     <TableCell component="td">
                       <span
                         onClick={async () => {
-                          await deleteProduct({ id: item?._id })
+                        //   await deleteProduct({ id: item?._id })
                         }}
                       ><MuiCommonIcon size="small" color={"#F29188"} name={"trash"} /></span>
                     </TableCell>
-
-
                   </TableRow>
                 ))}
-
               </TableBody>
             </Table>
           </TableContainer>
@@ -132,10 +109,10 @@ const MyProducts = () => {
           />
         </div>
         {/* Product table end    */}
-        <MuiModal setIsOpen={setOpen} modalIsOpen={open}> <CreateProduct setOpen={setOpen} /></MuiModal>
+        <MuiModal setIsOpen={setOpen} modalIsOpen={open} > <CreateBrand  setOpen={setOpen} /></MuiModal>
       </div>
     </div>
   );
 };
 
-export default MyProducts;
+export default MyBrand;

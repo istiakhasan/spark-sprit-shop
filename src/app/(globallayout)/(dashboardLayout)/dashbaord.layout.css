@@ -2,6 +2,7 @@
  display:flex;
  align-items: start;
  justify-content: start;
+ overflow: hidden;
 }
 .dashboard_container .dashbaord_body{
 flex:1;
