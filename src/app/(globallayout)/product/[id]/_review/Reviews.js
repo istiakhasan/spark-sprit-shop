@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useGetReviewByProductIdQuery } from "@/redux/api/reviewApi";
 import { Box, Button, CircularProgress, Rating } from "@mui/material";
@@ -40,7 +41,6 @@ const Reviews = () => {
     }
     setLoading(false)
   }, [data]);
-  console.log(isLoading,"isloading");
   return (
     <div className="pt-3" style={{ background: "#F8F8F8", minHeight: "400px" }}>
       <div className="container ">
