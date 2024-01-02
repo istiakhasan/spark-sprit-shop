@@ -19,8 +19,16 @@ const reviewApi = baseApi.injectEndpoints({
         }),
         providesTags:["review"]
       }),
+    getTotalRating: build.query({
+        query: (data) => ({
+            url:`/review/totalRating/${data?.id}`,
+            method:"GET",
+            params:data
+        }),
+        providesTags:["review"]
+      }),
 
   }),
 })
 
-export const { useCreateReviewMutation,useGetReviewByProductIdQuery} = reviewApi
+export const { useCreateReviewMutation,useGetReviewByProductIdQuery,useGetTotalRatingQuery} = reviewApi

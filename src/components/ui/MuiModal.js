@@ -32,7 +32,6 @@ export default function MuiModal({children,modalIsOpen,setIsOpen,width}) {
                 variant="contained" 
                 color="error" 
                 className="d-flex align-items-center justify-content-center ms-auto "
-
               >
                 x
               </Button>

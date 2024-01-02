@@ -1,12 +1,13 @@
 "use client";
 import { useGetReviewByProductIdQuery } from "@/redux/api/reviewApi";
-import { Button, Rating } from "@mui/material";
+import { Box, Button, CircularProgress, Rating } from "@mui/material";
 import { useParams, useRouter } from "next/navigation";
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { getUserInfo } from "@/services/auth.service";
 import moment from "moment";
 const Reviews = () => {
   const query = {}
+  const [loading,setLoading]=useState(false)
   const [page, setPage] = useState(1)
   query["page"] = page
   const [state, setState] = useState(false);
@@ -14,7 +15,7 @@ const Reviews = () => {
   const params = useParams()
   const userInfo = getUserInfo()
   query["id"] = params?.id
-  query["limit"] = 6
+  query["limit"] = 2
   const { data ,isLoading} = useGetReviewByProductIdQuery(query)
   const [reviewData,setReviewData]=useState([])
   useEffect(() => {
@@ -34,14 +35,12 @@ const Reviews = () => {
 
 
    useMemo(() => {
-    console.log("====================");
     if (data && data.data && Array.isArray(data.data)) {
-      console.log("aaaaaaaaaaaaaaaaaa")
       setReviewData([...reviewData, ...data.data]);
     }
+    setLoading(false)
   }, [data]);
-
- console.log(reviewData,"review data",page)
+  console.log(isLoading,"isloading");
   return (
     <div className="pt-3" style={{ background: "#F8F8F8", minHeight: "400px" }}>
       <div className="container ">
@@ -56,7 +55,7 @@ const Reviews = () => {
               LEAVE A REVIEW
             </Button>
           </div>
-          {reviewData?.map((item, i) => (
+          { reviewData?.map((item, i) => (
             <div key={i} className="col-md-6  mb-4">
               <div
                 style={!state ? { width: "90%" } : { width: "100%" }}
@@ -94,6 +93,12 @@ const Reviews = () => {
               </div>
             </div>
           ))}
+        {isLoading || loading &&  <div className="py-5">
+          <Box sx={{ display: 'flex',alignItems:"center",justifyContent:"center" }}>
+          <CircularProgress />
+           </Box>
+          </div>}
+
         </div>
         <div className="pb-3">
          {data?.data?.length>0 && <Button
@@ -103,6 +108,7 @@ const Reviews = () => {
             onClick={()=>{
               if(data?.data?.length>0){
                 setPage(page+1)
+                setLoading(true)
               }
             }}
           >

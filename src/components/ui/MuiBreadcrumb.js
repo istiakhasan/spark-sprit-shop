@@ -11,7 +11,6 @@ export default function MuiBreadCrumb({breadcrumbs}) {
       <Breadcrumbs
         separator={<NavigateNextIcon fontSize="small" />}
         aria-label="breadcrumb"
-        
       >
         {breadcrumbs}
       </Breadcrumbs>

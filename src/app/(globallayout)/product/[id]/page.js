@@ -17,12 +17,14 @@ import Reviews from "./_review/Reviews";
 import Details from "./_review/Details";
 import RelatedProduct from "./_review/RelatedProduct";
 import { useParams } from "next/navigation";
+import { getBaseUrl } from "@/helpers/config/envConfig";
 async function getData(id) {
-  const res = await fetch(`http://localhost:5000/api/v1/product/${id}`)
+  const res = await fetch(`${getBaseUrl()}/product/${id}`)
   const data=res.json()
   return data
 }
 const ProductDetails = async(props) => {
+  
   const data = await getData(props?.params?.id) 
   const productData=data?.data
   const breadcrumbs = [
@@ -55,7 +57,7 @@ const ProductDetails = async(props) => {
           </div>
         </div>
       </div>
-      <Details data={productData} />
+      <Details id={props?.params?.id} data={productData} />
 
       <MuiTabs
         tabLabel={[

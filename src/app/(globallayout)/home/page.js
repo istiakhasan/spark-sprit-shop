@@ -7,9 +7,10 @@ import SearchBar from "@/components/home/searchBar";
 import homeStyle from "../../../components/home/home.module.css";
 import MuiCommonIcon from "@/components/ui/MuiCommonIcon";
 import Footer from "@/components/shared/Footer"; 
+import { getBaseUrl } from "@/helpers/config/envConfig";
    
 const Home = () => {
-
+  console.log(getBaseUrl(),"base url");
   return (
     <>
       <div className="main_body_container">

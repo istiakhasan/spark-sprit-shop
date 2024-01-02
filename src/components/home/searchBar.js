@@ -19,7 +19,6 @@ import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { usePathname, useRouter } from 'next/navigation';
-
 import Link from "next/link";
 import { isLoggedIn, removeUserInfo } from "@/services/auth.service";
 import { useGetAllProductsQuery } from "@/redux/api/productApi";

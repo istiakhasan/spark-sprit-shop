@@ -1,13 +1,17 @@
 "use client"
 import MuiCommonIcon from '@/components/ui/MuiCommonIcon';
+import { useGetTotalRatingQuery } from '@/redux/api/reviewApi';
 import { addToCart } from '@/redux/slice/cartSlice';
 import { Button, FormControl, MenuItem, Rating, Select, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const Details = ({ data }) => {
+const Details = ({ data,id }) => {
   const dispatch = useDispatch()
   const { cart } = useSelector(state => state.cartSlice)
+  const { data:reviewData ,isLoading} = useGetTotalRatingQuery({id:id})
+  const totalRating=reviewData?.data[0]?.rating 
+  const averageRating=(totalRating/reviewData?.data[0]?.totalReviewer).toFixed(2)
   const [product, setProduct] = useState(() => {
     const item = cart.find((item) => item?._id === data?._id)
     if (item) {
@@ -22,7 +26,7 @@ const Details = ({ data }) => {
       <div className="row">
         <div className="col-md-6">
           <p className="d-flex align-items-center text-secondary gap-3 fst-italic">
-            <Rating name="read-only" value={4} readOnly />4 reviews
+          <Rating name="half-rating-read" value={averageRating} precision={0.5} readOnly />{totalRating} reviews
           </p>
 
           <p style={{ fontSize: "16px", color: "#444444" }}>

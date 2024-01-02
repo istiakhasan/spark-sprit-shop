@@ -8,26 +8,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, addToWishList } from "@/redux/slice/cartSlice";
 import { useRouter } from "next/navigation";
 
-const ProductCart = ({item}) => {
-  const dispatch=useDispatch()
+const ProductCart = ({ item }) => {
+  const dispatch = useDispatch()
   const { cart } = useSelector((state) => state.cartSlice);
-  const router=useRouter()
+  const router = useRouter()
   return (
     <>
-      <Card  className="product_card">
-                <CardMedia 
-          onClick={()=>router.push(`/product/${item?._id}`)}
-            className="product_card_img"
-            component="img"
-            sx={{ boxShadow: "none" }}
-            image={item?.image}
-            alt="green iguana"
-          />
-      
-        <span className={`status ${item?.status==="hot"?"red":"green"}  off text-uppercase`}>{item?.status}</span>
+      <Card className="product_card">
+        <CardMedia
+          onClick={() => router.push(`/product/${item?._id}`)}
+          className="product_card_img"
+          component="img"
+          sx={{ boxShadow: "none" }}
+          image={item?.image}
+          alt="green iguana"
+        />
+
+        <span className={`status ${item?.status === "hot" ? "red" : "green"}  off text-uppercase`}>{item?.status}</span>
         <div className="card_hover_icon">
-          <span className={`${cart.some(abc=>abc?._id===item?._id)?'text-danger':""}`} onClick={()=>dispatch(addToCart(item))}><MuiCommonIcon name={"cart"}/></span>
-          <span onClick={()=>dispatch(addToWishList(item))}><MuiCommonIcon name={"heart"}/></span>
+          <span className={`${cart.some(abc => abc?._id === item?._id) ? 'text-danger' : ""}`} onClick={() => dispatch(addToCart(item))}><MuiCommonIcon name={"cart"} /></span>
+          <span onClick={() => dispatch(addToWishList(item))}><MuiCommonIcon name={"heart"} /></span>
 
         </div>
       </Card>
