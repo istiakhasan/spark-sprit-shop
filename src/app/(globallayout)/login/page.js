@@ -35,7 +35,7 @@ const LoginPage = () => {
   const [signUpUser]=useSignUpUserMutation()
  const search=useSearchParams()
  const forWrodPath=search.get('pathaName')
- console.log(forWrodPath,"asfasf")
+ console.log(search,"search params")
   const router=useRouter()
   const breadcrumbs = [
     <Link
@@ -52,11 +52,12 @@ const LoginPage = () => {
     </Typography>,
   ];
   const redirectTo = forWrodPath || '/home';
+  console.log(redirectTo,"redirect path")
   const submitHandler = async (data) => {
     try {
       const res = await loginUser(data).unwrap();
       if (res?.data?.token) {
-        router.push(redirectTo);
+        router.replace(redirectTo);
       }
       setToLocalStorage('token',res?.data?.token)
     } catch (error) {
@@ -64,11 +65,10 @@ const LoginPage = () => {
     }
   };
   const signUpHandler = async (data) => {
-   
     try {
       const res = await signUpUser(data).unwrap();
       if (res?.data?.accessToken) {
-        router.push(redirectTo);
+        router.replace(redirectTo);
       }
       setToLocalStorage('token',res?.data?.accessToken)
     } catch (error) {
@@ -78,7 +78,7 @@ const LoginPage = () => {
   useEffect(() => {
     if (userLogin) {
       setLoading(false);
-      router.push(redirectTo)
+      redirect(redirectTo)
     } else {
       setLoading(true);
     }

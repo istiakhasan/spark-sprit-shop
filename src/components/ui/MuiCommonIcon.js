@@ -16,6 +16,10 @@ import GoogleIcon from '@mui/icons-material/Google';
 import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
+import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
+import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 const MuiCommonIcon = ({ name, color, size }) => {
   switch (name) {
     case "menu":
@@ -65,6 +69,18 @@ const MuiCommonIcon = ({ name, color, size }) => {
       break;
     case "order":
       return <CardGiftcardIcon  fontSize={size} sx={{ color: color }} />;
+      break;
+    case "location":
+      return <AddLocationAltOutlinedIcon  fontSize={size} sx={{ color: color }} />;
+      break;
+    case "summary":
+      return <SummarizeOutlinedIcon  fontSize={size} sx={{ color: color }} />;
+      break;
+    case "payment":
+      return <CreditScoreOutlinedIcon  fontSize={size} sx={{ color: color }} />;
+      break;
+    case "pen":
+      return <EditOutlinedIcon  fontSize={size} sx={{ color: color }} />;
       break;
 
     default:

@@ -1,0 +1,129 @@
+.order_summary_card,.common_box{
+ background:white !important;
+ padding:20px;
+ position:relative; 
+ border-radius:4px;
+ overflow:hidden;
+ box-shadow:0 1px 8px 5px #dddfe2;
+}
+.order_summary_card::after{
+content:'';
+position:absolute; 
+background:#1582D4;
+height:3px;
+width:100%;
+left:0;
+top:0;
+}
+.order_summary_card .sm_title{
+    font-size:18px; 
+    font-weight: bold;
+}
+.order_summary_card>p{
+    font-size:16px;
+    margin-bottom:5px; 
+    display:flex; 
+    align-items:center;
+    justify-content:space-between; 
+    color:#191A19;
+    border-radius:4px;
+}
+.order_summary_card p .free{
+ color:#33BF78;
+}
+.order_summary_card hr{
+    margin: 14px 0;
+    border: 1px dashed rgba(0,0,0,0.6);
+    height: 1px;
+}
+.order_summary_card hr.normal{
+    border: 1px solid rgba(0,0,0,0.3) !important;
+    height: 1px;
+}
+.saving_amount{
+    background:#EEFBF4;
+    color:#33BF78; 
+    padding:10px;
+    border-radius:4px;
+    margin-top:30px;
+    display:flex; 
+    align-items:center;
+    justify-content:space-between; 
+}
+.saving_amount p{
+    margin-bottom:0; 
+    width:60%;
+    font-size:14px;
+}
+.saving_amount strong{
+    flex:1;
+    text-align:end;
+}
+
+
+/* checkout details  */
+.checkout_wraper{
+    display:grid;
+    grid-template-columns:60px 1fr;
+}
+.checkout_timeline{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.checkout_timeline .line{
+   border:1px dashed #31C275; 
+   height:100%;
+   width:2px;
+   opacity:.4;
+}
+.checkout_timeline .line.hide{
+   height:0;
+   border:none;
+   overflow:hidden;
+}
+.checkout_timeline .icon_wraper{
+   display:flex; 
+   align-items: center;
+   justify-content: center; 
+   background:#2ABA74 ;
+   border-radius:50%;
+   height:35px;
+   padding:10px;
+   width:35px;
+}
+.checkout_timeline .icon_wraper{
+   display:flex; 
+   align-items: center;
+   justify-content: center; 
+   background:#2ABA74 ;
+   border-radius:50%;
+   height:35px;
+   padding:10px;
+   width:35px;
+}
+.checkout_title{
+    margin-top:5px; 
+    font-size:16px;
+   color:#191A19;
+}
+.del_address{
+    border:1px solid #EEEEEE;
+    border-radius: 4px;
+    padding:20px;
+}
+.del_address address,.del_address p{
+ font-size:16px; 
+ color: gray;
+}
+.del_address h6{
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:0;
+}
+.edit_btn{
+    font-size:14px;
+    color:gray;
+    cursor:pointer;
+    
+}
