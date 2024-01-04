@@ -1,16 +1,22 @@
 "use client"
 import MuiBreadCrumb from "@/components/ui/MuiBreadcrumb";
-import { Avatar, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from "@mui/material";
+import { Avatar, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from "@mui/material";
 import Link from "next/link";
 import './checkout.css'
 import { useSelector, useDispatch } from "react-redux";
 import { formatCurrency } from "@/common/utils";
 import MuiCommonIcon from "@/components/ui/MuiCommonIcon";
 import { decrementQuantity, incrementQuantity } from "@/redux/slice/cartSlice";
-
+import { useCreateOrderMutation } from "@/redux/api/orderApi";
+import { getUserInfo } from "@/services/auth.service";
+import { useState } from "react";
+import toast from "react-hot-toast";
 const CheckoutPage = () => {
     const { cart, wishList, total, shipping } = useSelector((state) => state.cartSlice);
+    const [paymentType,setPaymentType]=useState('ssl-commerce')
+    const [createOrder]=useCreateOrderMutation()
     const dispatch = useDispatch()
+    const userInfo=getUserInfo()
     const breadcrumbs = [
         <Link
             underline="hover"
@@ -25,7 +31,24 @@ const CheckoutPage = () => {
             Checkout
         </Typography>,
     ];
-
+ const handleSubmit=async()=>{
+    if(paymentType !=="ssl-commerce"){
+        return toast.error("You can only pay with ssl-commerze")
+    }
+    const payload={
+        customerId:userInfo?._id,
+        products:cart,
+        paymentMethod:paymentType,
+        totalPrice:Number(total+shipping),
+        address:"static address"
+    }
+    console.log(payload,"payload")
+    const res=await  createOrder(payload).unwrap()
+    if(res?.data?.url){
+        window.location.replace(res?.data?.url)
+    }
+    console.log(res,"res");
+ }
     return (
         <div className="main_body_container">
             <div >
@@ -161,25 +184,29 @@ const CheckoutPage = () => {
                                             <h6 className="checkout_title">Payment Details</h6>
                                             <div className="py-2">
                                                 <FormControl>
-                                                    <RadioGroup
+                                                    <RadioGroup  
+                                                      value={paymentType}
+                                                       onChange={
+                                                        (e)=>setPaymentType(e.target.value)
+                                                       }
                                                         row
                                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                                         name="row-radio-buttons-group"
                                                     >
-                                                        <FormControlLabel value="female" control={<Radio size="small" sx={{
+                                                        <FormControlLabel value="Cash On Delivery" control={<Radio size="small" sx={{
                                                             color: "#50A882",
                                                             '&.Mui-checked': {
                                                                 color: "#50A882",
                                                             },
                                                         }} />} label={<span style={{ fontSize: '14px' }}>Cash On Delivery</span>} />
-                                                        <FormControlLabel value="male" control={<Radio size="small" sx={{
+                                                        <FormControlLabel value="Menual Bkash" control={<Radio size="small" sx={{
                                                             color: "#50A882",
                                                             fontSize:"12px",
                                                             '&.Mui-checked': {
                                                                 color: "#50A882",
                                                             },
                                                         }} />} label={<span style={{ fontSize: '14px' }}>Menual Bkash</span>} /> 
-                                                        <FormControlLabel value="other" control={<Radio size="small" sx={{
+                                                        <FormControlLabel value="ssl-commerce" control={<Radio size="small" sx={{
                                                             color: "#50A882",
                                                             '&.Mui-checked': {
                                                                 color: "#50A882",
@@ -191,6 +218,25 @@ const CheckoutPage = () => {
                                         </div>
                                     </div>
                                 </div>
+
+                                <Button 
+                                
+                                
+                                onClick={async()=>
+                                    
+                                  {
+
+                                    handleSubmit()
+                                    return
+                                    
+                                  
+                                }
+                                }
+                                sx={{
+                                    background:"#50A882",
+                                    fontSize:"14px",
+                                    padding:"5px 40px"
+                                }}  variant="contained">Payment Now</Button>
                             </div>
                             <div className="col-md-4">
                                 <div className="order_summary_card">
