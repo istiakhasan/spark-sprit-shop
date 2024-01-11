@@ -27,6 +27,7 @@ import { isLoggedIn, setToLocalStorage } from "@/services/auth.service";
 import { useEffect, useState } from "react";
 import MuiSkilton from "@/components/shared/MuiSkilton";
 import { AssignmentReturnRounded } from "@mui/icons-material";
+import SparkDatePicker from "@/components/form/SparkDatePicker";
 
 const LoginPage = () => {
   const userLogin=isLoggedIn()
@@ -66,6 +67,8 @@ const LoginPage = () => {
   };
   const signUpHandler = async (data) => {
     try {
+      data["gender"]=data?.gender?.value
+      data["date_of_birth"]=new Date(data?.date_of_birth)
       const res = await signUpUser(data).unwrap();
       if (res?.data?.accessToken) {
         router.replace(redirectTo);
@@ -247,10 +250,33 @@ const LoginPage = () => {
                         type={"passsword"}
                       />
                       </div>
+                        <div className="col-md-6">
+                        <SparkFormSelect
+                          placeholder={"gender"}
+                          name={"gender"}
+                          options={[
+                            {
+                              value: "male",
+                              label: "Male",
+                            },
+                            {
+                              value: "female",
+                              label: "Female",
+                            },
+                          ]}
+                          type={"text"}
+                        />
+                      </div>
+                        <div className="col-md-6">
+                        <SparkDatePicker
+                          name={"date_of_birth"}
+                        />
+                      </div>
                       <div style={{marginBottom:"12px"}} className="col-md-12 d-flex align-items-center gap-2">
                       <Checkbox size="small" sx={{marginBottom:"12px"}}  className=" p-0 mb-0" />
                       <p style={{fontWeight:"600",fontSize:"14px"}} className="mb-0">Accept <span style={{color:"#1565C0",cursor:"pointer"}}>Terms and conditions</span></p>
                       </div>
+
                       <div className="col-md-12">
 
                       <Button

@@ -3,7 +3,6 @@ import MuiModal from "@/components/ui/MuiModal";
 import { useEffect, useState } from 'react'
 import { Avatar, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Pagination, TextField } from "@mui/material";
 import MuiCommonIcon from "@/components/ui/MuiCommonIcon";
-// import CreateProduct from "./_create/CreateProduct";
 import { useDeleteProductMutation, useProductGetByUserIdQuery } from "@/redux/api/productApi";
 import { getUserInfo } from "@/services/auth.service";
 import moment from 'moment';
@@ -12,6 +11,7 @@ import { useDebounced } from "@/hook/useDebounced";
 import { useGetAllOrdersQuery } from "@/redux/api/orderApi";
 import ViewOrders from "../deliver-orders/_create/ViewOrders";
 import { useUpdateOrderStatusMutation } from '@/redux/api/orderApi';
+import toast from "react-hot-toast";
 const ProcessingOrders = () => {
   const query = {}
   const [page, setPage] = useState('')
@@ -120,9 +120,10 @@ const ProcessingOrders = () => {
       {
         const res= await updateOrderStatus({id:rowDto?._id,params:{status:rowDto?.orderStatus}})
        setOpen(false)
+       toast.success('Order move to shipped successfully')
     }
       }
-      sx={{fontSize:"12px"}} variant='contained' size="small">Move to Shipped</Button>
+      sx={{fontSize:"10px",background:"#148158",padding:"2px 10px"}} variant='contained' size="small">Move to Shipped</Button>
         </ViewOrders></MuiModal>
       </div>
     </div>

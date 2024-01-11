@@ -12,6 +12,7 @@ import { useDebounced } from "@/hook/useDebounced";
 import { useGetAllOrdersQuery } from "@/redux/api/orderApi";
 import ViewOrders from "../deliver-orders/_create/ViewOrders";
 import { useUpdateOrderStatusMutation } from '@/redux/api/orderApi';
+import toast from "react-hot-toast";
 const PendingOrders = () => {
   const query = {}
   const [page, setPage] = useState('')
@@ -120,9 +121,10 @@ const PendingOrders = () => {
       {
         const res= await updateOrderStatus({id:rowDto?._id,params:{status:rowDto?.orderStatus}})
        setOpen(false)
+       toast.success('Order move to processing successfully')
     }
       }
-      sx={{fontSize:"12px"}} variant='contained' size="small">Move to Processing</Button>
+      sx={{fontSize:"10px",background:"#FF6347",padding:"2px 10px"}} variant='contained' size="small">Move to Processing</Button>
         </ViewOrders></MuiModal>
       </div>
     </div>

@@ -3,9 +3,11 @@ import { getUserInfo } from "@/services/auth.service";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getSidebarMenuItem } from "./sidebarUtils";
+import { useGetPrifileInfoQuery } from "@/redux/api/profile";
 
 const DashboardSidebar = ({ active, setActive }) => {
   const userInfo = getUserInfo();
+  const {data}=useGetPrifileInfoQuery(undefined)
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 800) {
@@ -40,7 +42,7 @@ const DashboardSidebar = ({ active, setActive }) => {
         }
     } className={`dashbaord_sidebar `}>
       <p>
-        <small>Hello,{"Rashed"}</small>
+        <small>Hello,{data?.data?.name}</small>
       </p>
       <div className="dashboard_link_wraper">
         {
