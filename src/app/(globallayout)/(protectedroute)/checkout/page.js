@@ -40,7 +40,8 @@ const CheckoutPage = () => {
         products:cart,
         paymentMethod:paymentType,
         totalPrice:Number(total+shipping),
-        address:"static address"
+        address:"static address",
+        shipping
     }
     console.log(payload,"payload")
     const res=await  createOrder(payload).unwrap()
@@ -57,9 +58,25 @@ const CheckoutPage = () => {
                     <div className="container pt-4" >
                         <MuiBreadCrumb breadcrumbs={breadcrumbs} />
                         <h1 style={{ fontSize: "1.3rem", fontWeight: "bold", color: "#111" }}> Make Payment</h1>
-                        <div className="row">
-                            <div className="common_box col-md-8">
-                                {/* address */}
+                        <div className="row flex-md-row-reverse">
+                        <div className="col-md-4 mb-2">
+                                <div className="order_summary_card">
+                                    <h6 className="sm_title">Order Details</h6>
+                                    <hr className="normal" />
+                                    <p>Price   <strong>${formatCurrency(total)}</strong></p>
+                                    <p>Delivery charges   <small className="free">${shipping}</small></p>
+                                    <p>Discount Price   <span>$0</span></p>
+                                    <hr />
+                                    <p> <strong>Total Amount</strong>  <strong>${formatCurrency(total + shipping)}</strong></p>
+                                    <div className="saving_amount">
+                                        <p> Your Total Saving amount on this order  </p>
+                                        <strong className="free">$0</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="  col-md-8 mb-2">
+                                <div className="common_box">
+                                     {/* address */}
                                 <div className="">
                                     <div className="checkout_wraper">
                                         <div className="checkout_timeline">
@@ -237,22 +254,9 @@ const CheckoutPage = () => {
                                     fontSize:"14px",
                                     padding:"5px 40px"
                                 }}  variant="contained">Payment Now</Button>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="order_summary_card">
-                                    <h6 className="sm_title">Order Details</h6>
-                                    <hr className="normal" />
-                                    <p>Price   <strong>${formatCurrency(total)}</strong></p>
-                                    <p>Delivery charges   <small className="free">${shipping}</small></p>
-                                    <p>Discount Price   <span>$0</span></p>
-                                    <hr />
-                                    <p> <strong>Total Amount</strong>  <strong>${formatCurrency(total + shipping)}</strong></p>
-                                    <div className="saving_amount">
-                                        <p> Your Total Saving amount on this order  </p>
-                                        <strong className="free">$0</strong>
-                                    </div>
                                 </div>
                             </div>
+                           
 
                         </div>
                     </div>

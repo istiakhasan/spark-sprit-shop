@@ -26,8 +26,10 @@ import {
 } from "@/redux/slice/querySlice";
 import SparkForm from "@/components/form/SparkForm";
 import { useDebounced } from "@/hook/useDebounced";
+import { useGetAllCategoryQuery } from "@/redux/api/categoryApi";
 const ProductSection = () => {
   const dispatch = useDispatch();
+  const {data:cateGoryData}=useGetAllCategoryQuery(undefined)
   const query = useSelector((state) => state.querySlice);
   const { searchTerm: keyword, ...modifyQuery } = query;
   const debounced = useDebounced({
@@ -89,42 +91,20 @@ const ProductSection = () => {
         sx={{ width: 300, margin: "0 auto" }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <MuiAccordian heading={"Categories"} expanded={true}>
-            <div className="d-flex align-items-center justify-content-between">
+          <MuiAccordian  heading={"Categories"} expanded={true}>
+            <div className="global_scroll" style={{maxHeight:"200px",overflowY:"scroll"}}>
+            {cateGoryData?.data?.map((item,i)=>(
+              <div key={i} className="d-flex align-items-center justify-content-between">
               <FormControlLabel
-                {...register("category.Men")}
+                {...register(`category.${item?.name}`)}
                 className="ac_input_filter"
                 control={<Checkbox size="small" />}
-                label="Men"
+                label={item?.name}
               />
               12
             </div>
-            <div className="d-flex align-items-center justify-content-between">
-              <FormControlLabel
-                {...register("category.Women")}
-                control={<Checkbox size="small" />}
-                className="ac_input_filter"
-                label="Women"
-              />
-              12
-            </div>
-            <div className="d-flex align-items-center justify-content-between">
-              <FormControlLabel
-                {...register("category.Running")}
-                control={<Checkbox size="small" />}
-                className="ac_input_filter"
-                label="Running"
-              />
-              12
-            </div>
-            <div className="d-flex align-items-center justify-content-between">
-              <FormControlLabel
-                {...register("category.trending")}
-                control={<Checkbox size="small" />}
-                className="ac_input_filter"
-                label="Trending"
-              />
-              12
+            )) }
+       
             </div>
           </MuiAccordian>
           <MuiAccordian heading={"Color"}>

@@ -7,6 +7,7 @@ import MuiCommonIcon from "../ui/MuiCommonIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, addToWishList } from "@/redux/slice/cartSlice";
 import { useRouter } from "next/navigation";
+import { formatCurrency } from "@/common/utils";
 
 const ProductCart = ({ item }) => {
   const dispatch = useDispatch()
@@ -50,7 +51,16 @@ const ProductCart = ({ item }) => {
               fontWeight: 500,
             }}
           >
-            {item?.price}
+            {formatCurrency(item?.price)}
+          </span>{" "}
+          <span
+            style={{
+              color: "black",
+              fontSize: "12px",
+              fontWeight: 600,
+            }}
+          >
+            ({item?.quantity})
           </span>{" "}
           <del
             style={{
@@ -62,6 +72,7 @@ const ProductCart = ({ item }) => {
             {item?.previous_price}
           </del>
         </p>
+
       </div>
     </>
   );

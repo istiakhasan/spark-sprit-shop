@@ -100,8 +100,8 @@ const LoginPage = () => {
             </h1>
             <div className="row my-4">
               <div className="col-md-6">
-                <div className="d-flex align-items-end gap-2 mb-2">
-                  <Image src={userPng} alt="me" width={40} height={40} />
+                <div className="d-flex align-items-center gap-2 mb-2">
+                  <Image className="add_user_icon" src={userPng} alt="me" width={40} height={40} />
                   <h1
                     className="mb-0"
                     style={{ color: "#444", fontSize: "1.5rem" }}
@@ -114,7 +114,7 @@ const LoginPage = () => {
                   style={{ boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.1)" }}
                 >
                  <div className="row">
-                  <div className="col-md-6">
+                  <div className="col-md-6 mb-2 mb-md-0">
                   <div style={{background:"#3B5998",display:"flex",alignItems:"center",justifyContent:"center",gap:"20px",padding:"12px",color:"#fff",fontSize:"14px",borderRadius:"4px"}}>
                     <MuiCommonIcon name={"facebook"} />
                    Login with Facebook
@@ -155,9 +155,9 @@ const LoginPage = () => {
 
                 </div>
               </div>
-              <div className="col-md-6">
-                <div className="d-flex align-items-end gap-2 mb-2">
-                  <Image src={newUser} alt="me" width={40} height={40} />
+              <div className="col-md-6 mt-2 mt-md-0">
+                <div className="d-flex align-items-center gap-2 mb-2">
+                  <Image className="add_user_icon" src={newUser} alt="me" width={40} height={40} />
                   <h1
                     className="mb-0"
                     style={{ color: "#444", fontSize: "1.5rem" }}

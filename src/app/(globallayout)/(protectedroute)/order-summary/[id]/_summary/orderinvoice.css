@@ -1,0 +1,16 @@
+
+   table.invoiceTable {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    .invoiceTable th,
+    .invoiceTable  td {
+        border: 1px solid black;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    p{
+        margin-bottom: 0;
+    }

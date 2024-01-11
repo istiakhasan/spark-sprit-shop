@@ -9,11 +9,13 @@ import { getUserInfo } from "@/services/auth.service";
 import moment from 'moment';
 import axios from "axios";
 import { useDebounced } from "@/hook/useDebounced";
-import { useOrderGetByUserIdQuery } from "@/redux/api/orderApi";
-import ViewOrders from "./_create/ViewOrders";
-const MyOrder = () => {
+import { useGetAllOrdersQuery } from "@/redux/api/orderApi";
+import ViewOrders from "../deliver-orders/_create/ViewOrders";
+import { useUpdateOrderStatusMutation } from '@/redux/api/orderApi';
+const ProcessingOrders = () => {
   const query = {}
   const [page, setPage] = useState('')
+  const [status,setStatus]=useState(3)
   const [search, setSearch] = useState('')
   const debounced = useDebounced({
     searchQuery: search,
@@ -21,8 +23,10 @@ const MyOrder = () => {
   });
   query["page"] = page
   query["searchTerm"] = debounced
+  query["status"] = status
   const userInfo = getUserInfo()
-  const { data } = useOrderGetByUserIdQuery(query, {
+  const [updateOrderStatus]=useUpdateOrderStatusMutation()
+  const { data } = useGetAllOrdersQuery(query, {
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true
   })
@@ -32,7 +36,7 @@ const MyOrder = () => {
 
   return (
     <div>
-      <h5> Manage My Orders </h5>
+      <h5> Shipped Orders </h5>
       <div className="db_common_body">
         <div className="d-flex align-items-center justify-content-lg-between flex-wrap gap-2">
           <TextField
@@ -48,14 +52,6 @@ const MyOrder = () => {
               focused: 'custom-focused', // Apply a custom class for focused state
             }}
           />
-          <Button
-            
-            sx={{ background: "#004DDA", fontSize: "12px" }}
-            variant="contained"
-            size="small"
-          >
-            Add Product
-          </Button>
         </div>
 
         {/* Product table start  */}
@@ -77,11 +73,16 @@ const MyOrder = () => {
                 {data?.data?.map((item, i) => (
                   <TableRow key={i}>
                     <TableCell component="td">{moment(item?.createdAt).format('DD-MMMM-YYYY')}</TableCell>
-                    <TableCell component="td">{item?.transition_id}</TableCell>
+                    <TableCell component="td"><span style={{color:"#3795FF"}}>{item?.transition_id}</span></TableCell>
                     <TableCell component="td">{item?.shipping}</TableCell>
                     <TableCell component="td">{item?.totalPrice}</TableCell>
                     <TableCell component="td">{item?.paymentMethod} </TableCell>
-                    <TableCell component="td">{item?.orderStatus}</TableCell>
+                    <TableCell component="td"><span style={{
+                        background:"#148158",
+                        padding:"2px 8px",
+                        borderRadius:"2px",
+                        color:"white"
+                    }}>{item?.orderStatus}</span></TableCell>
                     <TableCell component="td">
                       <span
                         onClick={async () => {
@@ -111,10 +112,21 @@ const MyOrder = () => {
           />
         </div>
         {/* Product table end    */}
-        <MuiModal setIsOpen={setOpen}  modalIsOpen={open}> <ViewOrders data={rowDto} setOpen={setOpen} /></MuiModal>
+        <MuiModal setIsOpen={setOpen}  modalIsOpen={open}> <ViewOrders data={rowDto} setOpen={setOpen}> 
+        
+        <Button 
+      
+      onClick={async()=> 
+      {
+        const res= await updateOrderStatus({id:rowDto?._id,params:{status:rowDto?.orderStatus}})
+       setOpen(false)
+    }
+      }
+      sx={{fontSize:"12px"}} variant='contained' size="small">Make Done</Button>
+        </ViewOrders></MuiModal>
       </div>
     </div>
   );
 };
 
-export default MyOrder;
+export default ProcessingOrders;

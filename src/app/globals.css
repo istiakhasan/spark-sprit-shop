@@ -292,3 +292,35 @@ input:-webkit-autofill:active {
   width: 100%; /* Set the width of the preview image to 100% */
   height: auto; /* Maintain the aspect ratio */
 }
+
+.add_user_icon{
+ width:30px; 
+ height:30px;
+}
+
+
+
+/* custom scrollbar */
+/* ====================================== */
+/* ====================================== */
+/* ====================================== */
+/* ====================================== */
+/* width */
+.global_scroll::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Track */
+.global_scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.global_scroll::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+.global_scroll::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

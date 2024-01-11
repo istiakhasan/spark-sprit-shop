@@ -78,8 +78,14 @@ export const cartSlice = createSlice({
                 });
             }
         },
+
+        clearCart:(state,action)=>{
+            state.cart=[]
+            state.total=0 
+            state.shipping=0
+        }
     },
 });
 
-export const { addToCart, addToWishList, incrementQuantity, decrementQuantity,removeToCart } = cartSlice.actions;
+export const { addToCart, addToWishList, incrementQuantity, decrementQuantity,removeToCart,clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

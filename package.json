@@ -22,6 +22,7 @@
     "material-ui-popup-state": "^5.0.10",
     "moment": "^2.30.1",
     "next": "14.0.3",
+    "number-to-words": "^1.2.4",
     "owl.carousel": "^2.3.4",
     "react": "^18",
     "react-dom": "^18",

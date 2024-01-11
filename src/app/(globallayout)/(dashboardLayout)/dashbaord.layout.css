@@ -20,7 +20,7 @@ margin-bottom:200px;
 
 .dashboard_container .dashbaord_sidebar{
  width:180px;
- position:sticky;
+ /* position:sticky; */
  top:80px;
  left: 0;
  white-space: nowrap;
