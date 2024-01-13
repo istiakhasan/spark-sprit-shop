@@ -48,14 +48,14 @@ const MyOrder = () => {
               focused: 'custom-focused', // Apply a custom class for focused state
             }}
           />
-          <Button
+          {/* <Button
             
             sx={{ background: "#004DDA", fontSize: "12px" }}
             variant="contained"
             size="small"
           >
             Add Product
-          </Button>
+          </Button> */}
         </div>
 
         {/* Product table start  */}
@@ -77,11 +77,16 @@ const MyOrder = () => {
                 {data?.data?.map((item, i) => (
                   <TableRow key={i}>
                     <TableCell component="td">{moment(item?.createdAt).format('DD-MMMM-YYYY')}</TableCell>
-                    <TableCell component="td">{item?.transition_id}</TableCell>
+                    <TableCell component="td"><span style={{color:"#3795FF"}}>{item?.transition_id}</span></TableCell>
                     <TableCell component="td">{item?.shipping}</TableCell>
                     <TableCell component="td">{item?.totalPrice}</TableCell>
                     <TableCell component="td">{item?.paymentMethod} </TableCell>
-                    <TableCell component="td">{item?.orderStatus}</TableCell>
+                    <TableCell component="td"><span style={{
+                        background:item?.orderStatus==="delivered"&&"#1677A3" || item?.orderStatus==="processing"&&"#FF6347" || item?.orderStatus==="pending"&&"#F7B02F" || item?.orderStatus==="shipped"&&"#3795FF",
+                        padding:"2px 8px",
+                        borderRadius:"2px",
+                        color:"white"
+                    }}>{item?.orderStatus}</span></TableCell>
                     <TableCell component="td">
                       <span
                         onClick={async () => {

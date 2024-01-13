@@ -7,12 +7,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { formatCurrency } from "@/common/utils";
 import MuiCommonIcon from "@/components/ui/MuiCommonIcon";
 import { decrementQuantity, incrementQuantity } from "@/redux/slice/cartSlice";
+import { useGetAddressByIdQuery } from "@/redux/api/addressBookApi";
 import { useCreateOrderMutation } from "@/redux/api/orderApi";
 import { getUserInfo } from "@/services/auth.service";
+import AddressBookSection from "./_component/AddressBookSection";
 import { useState } from "react";
 import toast from "react-hot-toast";
 const CheckoutPage = () => {
     const { cart, wishList, total, shipping } = useSelector((state) => state.cartSlice);
+    const [defaultAddress,setDefaultAddress]=useState({})
     const [paymentType,setPaymentType]=useState('ssl-commerce')
     const [createOrder]=useCreateOrderMutation()
     const dispatch = useDispatch()
@@ -40,7 +43,7 @@ const CheckoutPage = () => {
         products:cart,
         paymentMethod:paymentType,
         totalPrice:Number(total+shipping),
-        address:"static address",
+        address:defaultAddress,
         shipping
     }
     console.log(payload,"payload")
@@ -77,50 +80,7 @@ const CheckoutPage = () => {
                             <div className="  col-md-8 mb-2">
                                 <div className="common_box">
                                      {/* address */}
-                                <div className="">
-                                    <div className="checkout_wraper">
-                                        <div className="checkout_timeline">
-                                            <div className="icon_wraper">
-                                                <MuiCommonIcon color="white" name="location" size="small" />
-                                            </div>
-                                            <div className="line"></div>
-                                        </div>
-                                        <div>
-                                            <h6 className="checkout_title">Delivery address</h6>
-                                            <div className="row py-4">
-                                                <div className="col-md-6">
-                                                    <article className="del_address">
-                                                        <div className="d-flex align-items-center justify-content-between">
-                                                            <h6 className="mb-2">David</h6>
-                                                            <small className="edit_btn"><MuiCommonIcon name="pen" size="20px" /> Edit</small>
-                                                        </div>
-                                                        <div>
-                                                            <address className="mb-0">
-                                                                124,rd cross, D S Croad, Kanakapura, Bangalore, Karnataka -560078
-                                                            </address>
-                                                            <p className="mb-0">Mobile No: 01306910346</p>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <article className="del_address">
-                                                        <div className="d-flex align-items-center justify-content-between">
-                                                            <h6 className="mb-2">David</h6>
-                                                            <small className="edit_btn"><MuiCommonIcon name="pen" size="20px" /> Edit</small>
-                                                        </div>
-                                                        <div>
-                                                            <address className="mb-0">
-                                                                124,rd cross, D S Croad, Kanakapura, Bangalore, Karnataka -560078
-                                                            </address>
-                                                            <p className="mb-0">Mobile No: 01306910346</p>
-                                                        </div>
-                                                    </article>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                               <AddressBookSection setDefaultAddress={setDefaultAddress} />
                                 {/* summary */}
                                 <div className=" pb-0">
                                     <div className="checkout_wraper">

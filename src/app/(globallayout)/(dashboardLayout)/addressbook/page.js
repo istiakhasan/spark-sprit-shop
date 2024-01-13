@@ -11,8 +11,6 @@ import AddressCard from "./_addNewDeliveryAddress/AddressCard";
 const AddressBook = () => {
   const [open, setOpen] = useState(false);
   const { data } = useGetAddressByIdQuery(undefined);
-  console.log(data, "data");
-
   return (
     <div>
       <div className="d-flex align-items-center justify-content-between mb-2">
@@ -41,7 +39,7 @@ const AddressBook = () => {
       >
         <div className="row">
           {data?.data?.map((item) => (
-            <div className="col-md-4" key={item.id}>
+            <div className="col-md-4 mb-4" key={item.id}>
               <AddressCard item={item} />
             </div>
           ))}
