@@ -46,7 +46,7 @@ const DashboardSidebar = ({ active, setActive }) => {
       </p>
       <div className="dashboard_link_wraper">
         {
-          getSidebarMenuItem("admin")?.map(item => (
+          getSidebarMenuItem("customer")?.map(item => (
             <>
               <h6 >{item?.title} </h6>
               {

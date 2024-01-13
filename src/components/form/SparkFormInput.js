@@ -34,7 +34,7 @@ export default function SparkFormInput({
         render={({ field }) => (
           <FormControl fullWidth>
             <TextField
-              inputProps={{ style: { fontSize: "12px", padding: "12px",outline:"none" } }}
+              inputProps={{ style: { fontSize: "12px", padding: "8px 12px",outline:"none" } }}
               sx={{ width: "100%", marginBottom: "12px" }}
               type={type}
               placeholder={placeholder}

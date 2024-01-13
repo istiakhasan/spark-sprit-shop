@@ -13,5 +13,26 @@ export function convertToWords(number) {
 }
 
 
+
+export function formatPhoneNumber(phoneNumber) {
+  // Remove any non-numeric characters from the phone number
+  const numericPhoneNumber = phoneNumber.replace(/\D/g, '');
+
+  // Check if the numeric phone number is valid
+  if (numericPhoneNumber.length !== 11) {
+    // Invalid phone number, return the original input
+    return phoneNumber;
+  }
+
+  // Format the phone number as per the desired format
+  const formattedPhoneNumber = `(+${numericPhoneNumber.slice(0, 3)}) ${numericPhoneNumber.slice(3)}`;
+
+  return formattedPhoneNumber;
+}
+
+
+
+
+
   
   

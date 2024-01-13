@@ -4,11 +4,7 @@ const commonProfile=[
         title: "My Profile",
         url: "/profile"
     },
-    {
-        id: 1.2,
-        title: "Address Book",
-        url: "/addressbook"
-    },
+    
 ]
 
 const customerDbData = [
@@ -17,6 +13,11 @@ const customerDbData = [
         title: "Manage My Account",
         children: [
             ...commonProfile,
+            {
+                id: 1.2,
+                title: "Address Book",
+                url: "/addressbook"
+            },
             {
                 id: 1.3,
                 title: "My Payment Options",

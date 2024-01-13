@@ -1,0 +1,88 @@
+.loader_container{
+    position:fixed; 
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+.loader {
+    width: 48px;
+    height: 48px;
+    border-width: 3px;
+    border-style: dashed solid  solid dotted;
+    border-color: #FF3D00 #FF3D00 transparent #FF3D00;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+  .loader::after {
+    content: '';  
+    box-sizing: border-box;
+    position: absolute;
+    left: 20px;
+    top: 31px;
+    border: 10px solid transparent;
+    border-right-color: #FF3D00;
+    transform: rotate(-40deg);
+  }
+  
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  } 
+
+  /* address box  card */
+  .mod-address-book-card {
+    font-size: 12px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    padding: 20px;
+    line-height: 16px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+  
+
+ .mod-address-book-card-name {
+  font-weight: 500;
+  position: relative;
+  margin-bottom: 8px;
+}
+ .mod-address-book-card:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  -webkit-box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
+  box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
+}
+
+.mod-address-book-card-edit {
+  font-size: 12px;
+  font-weight: 400;
+  color: #165fcf;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.next-btn-text.next-btn-medium {
+  margin: 0;
+  height: 20px;
+  padding: 0;
+  font-size: 14px;
+  line-height: 20px;
+  border-width: 0;
+  background:white;
+}
+
+ .mod-address-book-card-tag-default,  .mod-address-book-card-tag-latitude {
+  padding: 2px 6px;
+  line-height: 14px;
+  background: #f5f5f5;
+  border-radius: 2px;
+  margin-right: 8px;
+}
