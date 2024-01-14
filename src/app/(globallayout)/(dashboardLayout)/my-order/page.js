@@ -10,7 +10,9 @@ import axios from "axios";
 import { useDebounced } from "@/hook/useDebounced";
 import { useOrderGetByUserIdQuery } from "@/redux/api/orderApi";
 import ViewOrders from "./_create/ViewOrders";
+import { useRouter} from "next/navigation";
 const MyOrder = () => {
+  const router=useRouter()
   const query = {}
   const [page, setPage] = useState('')
   const [search, setSearch] = useState('')
@@ -28,6 +30,7 @@ const MyOrder = () => {
   const [deleteProduct] = useDeleteProductMutation()
   const [open, setOpen] = useState(false)
   const [rowDto,setRowDto]=useState({})
+
 
   return (
     <div>
@@ -61,7 +64,7 @@ const MyOrder = () => {
                   <TableCell>Total Price</TableCell>
                   <TableCell>Payment Method</TableCell>
                   <TableCell>Order Status</TableCell>
-                  <TableCell sx={{ width: "20px" }}>Action</TableCell>
+                  <TableCell sx={{ width: "20px",textAlign:"end" }}>Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -79,13 +82,21 @@ const MyOrder = () => {
                         color:"white"
                     }}>{item?.orderStatus}</span></TableCell>
                     <TableCell component="td">
+                     <div className="d-flex gap-1 align-items-center">
+                      {/* track order */}
                       <span
                         onClick={async () => {
-                          // await deleteProduct({ id: item?._id })
+                          router.push(`/my-order/track-order?orderId=${item?._id}`)
+                        }}
+                      ><MuiCommonIcon size="small" name="timeline" color="green"  /></span>
+                      {/* view order  */}
+                      <span
+                        onClick={async () => {
                       setOpen(true)
                       setRowDto(item)
                         }}
-                      ><MuiCommonIcon size="small"   /></span>
+                      ><MuiCommonIcon size="small" color="#004DDA"   /></span>  
+                     </div>
                     </TableCell>
                   </TableRow>
                 ))}

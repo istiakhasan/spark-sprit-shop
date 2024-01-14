@@ -22,6 +22,8 @@ import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop';
 import InsightsIcon from '@mui/icons-material/Insights';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 const MuiCommonIcon = ({ name, color, size }) => {
   switch (name) {
     case "menu":
@@ -89,6 +91,9 @@ const MuiCommonIcon = ({ name, color, size }) => {
       break;
     case "timeline":
       return <InsightsIcon  fontSize={size} sx={{ color: color }} />;
+      break;
+    case "check":
+      return <CheckOutlinedIcon  fontSize={size} sx={{ color: color }} />;
       break;
 
     default:

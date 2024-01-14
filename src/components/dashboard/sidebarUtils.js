@@ -79,6 +79,11 @@ const adminDBData=[
                 url: "/admin/pending-orders"
             },
             {
+                id:2.1,
+                title: "Approved Orders",
+                url: "/admin/approved-orders"
+            },
+            {
                 id: 2.2,
                 title: "Processing Orders",
                 url: "/admin/processing-orders"

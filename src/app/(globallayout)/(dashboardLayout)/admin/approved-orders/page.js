@@ -3,29 +3,30 @@ import MuiModal from "@/components/ui/MuiModal";
 import { useEffect, useState } from 'react'
 import { Avatar, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Pagination, TextField } from "@mui/material";
 import MuiCommonIcon from "@/components/ui/MuiCommonIcon";
-// import CreateProduct from "./_create/CreateProduct";
 import { useDeleteProductMutation, useProductGetByUserIdQuery } from "@/redux/api/productApi";
 import { getUserInfo } from "@/services/auth.service";
 import moment from 'moment';
 import axios from "axios";
 import { useDebounced } from "@/hook/useDebounced";
 import { useGetAllOrdersQuery } from "@/redux/api/orderApi";
-import ViewOrders from "./_create/ViewOrders";
-// import ViewOrders from "./_create/ViewOrders";
-const DeliverOrders = () => {
+import ViewOrders from "../deliver-orders/_create/ViewOrders";
+import { useUpdateOrderStatusMutation } from '@/redux/api/orderApi';
+import toast from "react-hot-toast";
+const ApprovedOrders = () => {
   const query = {}
   const [page, setPage] = useState('')
-  const [status,setStatus]=useState(4)
+  const [status,setStatus]=useState(5)
   const [search, setSearch] = useState('')
   const debounced = useDebounced({
     searchQuery: search,
     delay: 600,
   });
-  const userInfo = getUserInfo()
   query["page"] = page
   query["searchTerm"] = debounced
   query["status"] = status
+  const userInfo = getUserInfo()
   query["userId"] = userInfo?._id
+  const [updateOrderStatus]=useUpdateOrderStatusMutation()
   const { data } = useGetAllOrdersQuery(query, {
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true
@@ -36,7 +37,7 @@ const DeliverOrders = () => {
 
   return (
     <div>
-      <h5> Deliver Orders </h5>
+      <h5> Approved Orders </h5>
       <div className="db_common_body">
         <div className="d-flex align-items-center justify-content-lg-between flex-wrap gap-2">
           <TextField
@@ -78,7 +79,7 @@ const DeliverOrders = () => {
                     <TableCell component="td">{item?.totalPrice}</TableCell>
                     <TableCell component="td">{item?.paymentMethod} </TableCell>
                     <TableCell component="td"><span style={{
-                        background:"#1677A3",
+                        background:"#21AC4A",
                         padding:"2px 8px",
                         borderRadius:"2px",
                         color:"white"
@@ -112,10 +113,22 @@ const DeliverOrders = () => {
           />
         </div>
         {/* Product table end    */}
-        <MuiModal setIsOpen={setOpen}  modalIsOpen={open}> <ViewOrders data={rowDto} setOpen={setOpen} /></MuiModal>
+        <MuiModal setIsOpen={setOpen}  modalIsOpen={open}> <ViewOrders data={rowDto} setOpen={setOpen}> 
+        
+        <Button 
+      
+      onClick={async()=> 
+      {
+        const res= await updateOrderStatus({id:rowDto?._id,params:{status:rowDto?.orderStatus,userId:userInfo?._id}})
+       setOpen(false)
+       toast.success('Order move to shipped successfully')
+    }
+      }
+      sx={{fontSize:"10px",background:"#FF6347",padding:"2px 10px"}} variant='contained' size="small">Move to Processing</Button>
+        </ViewOrders></MuiModal>
       </div>
     </div>
   );
 };
 
-export default DeliverOrders;
+export default ApprovedOrders;

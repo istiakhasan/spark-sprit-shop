@@ -25,6 +25,7 @@ const ProcessingOrders = () => {
   query["searchTerm"] = debounced
   query["status"] = status
   const userInfo = getUserInfo()
+  query["userId"] = userInfo?._id
   const [updateOrderStatus]=useUpdateOrderStatusMutation()
   const { data } = useGetAllOrdersQuery(query, {
     refetchOnFocus: true,
@@ -118,7 +119,7 @@ const ProcessingOrders = () => {
       
       onClick={async()=> 
       {
-        const res= await updateOrderStatus({id:rowDto?._id,params:{status:rowDto?.orderStatus}})
+        const res= await updateOrderStatus({id:rowDto?._id,params:{status:rowDto?.orderStatus,userId:userInfo?._id}})
        setOpen(false)
        toast.success('Delivered successfully')
     }

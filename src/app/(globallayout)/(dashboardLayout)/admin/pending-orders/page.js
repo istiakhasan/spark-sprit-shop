@@ -26,6 +26,7 @@ const PendingOrders = () => {
   query["searchTerm"] = debounced
   query["status"] = status
   const userInfo = getUserInfo()
+  query["userId"] = userInfo?._id
   const [updateOrderStatus]=useUpdateOrderStatusMutation()
   const { data } = useGetAllOrdersQuery(query, {
     refetchOnFocus: true,
@@ -119,12 +120,12 @@ const PendingOrders = () => {
       
       onClick={async()=> 
       {
-        const res= await updateOrderStatus({id:rowDto?._id,params:{status:rowDto?.orderStatus}})
+        const res= await updateOrderStatus({id:rowDto?._id,params:{status:rowDto?.orderStatus,userId:userInfo?._id}})
        setOpen(false)
        toast.success('Order move to processing successfully')
     }
       }
-      sx={{fontSize:"10px",background:"#FF6347",padding:"2px 10px"}} variant='contained' size="small">Move to Processing</Button>
+      sx={{fontSize:"10px",background:"#21AC4A",padding:"2px 10px"}} variant='contained' size="small">Approved Order</Button>
         </ViewOrders></MuiModal>
       </div>
     </div>
