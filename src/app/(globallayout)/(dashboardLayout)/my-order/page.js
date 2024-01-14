@@ -3,7 +3,6 @@ import MuiModal from "@/components/ui/MuiModal";
 import { useEffect, useState } from 'react'
 import { Avatar, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Pagination, TextField } from "@mui/material";
 import MuiCommonIcon from "@/components/ui/MuiCommonIcon";
-// import CreateProduct from "./_create/CreateProduct";
 import { useDeleteProductMutation, useProductGetByUserIdQuery } from "@/redux/api/productApi";
 import { getUserInfo } from "@/services/auth.service";
 import moment from 'moment';
@@ -48,14 +47,6 @@ const MyOrder = () => {
               focused: 'custom-focused', // Apply a custom class for focused state
             }}
           />
-          {/* <Button
-            
-            sx={{ background: "#004DDA", fontSize: "12px" }}
-            variant="contained"
-            size="small"
-          >
-            Add Product
-          </Button> */}
         </div>
 
         {/* Product table start  */}
@@ -96,8 +87,6 @@ const MyOrder = () => {
                         }}
                       ><MuiCommonIcon size="small"   /></span>
                     </TableCell>
-
-
                   </TableRow>
                 ))}
 

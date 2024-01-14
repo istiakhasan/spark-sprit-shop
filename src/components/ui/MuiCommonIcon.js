@@ -20,6 +20,8 @@ import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlin
 import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
 import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop';
+import InsightsIcon from '@mui/icons-material/Insights';
 const MuiCommonIcon = ({ name, color, size }) => {
   switch (name) {
     case "menu":
@@ -81,6 +83,12 @@ const MuiCommonIcon = ({ name, color, size }) => {
       break;
     case "pen":
       return <EditOutlinedIcon  fontSize={size} sx={{ color: color }} />;
+      break;
+    case "print":
+      return <LocalPrintshopIcon  fontSize={size} sx={{ color: color }} />;
+      break;
+    case "timeline":
+      return <InsightsIcon  fontSize={size} sx={{ color: color }} />;
       break;
 
     default:

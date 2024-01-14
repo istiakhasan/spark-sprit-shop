@@ -28,15 +28,17 @@ import { useEffect, useState } from "react";
 import MuiSkilton from "@/components/shared/MuiSkilton";
 import { AssignmentReturnRounded } from "@mui/icons-material";
 import SparkDatePicker from "@/components/form/SparkDatePicker";
+import { countryJson } from "@/common/utils";
 
 const LoginPage = () => {
   const userLogin=isLoggedIn()
   const [loading,setLoading]=useState(false)
+  const [countryData,setCountryData]=useState([])
   const [loginUser]=useLoginUserMutation()
   const [signUpUser]=useSignUpUserMutation()
  const search=useSearchParams()
  const forWrodPath=search.get('pathaName')
- console.log(search,"search params")
+ console.log(countryData,"search country params")
   const router=useRouter()
   const breadcrumbs = [
     <Link
@@ -84,7 +86,8 @@ const LoginPage = () => {
       redirect(redirectTo)
     } else {
       setLoading(true);
-    }
+    } 
+    countryJson(setCountryData)
   }, [router, userLogin]);
   if(!loading){
     return <MuiSkilton />
@@ -230,16 +233,7 @@ const LoginPage = () => {
                         <SparkFormSelect
                           placeholder={"Country"}
                           name={"country"}
-                          options={[
-                            {
-                              value: "1",
-                              label: "adfasdfasf",
-                            },
-                            {
-                              value: "2",
-                              label: "dfsa",
-                            },
-                          ]}
+                          options={countryData}
                           type={"text"}
                         />
                       </div>

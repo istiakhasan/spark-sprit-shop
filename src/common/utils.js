@@ -15,19 +15,32 @@ export function convertToWords(number) {
 
 
 export function formatPhoneNumber(phoneNumber) {
-  // Remove any non-numeric characters from the phone number
   const numericPhoneNumber = phoneNumber.replace(/\D/g, '');
-
-  // Check if the numeric phone number is valid
   if (numericPhoneNumber.length !== 11) {
-    // Invalid phone number, return the original input
     return phoneNumber;
   }
-
-  // Format the phone number as per the desired format
   const formattedPhoneNumber = `(+${numericPhoneNumber.slice(0, 3)}) ${numericPhoneNumber.slice(3)}`;
 
   return formattedPhoneNumber;
+}
+
+
+
+export const countryJson=(setter)=>{
+  fetch('https://restcountries.com/v3.1/all')
+  .then(res=>res.json())
+  .then(data=>{
+    const newData=data?.map(item=>{
+      return {
+        label:item?.name?.common, 
+        value:item?.area
+      }
+    })
+    setter(newData)
+  })
+  .catch(err=>{
+    console.log(err)
+  })
 }
 
 

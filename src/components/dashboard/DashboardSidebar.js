@@ -7,6 +7,7 @@ import { useGetPrifileInfoQuery } from "@/redux/api/profile";
 
 const DashboardSidebar = ({ active, setActive }) => {
   const userInfo = getUserInfo();
+  console.log(userInfo,"user info")
   const {data}=useGetPrifileInfoQuery(undefined)
   useEffect(() => {
     const handleResize = () => {
@@ -46,7 +47,7 @@ const DashboardSidebar = ({ active, setActive }) => {
       </p>
       <div className="dashboard_link_wraper">
         {
-          getSidebarMenuItem("customer")?.map(item => (
+          getSidebarMenuItem(userInfo?.role)?.map(item => (
             <>
               <h6 >{item?.title} </h6>
               {

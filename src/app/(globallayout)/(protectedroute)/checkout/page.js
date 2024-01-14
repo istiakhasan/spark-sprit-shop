@@ -38,6 +38,9 @@ const CheckoutPage = () => {
     if(paymentType !=="ssl-commerce"){
         return toast.error("You can only pay with ssl-commerze")
     }
+    if(!defaultAddress){
+        return toast.error("Please make  default shipping address")
+    }
     const payload={
         customerId:userInfo?._id,
         products:cart,

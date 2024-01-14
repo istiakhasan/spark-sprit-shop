@@ -12,3 +12,24 @@
 .my-profile-item a {
   color: #1a9cb7 !important;
 }
+
+.profile_img_wrapper{
+  position:relative;
+  height:100px;
+  width:100px;
+}
+
+.upload_icon{
+  position:absolute; 
+  right:0px;
+  bottom:5px;
+  background:#004DDA;
+  height:30px;
+  width:30px;
+  border-radius:50%;
+  padding:4px; 
+  display:flex; 
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}

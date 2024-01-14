@@ -1,20 +1,45 @@
+"use client"
 import moment from 'moment';
 import './orderinvoice.css';
 import { formatCurrency,convertToWords } from '@/common/utils';
-import { useEffect } from 'react';
+import { useEffect,useRef } from 'react';
+import { useReactToPrint } from 'react-to-print';
+import {  Button } from "@mui/material";
+import MuiCommonIcon from "@/components/ui/MuiCommonIcon";
 const commonStyle = {
   fontWeight: 'bold',
   border: 'none',
 };
 
 const OrderInvoice = ({data}) => {
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+  const getPageMargins = () => {
+    return `@page { margin: 200px 10px 10px 10px !important; }`;
+  };
   return (
     <>
       <div style={{ margin: '50px' }}>
 
       </div>
+      <style>{getPageMargins()}</style>
+      <Button
+            onClick={handlePrint}
+            size="small"
+            sx={{
+              color: "white",
+              padding: "2px 10px",
+              fontSize: "12px",
+            }}
+            variant="contained"
+          >
+            <MuiCommonIcon size="small" name={"print"} />  Print
+          </Button>
+      <div ref={componentRef}>
 
-      <div className="d-flex justify-content-between">
+      <div  className="d-flex justify-content-between">
         <div>
           <p>
             <span style={commonStyle}>Transition Id: </span>
@@ -112,6 +137,7 @@ const OrderInvoice = ({data}) => {
       </div>
       <br />
       <br />
+      </div>
       {/* <div className=" mt-5 pt-5">
         <div className="d-flex justify-content-between">
           <p style={{ borderTop: '1px solid gray' }} className="text-center">
