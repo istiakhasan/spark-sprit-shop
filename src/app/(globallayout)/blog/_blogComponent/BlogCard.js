@@ -1,13 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const BlogCard = () => {
+  const router=useRouter()
   return (
     <div className="col-md-6 mb-4">
       <div className="card-wrapper bg-white ">
         <div className="card-img">
           <img src="https://www.ansonika.com/allaia/img/blog-1.jpg" alt="" />
-          <button onClick={()=>console.log("clicke")} className="text-move">Read More</button>
+          <button onClick={()=>router.push(`/blog/${1}`)} className="text-move">Read More</button>
         </div>
         <div className="p-4 pb-0 ">
           <div className="card-text">

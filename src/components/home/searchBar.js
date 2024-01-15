@@ -158,6 +158,22 @@ const SearchBar = () => {
               >
                 <MuiCommonIcon name="order" size="small" /> Manage Orders{" "}
               </Link> </>)}
+            {userInfo?.role==="admin" && (
+             <> 
+            
+            <Divider className="my-2" />
+              <Link
+                style={{
+                  fontSize: "16px",
+                  color: "#444",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+                href="/my-products"
+              >
+                <MuiCommonIcon name="order" size="small" /> Manage Products{" "}
+              </Link> </>)}
               {/* <Divider className="my-2" />
               <Link
                 style={{

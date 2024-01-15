@@ -121,6 +121,22 @@ const adminDBData=[
             },
         ]
     },
+    {
+        id: 3,
+        title: "Manage Blog",
+        children: [
+            {
+                id: 3.1,
+                title: "Blog Category",
+                url: "/admin/blog-category"
+            },
+            {
+                id: 3.2,
+                title: "Blog",
+                url: "/admin/manage-blog"
+            },
+        ]
+    },
 ]
 
 
