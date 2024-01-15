@@ -20,7 +20,7 @@ import { styled } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { usePathname, useRouter } from 'next/navigation';
 import Link from "next/link";
-import { isLoggedIn, removeUserInfo } from "@/services/auth.service";
+import { getUserInfo, isLoggedIn, removeUserInfo } from "@/services/auth.service";
 import { useGetAllProductsQuery } from "@/redux/api/productApi";
 import { addSearchTerm, changePage } from "@/redux/slice/querySlice";
 import { useDebounced } from "@/hook/useDebounced";
@@ -40,6 +40,7 @@ const SearchBar = () => {
   const router = useRouter();
   const [userLogin, setIsLoggedIn] = useState('');
   const spark_route=usePathname() 
+  const userInfo=getUserInfo()
 
   useEffect(() => {
     setIsLoggedIn(isLoggedIn())
@@ -125,7 +126,10 @@ const SearchBar = () => {
               >
                 <MuiCommonIcon name="user" size="small" /> My Profile{" "}
               </Link>
-              <Divider className="my-2" />
+            {userInfo?.role==="customer" && (
+             <> 
+            
+            <Divider className="my-2" />
               <Link
                 style={{
                   fontSize: "16px",
@@ -134,11 +138,14 @@ const SearchBar = () => {
                   alignItems: "center",
                   gap: "10px",
                 }}
-                href="/"
+                href="/my-order"
               >
                 <MuiCommonIcon name="shipping" size="small" /> Track Your Order{" "}
-              </Link>
-              <Divider className="my-2" />
+              </Link> </>)}
+            {userInfo?.role==="admin" && (
+             <> 
+            
+            <Divider className="my-2" />
               <Link
                 style={{
                   fontSize: "16px",
@@ -147,10 +154,23 @@ const SearchBar = () => {
                   alignItems: "center",
                   gap: "10px",
                 }}
-                href="/"
+                href="/admin/pending-orders"
+              >
+                <MuiCommonIcon name="order" size="small" /> Manage Orders{" "}
+              </Link> </>)}
+              {/* <Divider className="my-2" />
+              <Link
+                style={{
+                  fontSize: "16px",
+                  color: "#444",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+                href="/my-order"
               >
                 <MuiCommonIcon name="order" size="small" /> My Order{" "}
-              </Link>
+              </Link> */}
               <Divider className="my-2" />
               <Link
                 style={{

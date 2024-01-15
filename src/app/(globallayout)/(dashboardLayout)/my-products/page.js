@@ -12,6 +12,7 @@ import { useDebounced } from "@/hook/useDebounced";
 const MyProducts = () => {
   const query = {}
   const [page, setPage] = useState('')
+  const [rowDto,setRowDto]=useState({})
   const [search, setSearch] = useState('')
   const debounced = useDebounced({
     searchQuery: search,
@@ -26,6 +27,7 @@ const MyProducts = () => {
   })
   const [deleteProduct] = useDeleteProductMutation()
   const [open, setOpen] = useState(false)
+  const [openEdit, setOpenEdit] = useState(false)
 
   return (
     <div>
@@ -67,7 +69,7 @@ const MyProducts = () => {
                   <TableCell>PRICE</TableCell>
                   <TableCell>QTY</TableCell>
                   <TableCell sx={{ width: "200px" }}>Color</TableCell>
-                  <TableCell sx={{ width: "20px" }}>Action</TableCell>
+                  <TableCell sx={{ width: "20px",textAlign:"end" }}>Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -106,11 +108,21 @@ const MyProducts = () => {
                       </div>
                     </TableCell>
                     <TableCell component="td">
+                     <div  className="d-flex gap-1"> 
+
+                     <span
+                       onClick={() =>{
+                        setRowDto(item)
+                        setOpenEdit(true)
+                      
+                      }}
+                      ><MuiCommonIcon size="small" color={"#0000F7"} name={"pen"} /></span>
                       <span
                         onClick={async () => {
                           await deleteProduct({ id: item?._id })
                         }}
                       ><MuiCommonIcon size="small" color={"#F29188"} name={"trash"} /></span>
+                     </div>
                     </TableCell>
 
 
@@ -132,7 +144,8 @@ const MyProducts = () => {
           />
         </div>
         {/* Product table end    */}
-        <MuiModal setIsOpen={setOpen} modalIsOpen={open}> <CreateProduct setOpen={setOpen} /></MuiModal>
+        <MuiModal setIsOpen={setOpen} modalIsOpen={open}> <CreateProduct  setOpen={setOpen} /></MuiModal>
+        <MuiModal setIsOpen={setOpenEdit} modalIsOpen={openEdit}> <CreateProduct rowDto={rowDto} setOpen={setOpenEdit} /></MuiModal>
       </div>
     </div>
   );

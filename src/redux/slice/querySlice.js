@@ -38,6 +38,9 @@ export const querySlice=createSlice({
             state.category=''
             state.page=''
             state.searchTerm=''
+          
+            state.maxPrice=''
+            
         },
     }
 })

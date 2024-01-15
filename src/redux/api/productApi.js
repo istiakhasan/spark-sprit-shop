@@ -48,7 +48,15 @@ const productApi = baseApi.injectEndpoints({
       }),
       providesTags: ["product"]
     }),
+    updateProduct: build.mutation({
+      query: (data) => ({
+        url: `/product/update/${data?.id}`,
+        method: "PATCH",
+        data:data?.data
+      }),
+      invalidatesTags: ["product"]
+    }),
   }),
 })
 
-export const { useGetAllProductsQuery, useDeleteProductMutation, useGetSingleProductQuery, useGetSimilarProductQuery, useCreateProductMutation,useProductGetByUserIdQuery } = productApi
+export const { useGetAllProductsQuery, useDeleteProductMutation, useGetSingleProductQuery, useGetSimilarProductQuery, useCreateProductMutation,useProductGetByUserIdQuery,useUpdateProductMutation } = productApi

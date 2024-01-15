@@ -8,58 +8,79 @@ import { useGetAllBrandQuery } from '@/redux/api/brandApi';
 import { useGetAllCategoryQuery } from '@/redux/api/categoryApi';
 import { getUserInfo } from '@/services/auth.service';
 import { Button } from '@mui/material';
-import { modifyDataForSelect } from './utils';
-import { useCreateProductMutation } from '@/redux/api/productApi';
+import { modifyDataForSelect,uploadImageToImagebb } from './utils';
+import { useCreateProductMutation,useUpdateProductMutation } from '@/redux/api/productApi';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import './style.css'
 
-const CreateProduct = ({setOpen}) => {
+const CreateProduct = ({setOpen,rowDto}) => {
   const [loading,setLoading]=useState(true)
   const userInfo=getUserInfo()
   const { data } = useGetAllCategoryQuery()
   const { data: brandData } = useGetAllBrandQuery()
   const [createProduct]=useCreateProductMutation()
-  const onSubmit = (data) => { 
-    setLoading(false)
-    const apiKey='ee3fd83f55e650edf800161db386836a' 
-    const url=`https://api.imgbb.com/1/upload?key=${apiKey}` 
-    const formData=new FormData()
-    formData.append('image',data?.images[0]) 
-    const copyData={...data} 
-    copyData["brand"]=data?.brand.value
-    copyData["categoryId"]=data?.categoryId.value
-    copyData["manifacturer"]=data?.manifacturer.value
-    copyData["status"]=data?.status?.value
-    copyData["colors"]=data?.colors?.map((item)=>{
-      return item?.value
-    })
-    copyData["size"]=data?.size?.map((item)=>{
-      return item?.value
-    })
-    copyData["userId"]=userInfo._id 
-    const image=copyData["images"][0]
-    fetch(url,{
-      method:"POST",
-      body:formData
-    })
-    .then(res=>res.json())
-    .then(async data=>{
-       copyData["image"]=data?.data?.url  
-       const res=await  createProduct(copyData).unwrap() 
-       setLoading(true)
-       toast.success('Product created successfully 🙌')
-       setOpen(false)
-    })
-    .catch(err=>{
+  const [updateProduct]=useUpdateProductMutation()
+  const onSubmit = async (data) => {
+    try {
+      setLoading(false)
+      const formData = new FormData();
+      if (data?.images) {
+        formData.append('image', data?.images[0]);
+      }
+      const copyData = { ...data };
+      const userId = userInfo._id;
+      copyData["brand"] = data?.brand?.value;
+      copyData["categoryId"] = data?.categoryId?.value;
+      copyData["manifacturer"] = data?.manifacturer?.value;
+      copyData["status"] = data?.status?.value;
+      copyData["colors"] = data?.colors?.map(item => item?.value);
+      copyData["size"] = data?.size?.map(item => item?.value);
+      copyData["userId"] = userId;
+      // Upload image
+      let finalImageUrl;
+      if (data?.images) {
+        try {
+          finalImageUrl = await uploadImageToImagebb(formData);
+        } catch (uploadError) {
+          console.error("Error uploading image:", uploadError);
+          // Handle the error as needed, e.g., show a message to the user
+          return;
+        }
+        copyData["image"] = finalImageUrl;
+      }
+      let res;
+      if (rowDto) {
+        res = await updateProduct({ id: copyData?._id, data: copyData }).unwrap();
+      } else {
+        res = await createProduct(copyData).unwrap();
+      }
+      setLoading(true);
+      const successMessage = rowDto ? 'Product Updated successfully 🙌' : 'Product created successfully 🙌';
+      toast.success(successMessage);
+      setOpen(false);
+    } catch (error) {
+      console.log("An unexpected error occurred:", error);
       setLoading(true)
-    })
-  }
+      // Handle the error as needed, e.g., show a generic error message to the user
+    }
+  };
+  
   const categoryDAta = modifyDataForSelect(data?.data)
   const modifyBrandata = modifyDataForSelect(brandData?.data)
+  const modifyRowDto = {
+    ...rowDto,
+    colors: (rowDto?.colors || []).map(item => ({ label: item, value: item })),
+    size: (rowDto?.size || []).map(item => ({ label: item, value: item })),
+    brand: { label: rowDto?.brand?.name, value: rowDto?.brand?.id },
+    categoryId: { label: rowDto?.categoryId?.name, value: rowDto?.categoryId?.id },
+    status: { label: rowDto?.status, value: rowDto?.status },
+    manifacturer: { label: rowDto?.manifacturer ? "Yes" : "No", value: rowDto?.manifacturer },
+  };
+  const defaultvalue=rowDto?modifyRowDto:{}
   return (
     <div className='mt-4'>
-      <SparkForm submitHandler={onSubmit}>
+      <SparkForm defaultValues={defaultvalue} submitHandler={onSubmit}>
         <div className='row'>
           <div className="col-md-6">
             <SparkFormInput
@@ -215,7 +236,7 @@ const CreateProduct = ({setOpen}) => {
               size="small"
               type='submit'
             >
-              Save
+              {rowDto?"Update":"Save"}
             </Button>
           </div>
 

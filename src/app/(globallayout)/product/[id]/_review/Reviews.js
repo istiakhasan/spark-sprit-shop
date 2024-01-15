@@ -45,7 +45,7 @@ const Reviews = () => {
     <div className="pt-3" style={{ background: "#F8F8F8", minHeight: "400px" }}>
       <div className="container ">
         <div className="row">
-          <div className="pb-3">
+        {userInfo?.role !=="admin" && <div className="pb-3">
             <Button
               sx={{ background: "#004DDA", fontSize: "12px" }}
               className=" px-2  d-block ms-auto"
@@ -54,7 +54,7 @@ const Reviews = () => {
             >
               LEAVE A REVIEW
             </Button>
-          </div>
+          </div>}
           { reviewData?.map((item, i) => (
             <div key={i} className="col-md-6  mb-4">
               <div
