@@ -212,6 +212,8 @@ footer {
 }
 .heart_icon {
   position: relative;
+  height: fit-content;
+  display: inline-block;
 }
 
 .heart_icon:hover > .heart_icon_hover {

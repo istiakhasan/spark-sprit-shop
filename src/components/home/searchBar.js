@@ -92,7 +92,7 @@ const SearchBar = () => {
         </FormControl>
         <div style={{ whiteSpace: "nowrap" }}>
           <span className="heart_icon">
-            <IconButton aria-label="cart">
+            {!userLogin ? <IconButton aria-label="cart">
               <StyledBadge color="error">
                 <MuiCommonIcon
                   color={isSticky ? "white" : ""}
@@ -100,7 +100,8 @@ const SearchBar = () => {
                   name={"user"}
                 />{" "}
               </StyledBadge>
-            </IconButton>{" "}
+            </IconButton>:
+            <img style={{objectFit:"cover",borderRadius:"50%",cursor:"pointer"}} width={25} height={25} src={userInfo?.image} alt="" />}
             <div className="heart_icon_hover">
              {!userLogin &&
               

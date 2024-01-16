@@ -1,28 +1,28 @@
 /* eslint-disable @next/next/no-img-element */
+"use client"
+import moment from "moment";
 import { useRouter } from "next/navigation";
-import React from "react";
 
-const BlogCard = () => {
+
+const BlogCard = ({item}) => {
   const router=useRouter()
   return (
-    <div className="col-md-6 mb-4">
-      <div className="card-wrapper bg-white ">
+    <div className="col-md-6 h-auto mb-4">
+      <div className="card-wrapper h-100 bg-white ">
         <div className="card-img">
-          <img src="https://www.ansonika.com/allaia/img/blog-1.jpg" alt="" />
-          <button onClick={()=>router.push(`/blog/${1}`)} className="text-move">Read More</button>
+          <img src={item?.image} alt="" />
+          <button onClick={()=>router.push(`/blog/${item?.id}`)} className="text-move">Read More</button>
         </div>
         <div className="p-4 pb-0 ">
           <div className="card-text">
             <span style={{ fontWeight: "500", color: "#999" }}>
-              Category - 20 Nov. 2017
+              Category - {moment(item?.createdAt).format('DDD MMMM.YYYY')}
             </span>
             <h2 style={{ color: "#111", fontSize: "1.3125rem" }}>
-              Ea exerci option hendrerit
+             {item?.title}
             </h2>
             <p style={{ color: "#333" }}>
-              Quodsi sanctus pro eu, ne audire scripserit quo. Vel an enim
-              offendit salutandi, in eos quod omnes epicurei, ex veri qualisque
-              scriptorem mei.
+            {item?.description?.length>200?`${item?.description?.slice(0,200)}...`:item?.description}
             </p>
           </div>
         </div>

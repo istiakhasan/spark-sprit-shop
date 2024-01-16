@@ -132,7 +132,7 @@ const adminDBData=[
             },
             {
                 id: 3.2,
-                title: "Blog",
+                title: "Manage Blog",
                 url: "/admin/manage-blog"
             },
         ]
