@@ -15,7 +15,7 @@ const ProductCart = ({ item }) => {
   const router = useRouter()
   return (
     <>
-      <Card className="product_card">
+      <Card className="product_card mx-auto">
         <CardMedia
           onClick={() => router.push(`/product/${item?._id}`)}
           className="product_card_img"

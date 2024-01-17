@@ -16,7 +16,6 @@ import './style.css'
 import MuiCommonIcon from '@/components/ui/MuiCommonIcon';
 
 const ViewOrders = ({setOpen,data}) => {
-console.log(data,"data");
   return (
     <div className='mt-4'>
      <div style={{ overflowY: "auto" }} className="common_table">

@@ -12,6 +12,7 @@ import {
 import { useForm } from "react-hook-form";
 import MuiAccordian from "../ui/MuiAccordian";
 import ProductCart from "./ProductCart";
+import ProductCardGridView from "./ProductCardGridView";
 import { useGetAllProductsQuery } from "@/redux/api/productApi";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +29,7 @@ import SparkForm from "@/components/form/SparkForm";
 import { useDebounced } from "@/hook/useDebounced";
 import { useGetAllCategoryQuery } from "@/redux/api/categoryApi";
 const ProductSection = () => {
+  const { isGrid } = useSelector((state) => state.gridSlice);
   const dispatch = useDispatch();
   const {data:cateGoryData}=useGetAllCategoryQuery(undefined)
   const query = useSelector((state) => state.querySlice);
@@ -110,7 +112,7 @@ const ProductSection = () => {
           <MuiAccordian heading={"Color"}>
             <div className="d-flex align-items-center justify-content-between">
               <FormControlLabel
-                control={<Checkbox size="small" {...register("colors.Red")} />}
+                control={<Checkbox size="small" {...register("colors.red")} />}
                 className="ac_input_filter"
                 label="Red"
               />
@@ -118,7 +120,7 @@ const ProductSection = () => {
             </div>
             <div className="d-flex align-items-center justify-content-between">
               <FormControlLabel
-                control={<Checkbox size="small" {...register("colors.Blue")} />}
+                control={<Checkbox size="small" {...register("colors.blue")} />}
                 className="ac_input_filter"
                 label="Blue"
               />
@@ -182,8 +184,8 @@ const ProductSection = () => {
             </p>
             <Slider
               size="small"
-              defaultValue={1000}
-              max={1000}
+              defaultValue={10000}
+              max={100000}
               {...register("maxPrice")}
               aria-label="Small"
               valueLabelDisplay="auto"
@@ -208,8 +210,8 @@ const ProductSection = () => {
         </form>
       </Box>
       <div style={{ flex: 1 }}>
-        <div className="row">
-          {isLoading ? (
+        <div className="row mx-0 px-0">
+        {isGrid ? (<> {isLoading ? (
             <>
               {[...Array(9).keys()]?.map((item, i) => (
                 <div className="col-md-4 col-6" key={i}>
@@ -228,14 +230,44 @@ const ProductSection = () => {
           ) : (
             <>
               {productData?.map((item, i) => (
+                <div className="col-md-12  " key={i}>
+                  <ProductCardGridView item={item} />
+                </div>
+              ))}
+              {/* {productData?.map((item, i) => (
+                <div className="col-md-4 col-6 " key={i}>
+                  <ProductCart item={item} />
+                </div>
+              ))} */}
+            </>
+          )}</>):
+          (<>{isLoading ? (
+            <>
+              {[...Array(9).keys()]?.map((item, i) => (
                 <div className="col-md-4 col-6" key={i}>
+                  <Skeleton
+                    sx={{
+                      height: "38vh",
+                      width: "100",
+                      transform: "scale(1)",
+                      marginBottom: "10px",
+                    }}
+                    animation="wave"
+                  />
+                </div>
+              ))}
+            </>
+          ) : (
+            <>
+              {productData?.map((item, i) => (
+                <div className="col-md-4 col-6 " key={i}>
                   <ProductCart item={item} />
                 </div>
               ))}
             </>
-          )}
+          )}</>)}
         </div>
-        <div className="d-flex my-5  align-items-center justify-content-center">
+        <div className="d-flex my-5  align-items-center justify-content-center pb-5 pb-md-0">
           <Pagination
             onChange={(event, value) => {
               dispatch(changePage(value));

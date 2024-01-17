@@ -18,7 +18,6 @@ import { uploadImageToImagebb } from '../../../my-products/_create/utils';
 const CreateBlog = ({setOpen,rowDto}) => {
   const [loading,setLoading]=useState(true)
   const userInfo=getUserInfo()
-  const { data } = useGetAllCategoryQuery()
   const [createBlogRes]=useCreateBlogMutation()
   const [updateBlogRes]=useUpdateBlogMutation()
   const {data:blogCategoryData}=useLoadAllBlogCategoryQuery(undefined,{
@@ -59,7 +58,6 @@ const CreateBlog = ({setOpen,rowDto}) => {
        toast.success(res?.message);
        setOpen(false)
     } catch (error) {
-      console.log("An unexpected error occurred:", error);
       setLoading(true)
       // Handle the error as needed, e.g., show a generic error message to the user
     }

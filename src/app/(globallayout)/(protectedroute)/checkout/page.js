@@ -49,12 +49,10 @@ const CheckoutPage = () => {
         address:defaultAddress,
         shipping
     }
-    console.log(payload,"payload")
     const res=await  createOrder(payload).unwrap()
     if(res?.data?.url){
         window.location.replace(res?.data?.url)
     }
-    console.log(res,"res");
  }
     return (
         <div className="main_body_container">

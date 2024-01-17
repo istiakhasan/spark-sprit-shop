@@ -38,7 +38,6 @@ const LoginPage = () => {
   const [signUpUser]=useSignUpUserMutation()
  const search=useSearchParams()
  const forWrodPath=search.get('pathaName')
- console.log(countryData,"search country params")
   const router=useRouter()
   const breadcrumbs = [
     <Link
@@ -55,7 +54,6 @@ const LoginPage = () => {
     </Typography>,
   ];
   const redirectTo = forWrodPath || '/home';
-  console.log(redirectTo,"redirect path")
   const submitHandler = async (data) => {
     try {
       const res = await loginUser(data).unwrap();

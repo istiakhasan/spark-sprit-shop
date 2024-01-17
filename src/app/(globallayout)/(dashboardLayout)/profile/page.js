@@ -27,7 +27,6 @@ const Profile = () => {
       const uploadedImage=data?.data?.url 
       if(uploadedImage){
           const res=await updateProfileImage({image:uploadedImage})
-          console.log(res,"res");
       }
       //  copyData["image"]=data?.data?.url  
       //  const res=await  createProduct(copyData).unwrap() 
@@ -38,7 +37,6 @@ const Profile = () => {
     .catch(err=>{
       // setLoading(true)
     })
-    console.log(file,"file")
   }
   return (
     <div>

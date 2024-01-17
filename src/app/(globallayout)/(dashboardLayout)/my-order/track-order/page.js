@@ -9,9 +9,9 @@ export default function TrackOrder(){
     const orderId=queryParams.get('orderId')
     const {data}=useGetOrderLogsByIdQuery({id:orderId},{
         refetchOnFocus: true,
-    refetchOnMountOrArgChange: true
+        refetchOnMountOrArgChange: true,
+        pollingInterval:4000
     })
-    console.log(orderId,"order id ")
     const emptyTimelineData=[
         {status:"pending"},
         {status:"approved"},
@@ -33,7 +33,6 @@ export default function TrackOrder(){
          }
         }
     })
-    console.log(finalData,"final data")
     return (
         <div>
         <h5> Track Order </h5>

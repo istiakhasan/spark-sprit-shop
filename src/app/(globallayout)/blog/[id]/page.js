@@ -18,24 +18,34 @@ import toast from 'react-hot-toast';
 const BlogDetails = () => {
   const params = useParams()
   const userInfo=getUserInfo()
-  console.log(userInfo,"user info")
   const { data } = useGetblogbyidQuery({ id: params?.id })
   const { data:blogCommentRes} = useGetCommentQuery({ id: params?.id },{
     refetchOnFocus:true,
     refetchOnMountOrArgChange:true,
-    refetchOnReconnect:true
+    refetchOnReconnect:true,
+    pollingInterval:4000
   })
   const [insertComment] = useInsertCommentMutation()
   const blogData = data?.data
-  const blogComment = blogCommentRes?.data
+  const blogComment = blogCommentRes?.data 
+  console.log(blogComment,"blog comment")
   const formSubmit = async(data) => {
     try{
+      if(!userInfo?._id){
+       return toast.error("You are not log in ")
+      }
       data["userId"]=userInfo?._id
       data["blogId"]=blogData?._id
-      const res=await insertComment(data)
+      const res=await insertComment(data).unwrap()
+      console.log(res,"res")
       toast.success(res?.data?.message)
     }catch(err){
-      console.log(err)
+      if(err?.data?.errorMessages){
+        err?.data?.errorMessages?.map(item=>(
+          toast.error(item.message)
+        ))
+      }
+      console.log(err,"err")
     }
   }
   return (
@@ -54,9 +64,9 @@ const BlogDetails = () => {
                     <i className='bx bxs-category bx-burst' style={{ color: "rgba(0,0,0,0.89)" }}></i>
                     <span>{moment(blogData?.createdAt).format('DDD/MM/YYYY')}</span>
                     <i className='bx bx-data' style={{ color: "rgba(0,0,0,0.89)" }}></i>
-                    <span>Admin</span>
+                    <span>{(userInfo?.role)?.toUpperCase()}</span>
                     <i className='bx bxs-contact'></i>
-                    <span>(14) Comments</span>
+                    <span>({blogComment?.length}) Comments</span>
                   </div>
                   <div className="blog-wrapper-text">
                     <span>{(blogData?.description?.slice(0, 1))?.toUpperCase()}</span>
@@ -78,8 +88,8 @@ const BlogDetails = () => {
                           src={item?.userId?.image} alt="me" width={40} height={40} />
                       </div>
                       <div className="blog-wraper-comments px-3 pb-3 mb-3">
-                        <p className="mb-0"> By <span className="text-primary">{item?.userId?.name}</span> | {moment(item?.createdAt).format('DDD/MM/YYYY')} | <span style={{fontSize:"12px",color:"blue"}}>{moment(item?.createdAt).fromNow()}</span></p>
-                        <p className="mb-0">{item?.message} </p>
+                        <p style={{fontWeight:"500",fontSize:"14px"}} className="mb-0"> By <span className="text-primary">{item?.userId?.name}</span> | {moment(item?.createdAt).format('DDD/MM/YYYY')} | <span style={{fontSize:"12px",color:"blue"}}>{moment(item?.createdAt).fromNow()}</span></p>
+                        <p style={{color:"rgb(85, 85, 85)",fontSize:"12px"}} className="mb-0">{item?.message} </p>
                       </div>
                     </div>
                   ))
@@ -102,7 +112,7 @@ const BlogDetails = () => {
                   </SparkForm>
                 </div>
               </div>
-              <BlogStickeySection />
+              <BlogStickeySection blogId={params?.id} />
             </div>
           </div>
         </div>

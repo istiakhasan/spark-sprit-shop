@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { baseApi } from './api/baseApi'
 import cartSlice from './slice/cartSlice'
 import querySlice from './slice/querySlice'
+import gridViweSlice from './slice/gridViewSlice'
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from './customStorage';
 // import storage from 'redux-persist/lib/storage';
@@ -11,6 +12,7 @@ import storage from './customStorage';
 const rootReducer=combineReducers({
   cartSlice:cartSlice,
   querySlice:querySlice,
+  gridSlice:gridViweSlice,
   [baseApi.reducerPath]: baseApi.reducer,
 })
 

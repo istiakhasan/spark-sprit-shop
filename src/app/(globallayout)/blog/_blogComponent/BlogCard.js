@@ -1,11 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
+import { useGetCommentQuery } from "@/redux/api/blogApi";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 
 
 const BlogCard = ({item}) => {
   const router=useRouter()
+  const { data:blogCommentRes} = useGetCommentQuery({ id: item?.id },{
+    refetchOnFocus:true,
+    refetchOnMountOrArgChange:true,
+    refetchOnReconnect:true
+  })
+  const comment=blogCommentRes?.data?.length
   return (
     <div className="col-md-6 h-auto mb-4">
       <div className="card-wrapper h-100 bg-white ">
@@ -41,7 +48,7 @@ const BlogCard = ({item}) => {
               style={{ fontWeight: 500, color: "#999" }}
               className="bx bx-message"
             ></i>
-            <span style={{ fontWeight: 500, color: "#999" }}>20</span>
+            <span style={{ fontWeight: 500, color: "#999" }}>{comment}</span>
           </div>
         </div>
       </div>

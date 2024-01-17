@@ -101,7 +101,7 @@ const SearchBar = () => {
                 />{" "}
               </StyledBadge>
             </IconButton>:
-            <img style={{objectFit:"cover",borderRadius:"50%",cursor:"pointer"}} width={25} height={25} src={userInfo?.image} alt="" />}
+            <img className="me-3" style={{objectFit:"cover",borderRadius:"50%",cursor:"pointer"}} width={25} height={25} src={userInfo?.image} alt="" />}
             <div className="heart_icon_hover">
              {!userLogin &&
               

@@ -31,7 +31,6 @@ const LeaveReview = () => {
         await router.push(`/product/${params?.id}`)
       }
     } catch (err) {
-      console.log(err,"err");
       err?.data?.errorMessages?.forEach(item=>{
         if(item.path==="userId"){
           toast.error("Please log In",{
@@ -49,7 +48,7 @@ const LeaveReview = () => {
 
   }
   return (
-    <div style={{ minHeight: "800px" }} className="main_body_container d-flex align-items-center justify-content-center">
+    <div style={{ minHeight: "600px" }} className="main_body_container d-flex align-items-center justify-content-center">
       <div className="container">
         <div className=" review_form_wraper">
           <SparkForm submitHandler={handleSubmit}>

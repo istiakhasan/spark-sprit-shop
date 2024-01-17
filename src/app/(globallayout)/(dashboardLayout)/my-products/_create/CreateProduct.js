@@ -60,7 +60,6 @@ const CreateProduct = ({setOpen,rowDto}) => {
       toast.success(successMessage);
       setOpen(false);
     } catch (error) {
-      console.log("An unexpected error occurred:", error);
       setLoading(true)
       // Handle the error as needed, e.g., show a generic error message to the user
     }

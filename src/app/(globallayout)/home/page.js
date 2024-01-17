@@ -8,9 +8,11 @@ import homeStyle from "../../../components/home/home.module.css";
 import MuiCommonIcon from "@/components/ui/MuiCommonIcon";
 import Footer from "@/components/shared/Footer"; 
 import { getBaseUrl } from "@/helpers/config/envConfig";
-   
+import {  useDispatch, useSelector } from "react-redux";
+import { cardView,gridView } from "@/redux/slice/gridViewSlice";
 const Home = () => {
-  console.log(getBaseUrl(),"base url");
+  const { isGrid } = useSelector((state) => state.gridSlice);
+  const dispatch=useDispatch()
   return (
     <>
       <div className="main_body_container">
@@ -25,8 +27,18 @@ const Home = () => {
               Popularity{" "}
             </p>
             <div className="d-flex gap-2">
-              <MuiCommonIcon size={"medium"} name="gridrowcol" />
-              <MuiCommonIcon size={"medium"} name="gridrow" />
+              <span
+              style={{cursor:"pointer"}}
+              onClick={()=>{
+              dispatch(cardView())
+              }}><MuiCommonIcon size={"medium"} name="gridrowcol" /></span>
+              <span 
+style={{cursor:"pointer"}}
+
+              onClick={()=>{
+                dispatch(gridView())
+                }}
+              ><MuiCommonIcon size={"medium"} name="gridrow" /> </span>
             </div>
           </div>
         </div>
