@@ -1,4 +1,5 @@
 "use client";
+import { getErrorMessageByPropertyName } from "@/common/utils";
 import { FormControl, OutlinedInput, InputAdornment, TextField } from "@mui/material";
 import { useFormContext, Controller } from "react-hook-form";
 
@@ -13,7 +14,7 @@ export default function SparkFormInput({
   required
 }) {
   const { control, formState: { errors } } = useFormContext();
-
+  const errorMessage = getErrorMessageByPropertyName(errors, name);
   return (
     <>
       {required ? (
@@ -27,6 +28,8 @@ export default function SparkFormInput({
       ) : null}
         {label?<p style={{fontSize:"16px",color:"gray"}} className="mb-0"><small>{label}</small>
        </p>:null}
+       <small style={{ color: "red",fontSize:"12px" }}>{errorMessage}</small>
+      
       <Controller
         name={name}
         defaultValue={value || ""}
@@ -48,7 +51,9 @@ export default function SparkFormInput({
             />
           </FormControl>
         )}
+        
       />
+       
     </>
   );
 }

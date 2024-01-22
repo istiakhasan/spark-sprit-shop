@@ -29,15 +29,17 @@ import MuiSkilton from "@/components/shared/MuiSkilton";
 import { AssignmentReturnRounded } from "@mui/icons-material";
 import SparkDatePicker from "@/components/form/SparkDatePicker";
 import { countryJson } from "@/common/utils";
-
+import { yupResolver } from '@hookform/resolvers/yup';
+import { loginSchema, signUpSchema } from "@/schema/Schema";
+import toast from 'react-hot-toast';
 const LoginPage = () => {
   const userLogin=isLoggedIn()
   const [loading,setLoading]=useState(false)
   const [countryData,setCountryData]=useState([])
   const [loginUser]=useLoginUserMutation()
   const [signUpUser]=useSignUpUserMutation()
- const search=useSearchParams()
- const forWrodPath=search.get('pathaName')
+  const search=useSearchParams()
+  const forWrodPath=search.get('pathaName')
   const router=useRouter()
   const breadcrumbs = [
     <Link
@@ -59,10 +61,20 @@ const LoginPage = () => {
       const res = await loginUser(data).unwrap();
       if (res?.data?.token) {
         router.replace(redirectTo);
+        toast.success("Logged in successfully",{
+          position:"bottom-right"
+        })
       }
       setToLocalStorage('token',res?.data?.token)
+
     } catch (error) {
-      console.log(error);
+      if(error?.data?.errorMessages){
+        error?.data?.errorMessages?.map(item=>(
+          toast.error(item?.message,{
+            position:"bottom-right"
+          })
+        ))
+      }
     }
   };
   const signUpHandler = async (data) => {
@@ -132,11 +144,12 @@ const LoginPage = () => {
                   </div>
                  </div>
                   <Divider className="my-3" sx={{fontSize:"14px"}}><em>or</em></Divider>
-                  <SparkForm submitHandler={submitHandler}>
+                  <SparkForm resolver={yupResolver(loginSchema)} submitHandler={submitHandler}>
                     <SparkFormInput
                       placeholder={"Phone"}
                       name={"phone"}
                       type={"text"}
+                      // required={true}
                     />
                     <SparkFormInput
                       placeholder={"Password"}
@@ -173,7 +186,7 @@ const LoginPage = () => {
                   className="p-4 rounded-1"
                   style={{ boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.1)" }}
                 >
-                  <SparkForm submitHandler={signUpHandler}>
+                  <SparkForm resolver={yupResolver(signUpSchema)} submitHandler={signUpHandler}>
                     <div className="row">
                       <div className="col-md-12">
                         <SparkFormInput
@@ -201,7 +214,7 @@ const LoginPage = () => {
                         <SparkFormTextArea
                           row={3}
                           placeholder={"Bio"}
-                          name={"bio"}
+                          name={"bioData"}
                           type={"text"}
                         />
                       </div>

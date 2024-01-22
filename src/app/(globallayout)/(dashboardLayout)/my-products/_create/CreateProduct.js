@@ -13,6 +13,7 @@ import { useCreateProductMutation,useUpdateProductMutation } from '@/redux/api/p
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import './style.css'
+import SparkFormTextArea from '@/components/form/SpartFormTextArea';
 
 const CreateProduct = ({setOpen,rowDto}) => {
   const [loading,setLoading]=useState(true)
@@ -165,6 +166,14 @@ const CreateProduct = ({setOpen,rowDto}) => {
           </div>
           <div className="col-md-4">
             <SparkFormInput
+              label={"Previous Price"}
+              placeholder={"Previous Price"}
+              name={"previous_price"}
+              type={"number"}
+            />
+          </div>
+          <div className="col-md-4">
+            <SparkFormInput
               label={"Discount"}
               placeholder={"discount"}
               name={"discount"}
@@ -222,6 +231,14 @@ const CreateProduct = ({setOpen,rowDto}) => {
               placeholder={"brand"}
               name={"brand"}
               options={modifyBrandata}
+            />
+          </div>
+          <div className="col-md-12">
+            <SparkFormTextArea
+              row={3}
+              label={"Description"}
+              placeholder={"description"}
+              name={"description"}
             />
           </div>
           <div className="col-md-12">

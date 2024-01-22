@@ -64,7 +64,7 @@ const MyProducts = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Date</TableCell>
-                  <TableCell>Name</TableCell>
+                  <TableCell sx={{width:"300px"}}>Name</TableCell>
                   <TableCell>IMG</TableCell>
                   <TableCell>PRICE</TableCell>
                   <TableCell>QTY</TableCell>

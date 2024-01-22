@@ -17,7 +17,7 @@ const BlogCard = ({item}) => {
     <div className="col-md-6 h-auto mb-4">
       <div className="card-wrapper h-100 bg-white ">
         <div className="card-img">
-          <img src={item?.image} alt="" />
+          <img style={{objectFit:"cover"}} src={item?.image} alt="" />
           <button onClick={()=>router.push(`/blog/${item?.id}`)} className="text-move">Read More</button>
         </div>
         <div className="p-4 pb-0 ">

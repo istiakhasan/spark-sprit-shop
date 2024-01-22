@@ -7,6 +7,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { getErrorMessageByPropertyName } from "@/common/utils";
 export default function SparkDatePicker({
   name,
   type,
@@ -18,7 +19,7 @@ export default function SparkDatePicker({
   required
 }) {
   const { control, formState: { errors } } = useFormContext();
-
+  const errorMessage = getErrorMessageByPropertyName(errors, name);
   return (
     <>
       {required ? (
@@ -32,6 +33,7 @@ export default function SparkDatePicker({
       ) : null}
       {label ? <p style={{ fontSize: "16px", color: "gray" }} className="mb-0"><small>{label}</small>
       </p> : null}
+      <small style={{ color: "red",fontSize:"12px" }}>{errorMessage}</small>
       <Controller
         name={name}
         defaultValue={value || ""}

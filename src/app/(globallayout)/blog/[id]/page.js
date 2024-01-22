@@ -55,7 +55,7 @@ const BlogDetails = () => {
           <div className="container ">
             <div className="row">
               <div className="col-12 col-md-9">
-                <img className="w-100" height={450} src={blogData?.image} alt="me" />
+                <img style={{objectFit:"cover"}} className="w-100" height={450} src={blogData?.image} alt="me" />
                 <div className="blog-read shadow-lg bg-white">
                   <h2>{blogData?.title}</h2>
                   <div className="blog-wraper mb-3">

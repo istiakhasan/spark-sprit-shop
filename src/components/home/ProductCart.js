@@ -5,9 +5,9 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import MuiCommonIcon from "../ui/MuiCommonIcon";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, addToWishList } from "@/redux/slice/cartSlice";
 import { useRouter } from "next/navigation";
 import { formatCurrency } from "@/common/utils";
+import { addToWishList,addToCart } from "@/redux/slice/cartSlice";
 
 const ProductCart = ({ item }) => {
   const dispatch = useDispatch()

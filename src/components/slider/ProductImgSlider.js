@@ -6,7 +6,7 @@ import './style.css'
 const ProductImgSlider = ({data}) => {
     return (
         <Swiper
-          style={{ height: "auto" }}
+          style={{ height: "auto",background:"white" }}
           spaceBetween={30}
           pagination={{
             clickable: true,

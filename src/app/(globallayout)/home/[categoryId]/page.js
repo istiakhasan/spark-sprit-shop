@@ -2,16 +2,18 @@
 "use client";
 import { useState, useEffect } from "react";
 import BannerImage from "@/components/home/bannerImage";
-import homeStyle from "../../../components/home/home.module.css";
-import MuiCommonIcon from "@/components/ui/MuiCommonIcon";
-import Footer from "@/components/shared/Footer";
+import homeStyle from "../../../../components/home/home.module.css";
 import { getBaseUrl } from "@/helpers/config/envConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { cardView, gridView } from "@/redux/slice/gridViewSlice";
-import ProductSection from "../../../components/home/ProductSection";
-const Home = () => {
+import {  useSearchParams } from "next/navigation";
+import  MuiCommonIcon  from '@/components/ui/MuiCommonIcon';
+import ProductSection from './../../../../components/home/ProductSection';
+const FilterByCategory = () => {
   const { isGrid } = useSelector((state) => state.gridSlice);
   const dispatch = useDispatch()
+  const search=useSearchParams()
+  const forWrodPath=search.get('category')
   return (
     <>
       <div className="main_body_container">
@@ -42,10 +44,10 @@ const Home = () => {
           </div>
         </div>
         <main className="container my-4">
-          <ProductSection />
+          <ProductSection isFormCategory={true} catString={forWrodPath} />
         </main>
       </div>
     </>
   );
 };
-export default Home;
+export default FilterByCategory;

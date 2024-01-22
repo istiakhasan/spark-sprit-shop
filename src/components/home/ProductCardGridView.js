@@ -5,11 +5,12 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import MuiCommonIcon from "../ui/MuiCommonIcon";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, addToWishList } from "@/redux/slice/cartSlice";
+
 import { useRouter } from "next/navigation";
 import { formatCurrency } from "@/common/utils";
 import {  Rating,Button } from "@mui/material";
 import { useGetTotalRatingQuery } from '@/redux/api/reviewApi';
+import { addToCart, addToWishList } from "@/redux/slice/cartSlice";
 const ProductCardGridView = ({ item }) => {
   const dispatch = useDispatch()
   const { data:reviewData ,isLoading} = useGetTotalRatingQuery({id:item?._id},{
@@ -19,7 +20,6 @@ const ProductCardGridView = ({ item }) => {
   })
   const totalRating=reviewData?.data[0]?.rating 
   const averageRating=(totalRating/reviewData?.data[0]?.totalReviewer).toFixed(2)
-  console.log(reviewData,averageRating,"rating",item)
   const { cart } = useSelector((state) => state.cartSlice);
   const router = useRouter()
   return (
@@ -40,8 +40,6 @@ const ProductCardGridView = ({ item }) => {
                       readOnly
                       value={averageRating}
                       precision={0.5}
-                     readOnly
-                    //   value={item?.rating}
                       size="small"
                     />
         <h3

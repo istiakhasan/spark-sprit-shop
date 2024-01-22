@@ -16,6 +16,8 @@ import ProductCardGridView from "./ProductCardGridView";
 import { useGetAllProductsQuery } from "@/redux/api/productApi";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import GridViewLoading from './GridViewLoading'
+import { useGetAllBrandQuery } from '@/redux/api/brandApi';
 import {
   changePage,
   filterByBrands,
@@ -28,12 +30,28 @@ import {
 import SparkForm from "@/components/form/SparkForm";
 import { useDebounced } from "@/hook/useDebounced";
 import { useGetAllCategoryQuery } from "@/redux/api/categoryApi";
-const ProductSection = () => {
+const ProductSection = ({isFormCategory,catString}) => {
   const { isGrid } = useSelector((state) => state.gridSlice);
   const dispatch = useDispatch();
-  const {data:cateGoryData}=useGetAllCategoryQuery(undefined)
+  const {data:cateGoryData}=useGetAllCategoryQuery(undefined,{
+    refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+    refetchOnReconnect: true,
+  })
+  const { data: brandData } = useGetAllBrandQuery(undefined,{
+    refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+    refetchOnReconnect: true,
+  })
   const query = useSelector((state) => state.querySlice);
   const { searchTerm: keyword, ...modifyQuery } = query;
+  if(catString){
+    modifyQuery['category']=JSON.stringify([catString])
+    modifyQuery['colors']=''
+    modifyQuery['brands']=''
+    modifyQuery['maxPrice']=''
+    modifyQuery['minPrice']=0
+  }
   const debounced = useDebounced({
     searchQuery: keyword,
     delay: 600,
@@ -87,7 +105,7 @@ const ProductSection = () => {
   };
   return (
     <div className="d-lg-flex align-items-start gap-3">
-      <Box
+     {!isFormCategory && <Box
         className="d-none d-lg-block"
         style={{ position: "sticky", top: "60px", zIndex: "8" }}
         sx={{ width: 300, margin: "0 auto" }}
@@ -103,7 +121,7 @@ const ProductSection = () => {
                 control={<Checkbox size="small" />}
                 label={item?.name}
               />
-              12
+              {item?.productsCount}
             </div>
             )) }
        
@@ -137,35 +155,22 @@ const ProductSection = () => {
               12
             </div>
           </MuiAccordian>
+
+          {/* filter by brands */}
           <MuiAccordian heading={"Brands"}>
-            <div className="d-flex align-items-center justify-content-between">
-              <FormControlLabel
-                control={
-                  <Checkbox size="small" {...register("brands.BestBuy")} />
-                }
-                className="ac_input_filter"
-                label="BestBuy"
-              />
-              12
-            </div>
-            <div className="d-flex align-items-center justify-content-between">
-              <FormControlLabel
-                control={
-                  <Checkbox size="small" {...register("brands.Samsang")} />
-                }
-                className="ac_input_filter"
-                label="Samsang"
-              />
-              12
-            </div>
-            <div className="d-flex align-items-center justify-content-between">
-              <FormControlLabel
-                control={<Checkbox size="small" {...register("brands.LG")} />}
-                className="ac_input_filter"
-                label="LG"
-              />
-              12
-            </div>
+            {brandData?.data?.map((item,i)=>(
+  <div key={i} className="d-flex align-items-center justify-content-between">
+  <FormControlLabel
+    control={
+      <Checkbox size="small" {...register(`brands.${item?.name}`)} />
+    }
+    className="ac_input_filter"
+    label={item?.name}
+  />
+  {item?.totalProduct}
+</div>
+            ))}
+          
           </MuiAccordian>
           <MuiAccordian heading={"Price"}>
             <p className="mb-0">
@@ -208,37 +213,18 @@ const ProductSection = () => {
             </Button>
           </div>
         </form>
-      </Box>
+      </Box>}
       <div style={{ flex: 1 }}>
         <div className="row mx-0 px-0">
         {isGrid ? (<> {isLoading ? (
-            <>
-              {[...Array(9).keys()]?.map((item, i) => (
-                <div className="col-md-4 col-6" key={i}>
-                  <Skeleton
-                    sx={{
-                      height: "38vh",
-                      width: "100",
-                      transform: "scale(1)",
-                      marginBottom: "10px",
-                    }}
-                    animation="wave"
-                  />
-                </div>
-              ))}
-            </>
+            <GridViewLoading />
           ) : (
             <>
               {productData?.map((item, i) => (
-                <div className="col-md-12  " key={i}>
+                <div className="col-md-12" key={i}>
                   <ProductCardGridView item={item} />
                 </div>
               ))}
-              {/* {productData?.map((item, i) => (
-                <div className="col-md-4 col-6 " key={i}>
-                  <ProductCart item={item} />
-                </div>
-              ))} */}
             </>
           )}</>):
           (<>{isLoading ? (
@@ -260,7 +246,7 @@ const ProductSection = () => {
           ) : (
             <>
               {productData?.map((item, i) => (
-                <div className="col-md-4 col-6 " key={i}>
+                <div className={` ${isFormCategory?"col-md-3":"col-md-4"} col-6`} key={i}>
                   <ProductCart item={item} />
                 </div>
               ))}

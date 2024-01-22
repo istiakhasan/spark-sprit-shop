@@ -47,7 +47,25 @@ export const cartSlice = createSlice({
             }
         },
         addToWishList: (state, { payload }) => {
-            state.wishList.push(payload);
+            const isExist = state?.wishList?.find(item => item._id === payload._id);
+            if (isExist) {
+                toast.error(`You already added this product 😣`, {
+                    duration: 4000,
+                    zIndex: 9999999,
+                    position:"right-bottom"
+                });
+            } else { 
+
+                    state.wishList = [...state.wishList, payload];
+                    toast.success(`Product add to wishlist successfully`, {
+                        duration: 4000,
+                        zIndex: 9999999,
+                        position:"right-bottom"
+                    });
+            }
+        },
+        clearWishList: (state, { payload }) => {
+           state.wishList=[]
         },
         incrementQuantity: (state, { payload }) => {
             const _data = [...state.cart];
@@ -87,5 +105,5 @@ export const cartSlice = createSlice({
     },
 });
 
-export const { addToCart, addToWishList, incrementQuantity, decrementQuantity,removeToCart,clearCart } = cartSlice.actions;
+export const { addToCart, addToWishList, incrementQuantity, decrementQuantity,removeToCart,clearCart,clearWishList } = cartSlice.actions;
 export default cartSlice.reducer;
