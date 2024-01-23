@@ -11,6 +11,14 @@ const brandApi = baseApi.injectEndpoints({
       }),
       invalidatesTags:["brand"]
     }),
+    updateBrand: build.mutation({
+      query: (data) => ({
+          url:`/brand/${data?.id}`,
+          method:"PATCH",
+          data:data?.data
+      }),
+      invalidatesTags:["brand"]
+    }),
     getAllBrand: build.query({
         query: () => ({
             url:`/brand/get-all`,
@@ -31,4 +39,4 @@ const brandApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useGetAllBrandQuery,useCreateBrandMutation,useGetBrandByIdQuery } = brandApi
+export const { useGetAllBrandQuery,useCreateBrandMutation,useGetBrandByIdQuery,useUpdateBrandMutation } = brandApi

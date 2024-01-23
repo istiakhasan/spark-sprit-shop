@@ -26,6 +26,8 @@ const MyBrand = () => {
     refetchOnMountOrArgChange: true
   })
   const [open, setOpen] = useState(false)
+  const [openEdit, setOpenEdit] = useState(false)
+  const [rowDto, setRowDto] = useState({})
 
   return (
     <div>
@@ -76,7 +78,7 @@ const MyBrand = () => {
                       <Avatar
                         variant="square"
                         alt="Remy Sharp"
-                        src={item?.image}
+                        src={item?.logo}
                         sx={{
                           width: 40,
                           height: 40,
@@ -87,10 +89,11 @@ const MyBrand = () => {
                     </TableCell>
                     <TableCell component="td">
                       <span
-                        onClick={async () => {
-                        //   await deleteProduct({ id: item?._id })
+                        onClick={ () => {
+                          setOpenEdit(true)
+                          setRowDto(item)
                         }}
-                      ><MuiCommonIcon size="small" color={"#F29188"} name={"trash"} /></span>
+                      ><MuiCommonIcon size="small" color={"#004DDA"} name={"pen"} /></span>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -110,6 +113,7 @@ const MyBrand = () => {
         </div>
         {/* Product table end    */}
         <MuiModal setIsOpen={setOpen} modalIsOpen={open} > <CreateBrand  setOpen={setOpen} /></MuiModal>
+        <MuiModal setIsOpen={setOpenEdit} modalIsOpen={openEdit} > <CreateBrand rowDto={rowDto}  setOpen={setOpenEdit} /></MuiModal>
       </div>
     </div>
   );

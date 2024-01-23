@@ -7,42 +7,50 @@ import { getUserInfo } from '@/services/auth.service';
 import { Button } from '@mui/material';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { modifyDataForSelect } from '../../my-products/_create/utils';
+import { modifyDataForSelect, uploadImageToImagebb } from '../../my-products/_create/utils';
 import CustomLoading from '@/components/ui/CustomLoading';
-import { useCreateBrandMutation } from '@/redux/api/brandApi';
-const CreateBrand = ({setOpen}) => {
+import { useCreateBrandMutation,useUpdateBrandMutation } from '@/redux/api/brandApi';
+const CreateBrand = ({setOpen,rowDto}) => {
   const [loading,setLoading]=useState(true)
   const userInfo=getUserInfo()
   const [createBrand]=useCreateBrandMutation()
-  const onSubmit = (data) => { 
+  const [updateBrand]=useUpdateBrandMutation()
+  const onSubmit =async (data) => { 
+   try{
     setLoading(false)
-    const apiKey='ee3fd83f55e650edf800161db386836a' 
-    const url=`https://api.imgbb.com/1/upload?key=${apiKey}` 
     const formData=new FormData()
-    formData.append('image',data?.images[0]) 
-    const copyData={...data} 
-    copyData["userId"]=userInfo._id 
-    const image=copyData["images"][0]
-    fetch(url,{
-      method:"POST",
-      body:formData
-    })
-    .then(res=>res.json())
-    .then(async data=>{
-       copyData["logo"]=data?.data?.url   
-       delete copyData["images"]
-       const res=await  createBrand(copyData).unwrap() 
-       setLoading(true)
-       toast.success('Brand created successfully 🙌')
-       setOpen(false)
-    })
-    .catch(err=>{
-      setLoading(true)
-    })
+    if(data?.images?.length>0){
+      formData.append('image',data?.images[0]) 
+    }
+    if (data?.images) {
+      let finalImageUrl
+      try {
+        finalImageUrl = await uploadImageToImagebb(formData);
+      } catch (uploadError) {
+        console.error("Error uploading image:", uploadError);
+        return;
+      }
+      data["logo"] = finalImageUrl;
+    }
+    data["userId"]=userInfo._id 
+
+    let res;
+    if(!rowDto){
+       res=await createBrand(data).unwrap()
+     }else{
+         res=await updateBrand({id:rowDto?._id,data}).unwrap() 
+     }
+    toast.success(res?.message);
+    setOpen(false)
+   }catch(error){
+    setLoading(true)
+   }
+
   }
+  const defaultV=rowDto?rowDto:{}
   return (
     <div className='mt-4'>
-      <SparkForm submitHandler={onSubmit}>
+      <SparkForm defaultValues={defaultV} submitHandler={onSubmit}>
         <div className='row'>
           <div className="col-md-12">
             <SparkFormInput
